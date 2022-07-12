@@ -7,25 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestAmazon
+namespace TestAmazon.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Ordine
+    public partial class Categoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ordine()
+        public Categoria()
         {
-            this.Carrello = new HashSet<Carrello>();
+            this.Prodotto = new HashSet<Prodotto>();
         }
     
-        public long Id_Ordine { get; set; }
-        public bool Acquistato { get; set; }
-        public long Id_Utente { get; set; }
+        public long Id_Categoria { get; set; }
+        public string Nome_cat { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Carrello> Carrello { get; set; }
-        public virtual Utente Utente { get; set; }
+        public virtual ICollection<Prodotto> Prodotto { get; set; }
     }
 }

@@ -128,24 +128,24 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Carrello.cs">
+    <Compile Include="Models\Carrello.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Categoria.cs">
+    <Compile Include="Models\Categoria.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DbTestAmazon.Context.cs">
+    <Compile Include="Models\DbTestAmazon.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DbTestAmazon.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbTestAmazon.cs">
+    <Compile Include="Models\DbTestAmazon.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
-    <Compile Include="DbTestAmazon.Designer.cs">
+    <Compile Include="Models\DbTestAmazon.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DbTestAmazon.edmx</DependentUpon>
@@ -153,20 +153,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Ordine.cs">
+    <Compile Include="Models\Ordine.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Preferiti.cs">
+    <Compile Include="Models\Preferiti.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Prodotto.cs">
+    <Compile Include="Models\Prodotto.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Ruolo.cs">
+    <Compile Include="Models\Ruolo.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utente.cs">
+    <Compile Include="Models\Utente.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -175,12 +175,12 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="DbTestAmazon.Context.tt">
+    <Content Include="Models\DbTestAmazon.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DbTestAmazon.Context.cs</LastGenOutput>
       <DependentUpon>DbTestAmazon.edmx</DependentUpon>
     </Content>
-    <Content Include="DbTestAmazon.tt">
+    <Content Include="Models\DbTestAmazon.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DbTestAmazon.edmx</DependentUpon>
       <LastGenOutput>DbTestAmazon.cs</LastGenOutput>
@@ -191,11 +191,11 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DbTestAmazon.edmx">
+    <EntityDeploy Include="Models\DbTestAmazon.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DbTestAmazon.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DbTestAmazon.edmx.diagram">
+    <Content Include="Models\DbTestAmazon.edmx.diagram">
       <DependentUpon>DbTestAmazon.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -226,7 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

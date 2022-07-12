@@ -7,23 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestAmazon
+namespace TestAmazon.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Ruolo
+    public partial class Utente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Ruolo()
+        public Utente()
         {
-            this.Utente = new HashSet<Utente>();
+            this.Ordine = new HashSet<Ordine>();
+            this.Preferiti = new HashSet<Preferiti>();
         }
     
+        public long Id_Utente { get; set; }
+        public string Nome { get; set; }
+        public string Cognome { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
         public long Id_Ruolo { get; set; }
-        public string Nome_ruolo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Utente> Utente { get; set; }
+        public virtual ICollection<Ordine> Ordine { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Preferiti> Preferiti { get; set; }
+        public virtual Ruolo Ruolo { get; set; }
     }
 }

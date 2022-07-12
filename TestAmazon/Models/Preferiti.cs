@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace TestAmazon
+namespace TestAmazon.Models
 {
     using System;
     using System.Collections.Generic;
