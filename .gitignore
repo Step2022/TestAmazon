@@ -2,6 +2,17 @@
 # Il file gitignore è stato creato automaticamente da Microsoft(R) Visual Studio.
 ################################################################################
 
+<<<<<<< HEAD
+/.vs/TestAmazon/FileContentIndex/09335a6d-e9fe-493e-b451-732b3574471c.vsidx
+/.vs/TestAmazon/FileContentIndex/cdc8c4cf-202d-4624-8b85-f5f4436d83ee.vsidx
+/.vs/TestAmazon/FileContentIndex/32d5d82d-e72f-4a2d-a3f9-7539d8f98baa.vsidx
+/.vs/TestAmazon/FileContentIndex/5494168a-5143-4a5b-90ae-cadd77803d0b.vsidx
+/.vs/TestAmazon/FileContentIndex/735614cf-d69a-453d-b719-714333e2e981.vsidx
+/.vs/TestAmazon/FileContentIndex/7d9e61b8-8f8c-4ccc-a79f-90583625f2f0.vsidx
+=======
+/.vs/TestAmazon/FileContentIndex/f3b0d116-597e-48d9-a0cc-af879cdefbd3.vsidx
+/.vs/TestAmazon/FileContentIndex/d0bf4c59-0012-4376-8609-cd82e3991a8a.vsidx
+>>>>>>> 21858c0eb43ade176020c7c10f2097303f5065ca
 /.vs/TestAmazon/FileContentIndex/88292122-6419-4f57-91e5-c487d6e998b8.vsidx
 /.vs/TestAmazon/FileContentIndex
 /packages/EntityFramework.6.4.4
