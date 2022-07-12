@@ -131,6 +131,7 @@
     <Compile Include="Models\Carrello.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CarrelloExt.cs" />
     <Compile Include="Models\Categoria.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
@@ -156,6 +157,7 @@
     <Compile Include="Models\Ordine.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\OrdineExt.cs" />
     <Compile Include="Models\Preferiti.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
