@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CorsoRoma2022Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Carrello">
+          <Key>
+            <PropertyRef Name="Id_Carrello" />
+          </Key>
+          <Property Name="Id_Carrello" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Quantita" Type="int" Nullable="false" />
+          <Property Name="Id_Ordine" Type="bigint" Nullable="false" />
+          <Property Name="Id_Prodotto" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id_Categoria" />
+          </Key>
+          <Property Name="Id_Categoria" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome_cat" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ordine">
+          <Key>
+            <PropertyRef Name="Id_Ordine" />
+          </Key>
+          <Property Name="Id_Ordine" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Acquistato" Type="bit" Nullable="false" />
+          <Property Name="Id_Utente" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Preferiti">
+          <Key>
+            <PropertyRef Name="Id_Prodotto" />
+            <PropertyRef Name="Id_Utente" />
+          </Key>
+          <Property Name="Id_Preferiti" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Prodotto" Type="bigint" Nullable="false" />
+          <Property Name="Id_Utente" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Prodotto">
+          <Key>
+            <PropertyRef Name="Id_Prodotto" />
+          </Key>
+          <Property Name="Id_Prodotto" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Descrizione" Type="nvarchar(max)" />
+          <Property Name="Prezzo" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IMG" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cancellato" Type="bit" Nullable="false" />
+          <Property Name="Id_Categoria" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ruolo">
+          <Key>
+            <PropertyRef Name="Id_Ruolo" />
+          </Key>
+          <Property Name="Id_Ruolo" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome_ruolo" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utente">
+          <Key>
+            <PropertyRef Name="Id_Utente" />
+          </Key>
+          <Property Name="Id_Utente" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cognome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Id_Ruolo" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Carrello_Ordine">
+          <End Role="Ordine" Type="Self.Ordine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carrello" Type="Self.Carrello" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordine">
+              <PropertyRef Name="Id_Ordine" />
+            </Principal>
+            <Dependent Role="Carrello">
+              <PropertyRef Name="Id_Ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrello_Prodotto">
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carrello" Type="Self.Carrello" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prodotto">
+              <PropertyRef Name="Id_Prodotto" />
+            </Principal>
+            <Dependent Role="Carrello">
+              <PropertyRef Name="Id_Prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordine_Utente">
+          <End Role="Utente" Type="Self.Utente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ordine" Type="Self.Ordine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="Id_Utente" />
+            </Principal>
+            <Dependent Role="Ordine">
+              <PropertyRef Name="Id_Utente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preferiti_Prodotto">
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Preferiti" Type="Self.Preferiti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prodotto">
+              <PropertyRef Name="Id_Prodotto" />
+            </Principal>
+            <Dependent Role="Preferiti">
+              <PropertyRef Name="Id_Prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prodotto_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id_Categoria" />
+            </Principal>
+            <Dependent Role="Prodotto">
+              <PropertyRef Name="Id_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utente_Preferiti">
+          <End Role="Utente" Type="Self.Utente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Preferiti" Type="Self.Preferiti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="Id_Utente" />
+            </Principal>
+            <Dependent Role="Preferiti">
+              <PropertyRef Name="Id_Utente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utente_Ruolo">
+          <End Role="Ruolo" Type="Self.Ruolo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utente" Type="Self.Utente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruolo">
+              <PropertyRef Name="Id_Ruolo" />
+            </Principal>
+            <Dependent Role="Utente">
+              <PropertyRef Name="Id_Ruolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CorsoRoma2022ModelStoreContainer">
+          <EntitySet Name="Carrello" EntityType="Self.Carrello" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Ordine" EntityType="Self.Ordine" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Preferiti" EntityType="Self.Preferiti" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Prodotto" EntityType="Self.Prodotto" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Ruolo" EntityType="Self.Ruolo" Schema="TestAmazon" store:Type="Tables" />
+          <EntitySet Name="Utente" EntityType="Self.Utente" Schema="TestAmazon" store:Type="Tables" />
+          <AssociationSet Name="FK_Carrello_Ordine" Association="Self.FK_Carrello_Ordine">
+            <End Role="Ordine" EntitySet="Ordine" />
+            <End Role="Carrello" EntitySet="Carrello" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrello_Prodotto" Association="Self.FK_Carrello_Prodotto">
+            <End Role="Prodotto" EntitySet="Prodotto" />
+            <End Role="Carrello" EntitySet="Carrello" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordine_Utente" Association="Self.FK_Ordine_Utente">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="Ordine" EntitySet="Ordine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preferiti_Prodotto" Association="Self.FK_Preferiti_Prodotto">
+            <End Role="Prodotto" EntitySet="Prodotto" />
+            <End Role="Preferiti" EntitySet="Preferiti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prodotto_Categoria" Association="Self.FK_Prodotto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Prodotto" EntitySet="Prodotto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utente_Preferiti" Association="Self.FK_Utente_Preferiti">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="Preferiti" EntitySet="Preferiti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utente_Ruolo" Association="Self.FK_Utente_Ruolo">
+            <End Role="Ruolo" EntitySet="Ruolo" />
+            <End Role="Utente" EntitySet="Utente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CorsoRoma2022Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Carrello">
+          <Key>
+            <PropertyRef Name="Id_Carrello" />
+          </Key>
+          <Property Name="Id_Carrello" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantita" Type="Int32" Nullable="false" />
+          <Property Name="Id_Ordine" Type="Int64" Nullable="false" />
+          <Property Name="Id_Prodotto" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Ordine" Relationship="Self.FK_Carrello_Ordine" FromRole="Carrello" ToRole="Ordine" />
+          <NavigationProperty Name="Prodotto" Relationship="Self.FK_Carrello_Prodotto" FromRole="Carrello" ToRole="Prodotto" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="Id_Categoria" />
+          </Key>
+          <Property Name="Id_Categoria" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_cat" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Prodotto" Relationship="Self.FK_Prodotto_Categoria" FromRole="Categoria" ToRole="Prodotto" />
+        </EntityType>
+        <EntityType Name="Ordine">
+          <Key>
+            <PropertyRef Name="Id_Ordine" />
+          </Key>
+          <Property Name="Id_Ordine" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Acquistato" Type="Boolean" Nullable="false" />
+          <Property Name="Id_Utente" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Carrello" Relationship="Self.FK_Carrello_Ordine" FromRole="Ordine" ToRole="Carrello" />
+          <NavigationProperty Name="Utente" Relationship="Self.FK_Ordine_Utente" FromRole="Ordine" ToRole="Utente" />
+        </EntityType>
+        <EntityType Name="Preferiti">
+          <Key>
+            <PropertyRef Name="Id_Prodotto" />
+            <PropertyRef Name="Id_Utente" />
+          </Key>
+          <Property Name="Id_Preferiti" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Prodotto" Type="Int64" Nullable="false" />
+          <Property Name="Id_Utente" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Prodotto" Relationship="Self.FK_Preferiti_Prodotto" FromRole="Preferiti" ToRole="Prodotto" />
+          <NavigationProperty Name="Utente" Relationship="Self.FK_Utente_Preferiti" FromRole="Preferiti" ToRole="Utente" />
+        </EntityType>
+        <EntityType Name="Prodotto">
+          <Key>
+            <PropertyRef Name="Id_Prodotto" />
+          </Key>
+          <Property Name="Id_Prodotto" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Descrizione" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Prezzo" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IMG" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cancellato" Type="Boolean" Nullable="false" />
+          <Property Name="Id_Categoria" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Carrello" Relationship="Self.FK_Carrello_Prodotto" FromRole="Prodotto" ToRole="Carrello" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_Prodotto_Categoria" FromRole="Prodotto" ToRole="Categoria" />
+          <NavigationProperty Name="Preferiti" Relationship="Self.FK_Preferiti_Prodotto" FromRole="Prodotto" ToRole="Preferiti" />
+        </EntityType>
+        <EntityType Name="Ruolo">
+          <Key>
+            <PropertyRef Name="Id_Ruolo" />
+          </Key>
+          <Property Name="Id_Ruolo" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_ruolo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Utente" Relationship="Self.FK_Utente_Ruolo" FromRole="Ruolo" ToRole="Utente" />
+        </EntityType>
+        <EntityType Name="Utente">
+          <Key>
+            <PropertyRef Name="Id_Utente" />
+          </Key>
+          <Property Name="Id_Utente" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cognome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id_Ruolo" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Ordine" Relationship="Self.FK_Ordine_Utente" FromRole="Utente" ToRole="Ordine" />
+          <NavigationProperty Name="Preferiti" Relationship="Self.FK_Utente_Preferiti" FromRole="Utente" ToRole="Preferiti" />
+          <NavigationProperty Name="Ruolo" Relationship="Self.FK_Utente_Ruolo" FromRole="Utente" ToRole="Ruolo" />
+        </EntityType>
+        <Association Name="FK_Carrello_Ordine">
+          <End Role="Ordine" Type="Self.Ordine" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carrello" Type="Self.Carrello" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ordine">
+              <PropertyRef Name="Id_Ordine" />
+            </Principal>
+            <Dependent Role="Carrello">
+              <PropertyRef Name="Id_Ordine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Carrello_Prodotto">
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Carrello" Type="Self.Carrello" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prodotto">
+              <PropertyRef Name="Id_Prodotto" />
+            </Principal>
+            <Dependent Role="Carrello">
+              <PropertyRef Name="Id_Prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Prodotto_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="Id_Categoria" />
+            </Principal>
+            <Dependent Role="Prodotto">
+              <PropertyRef Name="Id_Categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ordine_Utente">
+          <End Role="Utente" Type="Self.Utente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Ordine" Type="Self.Ordine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="Id_Utente" />
+            </Principal>
+            <Dependent Role="Ordine">
+              <PropertyRef Name="Id_Utente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Preferiti_Prodotto">
+          <End Role="Prodotto" Type="Self.Prodotto" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Preferiti" Type="Self.Preferiti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Prodotto">
+              <PropertyRef Name="Id_Prodotto" />
+            </Principal>
+            <Dependent Role="Preferiti">
+              <PropertyRef Name="Id_Prodotto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utente_Preferiti">
+          <End Role="Utente" Type="Self.Utente" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Preferiti" Type="Self.Preferiti" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utente">
+              <PropertyRef Name="Id_Utente" />
+            </Principal>
+            <Dependent Role="Preferiti">
+              <PropertyRef Name="Id_Utente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Utente_Ruolo">
+          <End Role="Ruolo" Type="Self.Ruolo" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Utente" Type="Self.Utente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruolo">
+              <PropertyRef Name="Id_Ruolo" />
+            </Principal>
+            <Dependent Role="Utente">
+              <PropertyRef Name="Id_Ruolo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CorsoRoma2022Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Carrello" EntityType="Self.Carrello" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Ordine" EntityType="Self.Ordine" />
+          <EntitySet Name="Preferiti" EntityType="Self.Preferiti" />
+          <EntitySet Name="Prodotto" EntityType="Self.Prodotto" />
+          <EntitySet Name="Ruolo" EntityType="Self.Ruolo" />
+          <EntitySet Name="Utente" EntityType="Self.Utente" />
+          <AssociationSet Name="FK_Carrello_Ordine" Association="Self.FK_Carrello_Ordine">
+            <End Role="Ordine" EntitySet="Ordine" />
+            <End Role="Carrello" EntitySet="Carrello" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Carrello_Prodotto" Association="Self.FK_Carrello_Prodotto">
+            <End Role="Prodotto" EntitySet="Prodotto" />
+            <End Role="Carrello" EntitySet="Carrello" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Prodotto_Categoria" Association="Self.FK_Prodotto_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Prodotto" EntitySet="Prodotto" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ordine_Utente" Association="Self.FK_Ordine_Utente">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="Ordine" EntitySet="Ordine" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Preferiti_Prodotto" Association="Self.FK_Preferiti_Prodotto">
+            <End Role="Prodotto" EntitySet="Prodotto" />
+            <End Role="Preferiti" EntitySet="Preferiti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utente_Preferiti" Association="Self.FK_Utente_Preferiti">
+            <End Role="Utente" EntitySet="Utente" />
+            <End Role="Preferiti" EntitySet="Preferiti" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utente_Ruolo" Association="Self.FK_Utente_Ruolo">
+            <End Role="Ruolo" EntitySet="Ruolo" />
+            <End Role="Utente" EntitySet="Utente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CorsoRoma2022ModelStoreContainer" CdmEntityContainer="CorsoRoma2022Entities">
+          <EntitySetMapping Name="Carrello">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Carrello">
+              <MappingFragment StoreEntitySet="Carrello">
+                <ScalarProperty Name="Id_Carrello" ColumnName="Id_Carrello" />
+                <ScalarProperty Name="Quantita" ColumnName="Quantita" />
+                <ScalarProperty Name="Id_Ordine" ColumnName="Id_Ordine" />
+                <ScalarProperty Name="Id_Prodotto" ColumnName="Id_Prodotto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="Id_Categoria" ColumnName="Id_Categoria" />
+                <ScalarProperty Name="Nome_cat" ColumnName="Nome_cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ordine">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Ordine">
+              <MappingFragment StoreEntitySet="Ordine">
+                <ScalarProperty Name="Id_Ordine" ColumnName="Id_Ordine" />
+                <ScalarProperty Name="Acquistato" ColumnName="Acquistato" />
+                <ScalarProperty Name="Id_Utente" ColumnName="Id_Utente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Preferiti">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Preferiti">
+              <MappingFragment StoreEntitySet="Preferiti">
+                <ScalarProperty Name="Id_Preferiti" ColumnName="Id_Preferiti" />
+                <ScalarProperty Name="Id_Prodotto" ColumnName="Id_Prodotto" />
+                <ScalarProperty Name="Id_Utente" ColumnName="Id_Utente" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prodotto">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Prodotto">
+              <MappingFragment StoreEntitySet="Prodotto">
+                <ScalarProperty Name="Id_Prodotto" ColumnName="Id_Prodotto" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descrizione" ColumnName="Descrizione" />
+                <ScalarProperty Name="Prezzo" ColumnName="Prezzo" />
+                <ScalarProperty Name="IMG" ColumnName="IMG" />
+                <ScalarProperty Name="Cancellato" ColumnName="Cancellato" />
+                <ScalarProperty Name="Id_Categoria" ColumnName="Id_Categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ruolo">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Ruolo">
+              <MappingFragment StoreEntitySet="Ruolo">
+                <ScalarProperty Name="Id_Ruolo" ColumnName="Id_Ruolo" />
+                <ScalarProperty Name="Nome_ruolo" ColumnName="Nome_ruolo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utente">
+            <EntityTypeMapping TypeName="CorsoRoma2022Model.Utente">
+              <MappingFragment StoreEntitySet="Utente">
+                <ScalarProperty Name="Id_Utente" ColumnName="Id_Utente" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Cognome" ColumnName="Cognome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Id_Ruolo" ColumnName="Id_Ruolo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Nessuno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

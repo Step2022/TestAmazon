@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3060ec0a823647da9c905e018eb5573c" Name="Diagram1">
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Carrello" Width="1.5" PointX="7.5" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Categoria" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Ordine" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Preferiti" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Prodotto" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Ruolo" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="CorsoRoma2022Model.Utente" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Carrello_Ordine" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Carrello_Prodotto" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Prodotto_Categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Ordine_Utente" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Preferiti_Prodotto" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Utente_Preferiti" ManuallyRouted="false" />
+        <AssociationConnector Association="CorsoRoma2022Model.FK_Utente_Ruolo" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
