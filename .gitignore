@@ -17,3 +17,4 @@
 /.vs/TestAmazon/FileContentIndex
 /packages/EntityFramework.6.4.4
 /TestAmazon
+./.gitignore
