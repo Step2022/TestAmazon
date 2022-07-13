@@ -243,10 +243,10 @@
     <Content Include="Views\Utente\GestioneUtenti.cshtml" />
     <Content Include="Views\Prodotto\Singolo.cshtml" />
     <Content Include="Views\Carrello\CarrelloUtente.cshtml" />
+    <Content Include="Views\Preferiti\Preferiti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Preferiti\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
