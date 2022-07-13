@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+
+@{
+    ViewBag.Title = "Preferiti";
+}
+
+<h2>Preferiti</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IMG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th>
+            Categoria
+        </th>
+
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomecat)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /*  id=item.Id_prodotto */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Preferiti", "Remove", new { id_utente=1, id_prodotto=item.Id_Prodotto })
+        </td>
+    </tr>
+    
+}
+
+</table>
