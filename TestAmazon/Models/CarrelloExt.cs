@@ -36,7 +36,7 @@ namespace TestAmazon.Models
                 db.SaveChanges();
             }
         }
-        public static void RemoveFromCarrello(int idOrdine, int idProdotto)
+        public static void RemoveFromCarrello(long idOrdine, long idProdotto)
         {
             //Funzione che rimuove un elemento dal carrello di un ordine specifico
             using(var db = new CorsoRoma2022Entities())
