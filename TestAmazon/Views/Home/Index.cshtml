@@ -10,7 +10,11 @@
         background-color:rgb(255,255,255);
         width:250px;
         height:250px;
+        margin-bottom:10px;
+        margin-right:10px;
+        border:hidden;
     }
+    
     .prodottoVuoto {
         background-color: rgb(204,204,204);
         width: 250px;
@@ -24,6 +28,10 @@
     }
     .color3{
 
+    }
+    .img_thumb{
+        width:125px;
+        height:125px;
     }
     
 </style>
@@ -50,10 +58,10 @@
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
                     string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                    <button type="button" id="@id_product_button" class="btn prodotto" onclick="@onclick">
+                    <button type="button" id="@id_product_button" class="btn prodotto prodottoVuoto table-bordered" onclick="@onclick">
                         <div style="height:250px;width:250px">
                             <br />
-                            <img src="@product.IMG" style="width:150px;height:150px" />
+                            <img src="@product.IMG" class="img_thumb"  />
                             <br />
                             @product.Nome
                             <br />
@@ -64,11 +72,9 @@
                 }
                 else
                 {
-                    
-                        <div style="width:250px;height:250px" class="btn prodottoVuoto" >
+                    <div style="width:250px;height:250px" class="btn prodottoVuoto" >
 
-                        </div>
-                    
+                    </div>
                 }
                 if (count % numElemPerRiga == 0)
                 {
