@@ -1,31 +1,52 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Models;
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<div style="text-align:center;"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+
+<div class="container" name="body_container">
+    <div class="container" style="padding:10px;margin:10px" name="pagebuttons_container">
+        @*Qui ci metto il tasto di ricerca*@
+
+        <button style="float:right;" class="btn" onclick="window.location.href='../Ricerca/Categorys/'">
+            Cerca
+        </button>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="container  text-center" style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
+        @{
+
+
+            // 3 elementi per riga
+            if (Model != null || !Model.Any())
+            {
+                foreach (var product in Model)
+                {
+                    string id_product_button = $"product{product.Id_Prodotto}";
+                    string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+
+                    <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
+                        <div name="container_img" class="row" style="height:80%;min-width:125px">
+                            <div class="col-lg-10">
+                                <img src="@product.IMG" class="img_thumb" />
+                            </div>
+                        </div>
+                        <div name="container_nameProduct" class="row" style="height:10%;min-height:30px;">
+                            <div class="col-lg-10">
+                                <p>@product.Nome</p>
+                            </div>
+                        </div>
+                        <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
+                            <div class="col-lg-10">
+                                <p>@product.Prezzo €</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        }
     </div>
 </div>
