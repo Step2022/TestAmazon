@@ -7,6 +7,7 @@ namespace TestAmazon.Models
 {
     public partial class Prodotto
     {
+        public string nomecat { get; set; }
         public static List<Prodotto> GetProdotti()
         {
             //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
