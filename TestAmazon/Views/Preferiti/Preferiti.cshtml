@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TestAmazon.Models.Preferiti>
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
 
 @{
     ViewBag.Title = "Preferiti";
@@ -6,41 +6,47 @@
 
 <h2>Preferiti</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Id_Preferiti)
+            @Html.DisplayNameFor(model => model.IMG)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Prodotto.Nome)
+            @Html.DisplayNameFor(model => model.Nome)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th>
+            Categoria
+        </th>
 
-            @Html.DisplayNameFor(model => model.Utente.Nome)
-        </th>
+
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Id_Preferiti)
+            @Html.DisplayFor(modelItem => item.IMG)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Prodotto.Nome)
+            @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Utente.Nome)
+            @Html.DisplayFor(modelItem => item.Prezzo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.DisplayFor(modelItem => item.nomecat)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /*  id=item.Id_prodotto */ }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Preferiti", "Remove", new { id_utente=1, id_prodotto=item.Id_Prodotto })
         </td>
     </tr>
+    
 }
 
 </table>
