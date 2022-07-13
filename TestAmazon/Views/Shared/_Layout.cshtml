@@ -6,8 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @using TestAmazon.Utility
+    
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/homepage.css" rel="stylesheet"/>
+    <script src="~/Scripts/js/homepage.js"></script>
     @{
         string nameUser = null;
         long idUser = 0;
@@ -33,7 +36,7 @@
             <div class="col-lg-9">
                 <a href="/"><img src="~/IMGS/logo.png" /></a>
             </div>
-            <div class="col-lg-9">
+            <div class="col-lg-9" style="float:right">
                 @*sezione login*@
             </div>
         </div>
