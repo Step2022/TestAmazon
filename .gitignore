@@ -1,11 +1,6 @@
-################################################################################
+﻿################################################################################
 # Il file gitignore è stato creato automaticamente da Microsoft(R) Visual Studio.
 ################################################################################
-
-/.vs/TestAmazon/config/applicationhost.config
-/TestAmazon/obj/Release/.NETFramework,Version=v4.7.2.AssemblyAttributes.cs
-/.vs/TestAmazon/v16/.suo
-
 
 <<<<<<< HEAD
 /.vs/TestAmazon/FileContentIndex/09335a6d-e9fe-493e-b451-732b3574471c.vsidx
@@ -24,4 +19,5 @@
 /TestAmazon
 ./.gitignore
 /.vs/TestAmazon
-/packages
+/.vs/TestAmazon/config/applicationhost.config
+/.vs/TestAmazon/v17
