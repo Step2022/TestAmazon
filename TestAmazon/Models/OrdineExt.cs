@@ -7,21 +7,38 @@ namespace TestAmazon.Models
 {
     public partial class Ordine
     {
-        public static void AddOrdine(int idUtente)
+        public static long GetIdOrdine(long idUtente)
         {
+            long idOrdine = 0;
+            using (var db = new CorsoRoma2022Entities())
+            {
+                var ord = db.Ordine.FirstOrDefault(i => i.Id_Utente == idUtente && i.Acquistato == false);
+                if (ord == null)
+                {
+                    idOrdine = AddOrdine(idUtente, db);
+                }
+                else
+                {
+                    idOrdine = ord.Id_Ordine;
+                }
+                
+            }
+            return idOrdine;
+        }
+        public static long AddOrdine(long idUtente, CorsoRoma2022Entities db)
+        {
+            //Funzione che crea un nuovo ordine associandolo ad un utente specifico
             Ordine ord = new Ordine();
             ord.Acquistato = false;
-
-            using(var db = new CorsoRoma2022Entities())
-            {
-                ord.Id_Utente = idUtente;
-                db.Ordine.Add(ord);
-                db.SaveChanges();
-            }
+            ord.Id_Utente = idUtente;
+            db.Ordine.Add(ord);
+            db.SaveChanges();
+            return ord.Id_Ordine;
         }
 
-        public static void SetOrdine(int idOrdine)
+        public static void SetOrdine(long idOrdine)
         {
+            //Funzione che contrassegna come acquistato un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
                 Ordine ord = db.Ordine.SingleOrDefault(o => o.Id_Ordine == idOrdine);
