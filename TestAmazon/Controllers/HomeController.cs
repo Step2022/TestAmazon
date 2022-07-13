@@ -26,11 +26,6 @@ namespace TestAmazon.Controllers
 
             return View();
         }
-        public JsonResult GetCategorys()
-        {
-            var result = new JsonResult();
-            result.Data = Categoria.GetCategorie();
-            return Json(result);
-        }
+        
     }
 }

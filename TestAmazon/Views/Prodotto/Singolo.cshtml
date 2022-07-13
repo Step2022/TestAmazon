@@ -4,30 +4,171 @@
     ViewBag.Title = "Singolo";
 }
 
+<style>
 
-<div class="container">
-    <div class="toppane">
-        <h1>@Model.Nome</h1>
+    body {
+        background-color: white;
+    }
+
+    .wrapper {
+        height: 420px;
+        width: 654px;
+        margin: 50px auto;
+        border-radius: 7px 7px 7px 7px;
+        -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+        -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
+    }
+
+    .product-img {
+        margin-top: 15%;
+        float: left;
+        height: 420px;
+        width: 327px;
+    }
+
+        .product-img img {
+            margin-top: 150px;
+            vertical-align: middle;
+            align-content: center;
+            margin: auto;
+            display: block;
+            text-align: center;
+            display: block;
+            max-width: 250px;
+            max-height: 250px;
+            width: auto;
+            height: auto;
+            border-radius: 7px 0 0 7px;
+        }
+
+    .product-info {
+        float: left;
+        height: 420px;
+        width: 327px;
+        border-radius: 0 7px 10px 7px;
+        background-color: #ffffff;
+    }
+
+    .product-text {
+        height: 300px;
+        width: 327px;
+    }
+
+        .product-text h1 {
+            margin: 0 0 0 0px;
+            padding-top: 22px;
+            font-size: 34px;
+            color: #474747;
+            margin-right: 10px;
+        }
+
+        .product-text h1,
+        .product-price-btn p {
+            font-family: 'Times New Roman', serif;
+        }
+
+        .product-text h2 {
+            font-size: 10px;
+            font-family: 'Times New Roman', sans-serif;
+            text-transform: uppercase;
+            color: #d2d2d2;
+            letter-spacing: 0.2em;
+        }
+
+        .product-text p {
+            height: 125px;
+            font-family: 'Times New Roman', serif;
+            color: #8d8d8d;
+            line-height: 1.7em;
+            font-size: 15px;
+            font-weight: lighter;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+    .product-price-btn {
+        height: 103px;
+        width: 327px;
+        margin-top: 17px;
+        position: relative;
+    }
+
+    span {
+        height: 50px;
+        font-family: 'Times New Roman', serif;
+        font-size: 34px;
+    }
+
+    .bigtext {
+        font-family: 'Times New Roman', serif;
+        font-size: 28px;
+        font-weight: lighter;
+        color: #474747;
+    }
+
+    .button-container {
+        display: inline-block;
+    }
+
+        .button-container button {
+            font-size: 40%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid black;
+            position: relative;
+            bottom: 5px;
+            height: 50px;
+            width: 176px;
+            margin: 1 40px 0 16px;
+            border-radius: 60px;
+            font-family: 'Times New Roman', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: black;
+            background-color: white;
+            cursor: pointer;
+            outline: none;
+            margin-left: 25px;
+        }
+
+            .button-container button:hover {
+                background-color: #5c5c5c;
+            }
+</style>
+<html lang="en">
+
+<head>
+    <title>@Model.Nome</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="product-img">
+            <img src="@Model.IMG" height="420" width="327">
+        </div>
+        <div class="product-info">
+            <div class="product-text">
+                <h1>@Model.Nome</h1>
+                <br />
+
+                <h2>Descrizione </h2><br />
+                <p>@Model.Descrizione</p>
+            </div>
+
+
+            <div class="bigtext">
+                @Model.Prezzo €
+                <div class="button-container">
+                    <button>Acquista</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="leftpane">
-        <img src="@Model.IMG">
-    </div>
-    <div class="middlepane">
-        <h1>@Model.Prezzo</h1>
-    </div>
-    <div class="rightpane">
-        <p>@Model.Descrizione</p>
-        <input type="hidden" name="ID" value="@Model.Id_Prodotto" />
-        <button type="submit" value="Singolo">Acquista</button>
-        <button type="submit" value="Preferiti">Aggiungi ai preferiti</button>
-    </div>
-</div>
+</body>
 
-
-
-
-<p>
-    @Html.ActionLink("Agguingi ai preferiti", "Preferiti", new { id = Model.Id_Prodotto }) |
-    @Html.ActionLink("Home", "Index")
-</p>
+</html>

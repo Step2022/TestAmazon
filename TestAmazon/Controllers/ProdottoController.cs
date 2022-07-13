@@ -20,5 +20,6 @@ namespace TestAmazon.Controllers
 
             return View(Prodotto.GetProdotto(id));
         }
+
     }
 }
