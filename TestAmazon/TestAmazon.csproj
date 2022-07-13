@@ -129,8 +129,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\PreferitiController.cs" />
     <Compile Include="Controllers\ProdottoController.cs" />
+    <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Models\Carrello.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
@@ -169,6 +171,7 @@
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProdottoPartial.cs" />
+    <Compile Include="Models\UtentePartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Ruolo.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
@@ -234,6 +237,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Prodotto\Singolo.cshtml" />
+    <Content Include="Views\Utente\Login.cshtml" />
+    <Content Include="Views\Utente\SignUp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
