@@ -35,7 +35,7 @@
     <div class="container" name="grid_container">
         @{
             List<Prodotto> prodotti = Model.ToList();
-            int numElemPerRiga = 3;
+            int numElemPerRiga = 4;
             while (prodotti.Count() % numElemPerRiga != 0)
             {
                 prodotti.Add(new Prodotto() { Id_Prodotto = -1 });

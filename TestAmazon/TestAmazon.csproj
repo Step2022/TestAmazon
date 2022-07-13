@@ -138,6 +138,7 @@
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Models\CategoriaPartial.cs" />
     <Compile Include="Models\DbTestAmazon.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -174,12 +175,14 @@
     <Compile Include="Models\Utente.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utility\Regex.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="IMGS\logo.png" />
     <Content Include="Models\DbTestAmazon.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DbTestAmazon.Context.cs</LastGenOutput>
@@ -230,11 +233,11 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Singolo.cshtml" />
+    <Content Include="Views\Prodotto\Singolo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Preferiti\" />
-    <Folder Include="Views\Prodotto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
