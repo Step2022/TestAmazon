@@ -18,3 +18,5 @@
 /packages/EntityFramework.6.4.4
 /TestAmazon
 ./.gitignore
+/.vs/TestAmazon/config/applicationhost.config
+/.vs/TestAmazon/v17
