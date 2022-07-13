@@ -1,84 +1,47 @@
-﻿@model IEnumerable<TestAmazon.Models.Prodotto>
-@using TestAmazon.Models;
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Home Page";
 }
 
-<h2 style="text-align:center"><img src="~/IMGS/logo.png" /></h2>
-<style>
-    .prodotto{
-        background-color:rgb(255,255,255);
-        width:250px;
-        height:250px;
-        margin-bottom:10px;
-        margin-right:10px;
-        border:hidden;
-    }
-    
-    .prodottoVuoto {
-        background-color: rgb(204,204,204);
-        width: 250px;
-        height: 250px;
-    }
-    .color1{
+<div style="text-align:center;"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
 
-    }
-    .color2{
-
-    }
-    .color3{
-
-    }
-    .img_thumb{
-        width:125px;
-        height:125px;
-    }
-    
-</style>
 
 <div class="container" name="body_container">
-    <div class="container" name="pagebuttons_container">
+    <div class="container" style="padding:10px;margin:10px" name="pagebuttons_container">
         @*Qui ci metto il tasto di ricerca*@
+        
+        <button style="float:right;" class="btn" onclick="window.location.href='../Ricerca/Categorys/'">
+            Cerca
+        </button>
     </div>
-    <div class="container" name="grid_container">
+    <div class="container  text-center" style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
         @{
-            List<Prodotto> prodotti = Model.ToList();
-            int numElemPerRiga = 4;
-            while (prodotti.Count() % numElemPerRiga != 0)
-            {
-                prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
-            }
+
+
             // 3 elementi per riga
-            int count = 0;
-            foreach (var product in prodotti)
+            if (Model != null || !Model.Any())
             {
-                count++;
-                //creare il corpo
-                if (product.Id_Prodotto != -1)
+                foreach (var product in Model)
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
                     string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                    <button type="button" id="@id_product_button" class="btn prodotto prodottoVuoto table-bordered" onclick="@onclick">
-                        <div style="height:250px;width:250px">
-                            <br />
-                            <img src="@product.IMG" class="img_thumb"  />
-                            <br />
-                            @product.Nome
-                            <br />
-                            @product.Prezzo €
-                            <br />
-                        </div>
-                    </button>
-                }
-                else
-                {
-                    <div style="width:250px;height:250px" class="btn prodottoVuoto" >
 
+                    <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
+                        <div name="container_img" class="row" style="height:80%;min-width:125px">
+                            <div class="col-lg-10">
+                                <img src="@product.IMG" class="img_thumb" />
+                            </div>
+                        </div>
+                        <div name="container_nameProduct" class="row" style="height:10%;min-height:30px;">
+                            <div class="col-lg-10">
+                                <p>@product.Nome</p>
+                            </div>
+                        </div>
+                        <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
+                            <div class="col-lg-10">
+                                <p>@product.Prezzo €</p>
+                            </div>
+                        </div>
                     </div>
-                }
-                if (count % numElemPerRiga == 0)
-                {
-                    <br />
                 }
             }
 

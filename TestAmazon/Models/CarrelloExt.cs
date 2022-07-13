@@ -3,29 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-
 namespace TestAmazon.Models
 {
     public partial class Carrello
     {
-        public static List<Prodotto> GetCarrello(long idOrdine)
+        public static List<Carrello> GetCarrello(int idOrdine)
         {
-            //Funzione che restituisce i prodotti del carrello associato ad un ordine specifico
-            List<Prodotto> prodotti = new List<Prodotto>();
+            List<Carrello> carrello = new List<Carrello>();
             using (var db = new CorsoRoma2022Entities())
             {
-                //Effettua un controllo sull'ordine per vedere se non è acquistato,
-                //solo in quel caso riempe la lista con i prodotti
-                if (!db.Ordine.Where(i => i.Id_Ordine == idOrdine)
-                    .Select(i => i.Acquistato).FirstOrDefault())
-                    prodotti.AddRange(db.Carrello.Where(i => i.Id_Ordine == idOrdine)
-                        .Join(db.Prodotto, car => car.Id_Prodotto, prod => prod.Id_Prodotto, (car, prod) => prod));
+                carrello.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
             }
-            return prodotti;
+            return carrello;
         }
-        public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
+        public static void AddInCarrello(int idOrdine, int idProdotto, int quantita)
         {
-            //funzione che aggiunge un nuovo elemento nel carrello di un ordine specifico
             Carrello carr = new Carrello();
             carr.Id_Ordine = idOrdine;
             carr.Id_Prodotto = idProdotto;
@@ -38,7 +30,6 @@ namespace TestAmazon.Models
         }
         public static void RemoveFromCarrello(int idOrdine, int idProdotto)
         {
-            //Funzione che rimuove un elemento dal carrello di un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
                 Carrello car = db.Carrello.SingleOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);

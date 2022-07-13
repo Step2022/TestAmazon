@@ -167,6 +167,7 @@
     <Compile Include="Models\Preferiti.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PreferitiPartial.cs" />
     <Compile Include="Models\Prodotto.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
@@ -236,13 +237,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Prodotto\Singolo.cshtml" />
-    <Content Include="Views\Utente\Login.cshtml" />
     <Content Include="Views\Utente\SignUp.cshtml" />
+    <Content Include="Views\Utente\Login.cshtml" />
+    <Content Include="Views\Home\Singolo.cshtml" />
+    <Content Include="Views\Utente\GestioneUtenti.cshtml" />
+    <Content Include="Views\Prodotto\Singolo.cshtml" />
+    <Content Include="Views\Carrello\CarrelloUtente.cshtml" />
+    <Content Include="Views\Preferiti\Preferiti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Preferiti\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
