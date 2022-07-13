@@ -129,8 +129,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\PreferitiController.cs" />
     <Compile Include="Controllers\ProdottoController.cs" />
+    <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Models\Carrello.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
