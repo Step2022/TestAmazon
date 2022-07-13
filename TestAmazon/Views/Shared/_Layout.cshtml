@@ -4,12 +4,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    @using TestAmazon.Utility
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @{
+        string nameUser = null;
+        long idUser = 0;
+        int idRuolo = 0;
+        if (Session["Username"] != null)
+        {
+            nameUser = Session["Username"].ToString();
+        }
+        if (Session["IdUser"] != null && RegularExp.IsInt(Session["IdUser"].ToString()))
+        {
+            idUser = int.Parse(Session["IdUser"].ToString());
+        }
+        if (Session["IdRuolo"] != null && RegularExp.IsInt(Session["IdRuolo"].ToString()))
+        {
+            idRuolo = int.Parse(Session["IdRuolo"].ToString());
+        }
+    }
+   
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <a href="/"><img src="~/IMGS/logo.png" /></a>
+            </div>
+            <div class="col-lg-9">
+                @*sezione login*@
+            </div>
+        </div>
+        @*<div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -25,7 +52,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                 </ul>
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="container body-content">
         @RenderBody()
