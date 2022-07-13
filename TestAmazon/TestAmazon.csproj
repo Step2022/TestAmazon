@@ -167,10 +167,12 @@
     <Compile Include="Models\Preferiti.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PreferitiPartial.cs" />
     <Compile Include="Models\Prodotto.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ProdottoPartial.cs" />
+    <Compile Include="Models\UtentePartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Ruolo.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
