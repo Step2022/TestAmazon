@@ -234,6 +234,7 @@
     <Content Include="Views\Utente\SignUp.cshtml" />
     <Content Include="Views\Utente\Login.cshtml" />
     <Content Include="Views\Home\Singolo.cshtml" />
+    <Content Include="Views\Utente\GestioneUtenti.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
