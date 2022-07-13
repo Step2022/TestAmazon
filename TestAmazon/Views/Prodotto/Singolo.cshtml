@@ -7,7 +7,7 @@
 <style>
 
     body {
-        background-color: #fdf1ec;
+        background-color: white;
     }
 
     .wrapper {
@@ -15,19 +15,30 @@
         width: 654px;
         margin: 50px auto;
         border-radius: 7px 7px 7px 7px;
-        /* VIA CSS MATIC https://goo.gl/cIbnS */
         -webkit-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
         -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
         box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
     }
 
     .product-img {
+        margin-top: 15%;
         float: left;
         height: 420px;
         width: 327px;
     }
 
         .product-img img {
+            margin-top: 150px;
+            vertical-align: middle;
+            align-content: center;
+            margin: auto;
+            display: block;
+            text-align: center;
+            display: block;
+            max-width: 250px;
+            max-height: 250px;
+            width: auto;
+            height: auto;
             border-radius: 7px 0 0 7px;
         }
 
@@ -45,22 +56,21 @@
     }
 
         .product-text h1 {
-            margin: 0 0 0 38px;
-            padding-top: 52px;
+            margin: 0 0 0 0px;
+            padding-top: 22px;
             font-size: 34px;
             color: #474747;
+            margin-right: 10px;
         }
 
         .product-text h1,
         .product-price-btn p {
-            font-family: 'Bentham', serif;
+            font-family: 'Times New Roman', serif;
         }
 
         .product-text h2 {
-            margin: 0 0 47px 38px;
-            font-size: 13px;
-            font-family: 'Raleway', sans-serif;
-            font-weight: 400;
+            font-size: 10px;
+            font-family: 'Times New Roman', sans-serif;
             text-transform: uppercase;
             color: #d2d2d2;
             letter-spacing: 0.2em;
@@ -68,13 +78,13 @@
 
         .product-text p {
             height: 125px;
-            margin: 0 0 0 38px;
-            font-family: 'Playfair Display', serif;
+            font-family: 'Times New Roman', serif;
             color: #8d8d8d;
             line-height: 1.7em;
             font-size: 15px;
             font-weight: lighter;
             overflow: hidden;
+            margin-right: 10px;
         }
 
     .product-price-btn {
@@ -84,48 +94,51 @@
         position: relative;
     }
 
-        .product-price-btn p {
-            display: inline-block;
-            position: absolute;
-            top: -13px;
-            height: 50px;
-            font-family: 'Trocchi', serif;
-            margin: 0 0 0 38px;
-            font-size: 28px;
-            font-weight: lighter;
-            color: #474747;
-        }
+
 
     span {
-        display: inline-block;
         height: 50px;
-        font-family: 'Suranna', serif;
+        font-family: 'Times New Roman', serif;
         font-size: 34px;
     }
 
-    .product-price-btn button {
-        float: right;
-        display: inline-block;
-        height: 50px;
-        width: 176px;
-        margin: 0 40px 0 16px;
-        box-sizing: border-box;
-        border: transparent;
-        border-radius: 60px;
-        font-family: 'Raleway', sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: #ffffff;
-        background-color: #9cebd5;
-        cursor: pointer;
-        outline: none;
+    .bigtext {
+        font-family: 'Times New Roman', serif;
+        font-size: 28px;
+        font-weight: lighter;
+        color: #474747;
     }
 
-        .product-price-btn button:hover {
-            background-color: #79b0a1;
+    .button-container {
+        display: inline-block;
+    }
+
+        .button-container button {
+            font-size: 40%;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid black;
+            position: relative;
+            bottom: 5px;
+            height: 50px;
+            width: 176px;
+            margin: 1 40px 0 16px;
+            border-radius: 60px;
+            font-family: 'Times New Roman', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: black;
+            background-color: white;
+            cursor: pointer;
+            outline: none;
+            margin-left: 25px;
         }
+
+            .button-container button:hover {
+                background-color: #5c5c5c;
+            }
 
 </style>
 <html lang="en">
@@ -142,13 +155,20 @@
         <div class="product-info">
             <div class="product-text">
                 <h1>@Model.Nome</h1>
-                <h2>Descrizione</h2>
-                <p>@Model.Descrizione</p>
+                <br />
+                
+                      <h2>Descrizione </h2><br />
+                                           <p>@Model.Descrizione</p>
             </div>
-            <div class="product-price-btn">
-                <p><span>@Model.Prezzo</span>$</p>
-                <button type="button">Buy</button>
+
+
+            <div class="bigtext">
+                @Model.Prezzo €   
+                <div class="button-container">
+                    <button>Acquista</button>
+                </div>
             </div>
+
         </div>
     </div>
 
