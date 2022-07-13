@@ -1,31 +1,81 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Models;
+@{
+    ViewBag.Title = "Index";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+<h2 style="text-align:center"><img src="~/IMGS/logo.png" /></h2>
+<style>
+    .prodotto{
+        background-color:rgb(255,255,255);
+        width:250px;
+        height:250px;
+    }
+    .prodottoVuoto {
+        background-color: rgb(204,204,204);
+        width: 250px;
+        height: 250px;
+    }
+    .color1{
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    }
+    .color2{
+
+    }
+    .color3{
+
+    }
+    
+</style>
+
+<div class="container" name="body_container">
+    <div class="container" name="pagebuttons_container">
+        @*Qui ci metto il tasto di ricerca*@
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="container" name="grid_container">
+        @{
+            List<Prodotto> prodotti = Model.ToList();
+            int numElemPerRiga = 4;
+            while (prodotti.Count() % numElemPerRiga != 0)
+            {
+                prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
+            }
+            // 3 elementi per riga
+            int count = 0;
+            foreach (var product in prodotti)
+            {
+                count++;
+                //creare il corpo
+                if (product.Id_Prodotto != -1)
+                {
+                    string id_product_button = $"product{product.Id_Prodotto}";
+                    string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                    <button type="button" id="@id_product_button" class="btn prodotto" onclick="@onclick">
+                        <div style="height:250px;width:250px">
+                            <br />
+                            <img src="@product.IMG" style="width:150px;height:150px" />
+                            <br />
+                            @product.Nome
+                            <br />
+                            @product.Prezzo €
+                            <br />
+                        </div>
+                    </button>
+                }
+                else
+                {
+                    
+                        <div style="width:250px;height:250px" class="btn prodottoVuoto" >
+
+                        </div>
+                    
+                }
+                if (count % numElemPerRiga == 0)
+                {
+                    <br />
+                }
+            }
+
+        }
     </div>
 </div>
