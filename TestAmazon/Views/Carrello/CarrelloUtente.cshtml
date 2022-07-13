@@ -1,0 +1,101 @@
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Models
+
+@{
+    ViewBag.Title = "CarrelloUtente";
+}
+
+<style>
+    .prodotto {
+        background-color: rgb(255,255,255);
+        width: 80%;
+        height: 250px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        float: left;
+    }
+
+    .color1 {
+    }
+
+    .color2 {
+    }
+
+    .color3 {
+    }
+
+    .img_thumb {
+        width: 125px;
+        height: 125px;
+    }
+</style>
+
+<h2>Il tuo Carrello</h2>
+
+<div class="container" name="grid_container">
+    @{
+        List<Prodotto> prodotti = Model.ToList();
+        int numElemPerRiga = 1;
+        while (prodotti.Count() % numElemPerRiga != 0)
+        {
+            prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
+        }
+        // 3 elementi per riga
+        foreach (var product in prodotti)
+        {
+            
+                string id_product_button = $"product{product.Id_Prodotto}";
+                string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                <div style="border: 1px solid;" type="button" id="@id_product_button" class="btn prodotto" onclick="@onclick">
+                    <div style="height:250px;width:100%;">
+                        <br />
+                        <img src="@product.IMG" class="img_thumb" />
+                        <br />
+                        @product.Nome
+                        <br />
+                        @product.Prezzo €
+                        <br />
+                    </div>
+                </div>
+            
+        }
+
+    }
+</div>
+
+<!--
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descrizione)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezzo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IMG)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descrizione)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezzo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IMG)
+        </td>
+    </tr>
+}
+
+</table>
+-->

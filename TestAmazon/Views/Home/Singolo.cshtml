@@ -1,0 +1,70 @@
+﻿@model TestAmazon.Models.Prodotto
+
+@{
+    ViewBag.Title = "Singolo";
+}
+
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 60%;
+    }
+
+    td, th {
+        border: 2px solid #dddddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+
+
+
+
+
+<h2>Singolo prodotto</h2>
+
+<div>
+    <table>
+        @if (Model != null)
+        {
+
+            <tr>
+                <th></th>
+                <th>Descrizione prodotto: </th>
+                <th>Prezzo: </th>
+                <th></th>
+            </tr>
+
+                using (Html.BeginForm("Singolo", "Home"))
+                {
+                    <tr>
+                        <td>@Model.Nome</td>
+                        <td>Model.Descrizione</td>
+                        <td>@Model.Prezzo</td>
+                        <td>
+                            <input type="hidden" name="ID" value="@Model.Id_Prodotto" />
+                            <button type="submit" value="Singolo">Acquista</button>
+                            <button type="submit" value="Preferiti">Aggiungi ai preferiti</button>
+                        </td>
+                    </tr>
+                }
+        }
+        <div>
+            @Html.ActionLink("Indietro", "Index")
+        </div>
+    </table>
+
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }
+
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Prodotto }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -54,16 +54,21 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Sign-Up", "SignUp", "Utente")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Utente")</li>
 
-                    @if (Session["Utente"] != null)
+
+                    @if (@Session["Utente"] != null)
                     {
-
-                     
-
-
+                        if (@Session["Ruolo"].ToString() == "admin")
+                        {
+                            <li>@Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")</li>
+                        }
+                        <li style="color:white"><a onclick="return false">Ciao @Session["Utente"].ToString()</a></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Utente")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Sign-Up", "SignUp", "Utente")</li>
+                        <li>@Html.ActionLink("Login", "Login", "Utente")</li>
                     }
 
 
