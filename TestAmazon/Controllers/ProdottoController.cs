@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TestAmazon.Models;
 
 namespace TestAmazon.Controllers
 {
@@ -14,12 +15,9 @@ namespace TestAmazon.Controllers
             return View();
         }
 
-        public ActionResult Singolo()
+        public ActionResult Singolo(long id)
         {
-            ViewBag.Message = "Pagina del prodotto singolo.";
-
-            return View();
+            return View(Prodotto.GetProdotto(id));
         }
-
     }
 }

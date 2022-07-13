@@ -34,14 +34,24 @@
         </ul>
     </details>
         -->
+
+
+
         <input type="hidden" name="ID" value="@Model.Id_Prodotto" />
         <button type="submit" value="Singolo">Acquista</button>
         <button type="submit" value="Preferiti">Aggiungi ai preferiti</button>
+        <!--
+            if (Model. != null)
+            {
+                <input type="hidden" name="ID" value="Model.Id_Prodotto" />
+                <button type="submit" value="Singolo">Acquista</button>
 
-    </section>
+            }
+            -->
+        </section>
 
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Prodotto }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Prodotto }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
