@@ -49,11 +49,7 @@ namespace TestAmazon.Controllers
         {
           if(UtentePartial.CheckLogin(utente))
             {
-                var ut = UtentePartial.GetUtentebyEmail(utente.Email);
-                Session["Utente"] = $"{ut.Nome} {ut.Cognome}";
-                Session["Ruolo"] = UtentePartial.GetRuolobyId((int)ut.Id_Utente);
-                Session["IdUtente"] = ut.Id_Utente.ToString();
-
+                Session["Utente"] = utente;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -61,22 +57,6 @@ namespace TestAmazon.Controllers
                 ViewBag.Errore = "Errore durante il Login! I campi inseriti non sono validi";
                 return View();
             }
-        }
-
-
-
-        public ActionResult Logout()
-        {
-
-            Session.Remove("Utente");
-            Session.Remove("Ruolo");
-            Session.Remove("IdUtente");
-            return RedirectToAction("Login");
-        }
-        //creare view con la gestione di tutti utenti
-        public ActionResult GestioneUtenti()
-        {
-            return View();
         }
     }
 }
