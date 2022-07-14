@@ -21,7 +21,7 @@ namespace TestAmazon.Models
                 {
                     idOrdine = ord.Id_Ordine;
                 }
-
+                
             }
             return idOrdine;
         }
@@ -38,6 +38,7 @@ namespace TestAmazon.Models
 
         public static void SetOrdine(long idOrdine)
         {
+            //Funzione che contrassegna come acquistato un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
                 Ordine ord = db.Ordine.SingleOrDefault(o => o.Id_Ordine == idOrdine);

@@ -1,16 +1,17 @@
 ﻿@model TestAmazon.Models.Prodotto
 
+
 @{
     ViewBag.Title = "Singolo";
 }
 
-<style>
 
     body {
-        background-color: white;
+        background-color: #E8E8E8;
     }
 
     .wrapper {
+        background-color: white;
         height: 420px;
         width: 654px;
         margin: 50px auto;
@@ -21,11 +22,15 @@
     }
 
     .product-img {
-        margin-top: 15%;
+        margin-top: 10%;
         float: left;
         height: 420px;
         width: 327px;
     }
+
+        .product-img input[type=checkbox] {
+            display: none
+        }
 
         .product-img img {
             margin-top: 150px;
@@ -40,7 +45,14 @@
             width: auto;
             height: auto;
             border-radius: 7px 0 0 7px;
+            transition: transform 0.25s ease;
+            cursor: zoom-in;
         }
+
+    .product-img input[type=checkbox]:checked ~ img {
+        transform: scale(1.5);
+        cursor: zoom-out
+    }
 
     .product-info {
         float: left;
@@ -59,7 +71,7 @@
             margin: 0 0 0 0px;
             padding-top: 22px;
             font-size: 34px;
-            color: #474747;
+            color: #222831;
             margin-right: 10px;
         }
 
@@ -72,14 +84,14 @@
             font-size: 10px;
             font-family: 'Times New Roman', sans-serif;
             text-transform: uppercase;
-            color: #d2d2d2;
+            color: #222831;
             letter-spacing: 0.2em;
         }
 
         .product-text p {
             height: 125px;
             font-family: 'Times New Roman', serif;
-            color: #8d8d8d;
+            color: #222831;
             line-height: 1.7em;
             font-size: 15px;
             font-weight: lighter;
@@ -104,12 +116,14 @@
         font-family: 'Times New Roman', serif;
         font-size: 28px;
         font-weight: lighter;
-        color: #474747;
+        color: #222831;
     }
 
     .button-container {
         display: inline-block;
     }
+
+
 
         .button-container button {
             font-size: 40%;
@@ -127,17 +141,70 @@
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: black;
+            color: #222831;
             background-color: white;
             cursor: pointer;
             outline: none;
-            margin-left: 25px;
+            margin-left: 20px;
         }
 
             .button-container button:hover {
-                background-color: #5c5c5c;
+                background-color: #222831;
+                color: white;
             }
+    .immagine {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+
+
+
+    label input[type="checkbox"] {
+        display: none;
+    }
+
+    .custom-checkbox {
+        margin-left: 2em;
+        position: relative;
+        cursor: pointer;
+    }
+
+        .custom-checkbox .glyphicon {
+            color: #F05454;
+            position: absolute;
+            top: -0.3em;
+            left: -1em;
+            font-size: 1.6em;
+        }
+
+        .custom-checkbox .glyphicon-star-empty {
+            color: #F05454;
+        }
+
+        .custom-checkbox .glyphicon-star {
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .custom-checkbox:hover .glyphicon-star {
+            opacity: 1;
+        }
+
+        .custom-checkbox input[type="checkbox"]:checked ~ .glyphicon-star {
+            opacity: 1;
+        }
+
+    .cancella {
+        margin-top: 10px;
+        margin-right: 10px;
+        padding-right: 38%;
+        font-size: 16px;
+        color: #F05454;
+    }
+
 </style>
+
+
 <html lang="en">
 
 <head>
@@ -147,28 +214,37 @@
 <body>
     <div class="wrapper">
         <div class="product-img">
-            <img src="@Model.IMG" height="420" width="327">
+            <label class = "product-img">
+                <input type="checkbox" />
+                <img src="@Model.IMG" height="420" width="327">
+            </label>
         </div>
+
         <div class="product-info">
-            <div class="product-text">
+
+            <div class="product-text" margin="10px">
+
+                <div class="immagine" align="right">
+                    <label for="id-of-input" class="custom-checkbox">
+                        <input type="checkbox" id="id-of-input" onclick=""/>
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <i class="glyphicon glyphicon-star"></i>
+                    </label>
+                </div>
                 <h1>@Model.Nome</h1>
                 <br />
 
                 <h2>Descrizione </h2><br />
                 <p>@Model.Descrizione</p>
             </div>
-
-
             <div class="bigtext">
-                @Model.Prezzo €
+                @Model.Prezzo.ToString("N") €
                 <div class="button-container">
                     <button>Acquista</button>
                 </div>
+                <a href="https://www.google.com"><div class="cancella" align="right">Elimina prodotto</div></a>
             </div>
-
         </div>
     </div>
-
 </body>
-
-</html>
+</html> 
