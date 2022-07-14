@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<TestAmazon.Models.Prodotto>
 @using TestAmazon.Models;
+
 @{
     ViewBag.Title = "Index";
 }
@@ -42,19 +43,12 @@
     </div>
     <div class="container" name="grid_container">
         @{
-            List<Prodotto> prodotti = Model.ToList();
-            int numElemPerRiga = 4;
-            while (prodotti.Count() % numElemPerRiga != 0)
-            {
-                prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
-            }
+
+
             // 3 elementi per riga
-            int count = 0;
-            foreach (var product in prodotti)
+            if (Model != null && Model.Any())
             {
-                count++;
-                //creare il corpo
-                if (product.Id_Prodotto != -1)
+                foreach (var product in Model)
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
                     string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
@@ -75,10 +69,6 @@
                     <div style="width:250px;height:250px" class="btn prodottoVuoto" >
 
                     </div>
-                }
-                if (count % numElemPerRiga == 0)
-                {
-                    <br />
                 }
             }
 
