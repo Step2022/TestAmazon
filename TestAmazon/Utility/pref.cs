@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-namespace TestAmazon.Models
-{
-    namespace TestAmazon.Utility
+using TestAmazon.Models;
+
+namespace TestAmazon.Utility
     {
         public class pref
         {
@@ -15,8 +15,8 @@ namespace TestAmazon.Models
                 using (var db = new CorsoRoma2022Entities())
                 {
                     var flag = (from Prodotto in db.Prodotto
-                                join Preferiti in db.Preferiti on Prodotto.Id_Prodotto equals Id_Prodotto
-                                join Utente in db.Utente on Id_Utente equals Utente.Id_Utente
+                                join Preferiti in db.Preferiti on Prodotto.Id_Prodotto equals Preferiti.Id_Prodotto
+                                join Utente in db.Utente on Preferiti.Id_Utente equals Utente.Id_Utente
                                 where Prodotto.Id_Prodotto == Id_Prodotto && Utente.Id_Utente == Id_Utente
                                 select Preferiti).FirstOrDefault();
 
@@ -70,4 +70,3 @@ namespace TestAmazon.Models
 
         }
     }
-}

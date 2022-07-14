@@ -1,26 +1,27 @@
 ﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Utility
 @using TestAmazon.Models
+
 
 @{
     ViewBag.Title = "CarrelloUtente";
     List<Prodotto> prodotti = Model.ToList();
     List<Prodotto> preferiti = ViewBag.preferiti;
-    int numElemPerRiga = 1;
     decimal totale = 0;
-
-
+    bool preferito = false;
 }
 
 <style>
     .prodotto {
         background-color: rgb(255,255,255);
         width: 100%;
-        min-width:fit-content;
+        min-width: fit-content;
         height: auto;
         max-height: fit-content;
         margin-bottom: 10px;
         border: 1px solid;
     }
+
     .prod {
         height: auto;
         min-width: fit-content;
@@ -29,43 +30,49 @@
         margin-bottom: 2%;
         float: left;
     }
-    .rimuovi, .preferiti{
+
+    .rimuovi, .preferiti {
         background-color: rgb(255,255,255);
         width: 20%;
         min-width: fit-content;
         border: 1px solid;
-        margin:5px;
-        margin-top:1%;
-        text-align:center;
-        float:right;
+        margin: 5px;
+        margin-top: 1%;
+        text-align: center;
+        float: right;
     }
+
     .totale {
         height: 75px;
-        min-height:fit-content;
+        min-height: fit-content;
         width: 100%;
         border: 1px solid;
     }
+
     .ptotale {
         font-size: 150%;
         text-align: left;
         padding-left: 5%;
         margin-top: 2%;
-        float:left;
+        float: left;
     }
+
     .acquista {
         background-color: rgb(255,255,255);
         width: 20%;
         min-width: fit-content;
         border: 1px solid;
-        margin-right:1%;
-        margin-top:1.5%;
+        margin-right: 1%;
+        margin-top: 1.5%;
         text-align: center;
         float: right;
     }
+
     .login {
         background-color: rgb(255,255,255);
         width: 100%;
     }
+
     .img_thumb {
         width: 30%;
         height: 30%;
@@ -74,7 +81,7 @@
 
 <h2>Il tuo Carrello</h2>
 @{
-    /* if (Session["IdUtente"] == null)
+    if (Session["IdUtente"] == null)
     {
         <div class="login">
             Login non effettuato<br />
@@ -82,37 +89,48 @@
         </div>
     }
     else
-    { */
-}
-    <div class="container" name="grid_container">
-        @{
-            while (prodotti.Count() % numElemPerRiga != 0)
-            {
-                prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
-            }
-            foreach (var product in prodotti)
-            {
-                string id_product_button = $"product{product.Id_Prodotto}";
-                string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">
-                    <div class="prod">
-                        <img src="@product.IMG" class="img_thumb" /> @product.Nome : @product.Prezzo €
+    {
+
+        <div class="container" name="grid_container">
+            @{
+                if (prodotti.Count == 0)
+                {
+                    <div class="login">
+                        Carrello vuoto<br />
+                        @Html.ActionLink("Comincia ad acquistare", "Index");
                     </div>
-                    
-                    
-                    <button id="removePref" class="btn preferiti" onclick="">Rimuovi dai preferiti</button><br /><br /><br /><br />
-                    <button id="addPref" class="btn preferiti" onclick="">Aggiungi ai preferiti</button><br /><br /><br /><br />
-                    <button id="rimuovi" class="btn rimuovi" onclick="">Rimuovi dal Carrello</button>
-                </div>
-            totale = totale + product.Prezzo;
-        }
-        <div class="totale">
-            <div class="ptotale">
-                Totale: @totale €
-            </div>
-            <div type="button" class="btn acquista">Acquista</div>
+                }
+                else
+                {
+                    foreach (var product in prodotti)
+                    {
+                        preferito = pref.CheckPreferiti(Session["IdUtente"], product.Id_Prodotto);
+                        string id_product_button = $"product{product.Id_Prodotto}";
+                        string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                        <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">
+                            <div class="prod">
+                                <img src="@product.IMG" class="img_thumb" /> @product.Nome : @product.Prezzo €
+                            </div>
+                            @if (preferito == false)
+                            {
+                                <button id="addPref" class="btn preferiti" onclick="">Aggiungi ai preferiti</button><br /><br /><br /><br />
+                            }
+                            else
+                            {
+                                <button id="removePref" class="btn preferiti" onclick="">Rimuovi dai preferiti</button><br /><br /><br /><br />
+                            }
+                            <button id="rimuovi" class="btn rimuovi" onclick="">Rimuovi dal Carrello</button>
+                        </div>
+                        totale = totale + product.Prezzo;
+                    }
+                    <div class="totale">
+                        <div class="ptotale">
+                            Totale: @totale €
+                        </div>
+                        <div type="button" class="btn acquista">Acquista</div>
+                    </div>
+                }
+            }
         </div>
     }
-</div>
-}
 }

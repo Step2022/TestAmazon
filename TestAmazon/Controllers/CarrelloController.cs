@@ -11,8 +11,8 @@ namespace TestAmazon.Controllers
     {
         public ActionResult CarrelloUtente()
         {
-            long idOrdine = Ordine.GetIdOrdine(1/*(long)Session["IdUtente"]*/);
-            ViewBag.preferiti = PreferitiPartial.GetPreferiti(1/*(long)Session["IdUtente"]*/);
+            long idOrdine = Ordine.GetIdOrdine(2/*(long)Session["IdUtente"]*/);
+            ViewBag.preferiti = PreferitiPartial.GetPreferiti(2/*(long)Session["IdUtente"]*/);
             return View(Carrello.GetCarrello(idOrdine));
         }
     }
