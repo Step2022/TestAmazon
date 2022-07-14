@@ -4,7 +4,7 @@
     ViewBag.Title = "Singolo";
 }
 
-<h2>Singolo</h2>
+<style>
 
     body {
         background-color: white;
@@ -19,14 +19,14 @@
         -moz-box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
         box-shadow: 0px 14px 32px 0px rgba(0, 0, 0, 0.15);
     }
-    }
+
     .product-img {
         margin-top: 15%;
         float: left;
         height: 420px;
         width: 327px;
     }
-    }
+
         .product-img img {
             margin-top: 150px;
             vertical-align: middle;
@@ -41,7 +41,7 @@
             height: auto;
             border-radius: 7px 0 0 7px;
         }
-        }
+
     .product-info {
         float: left;
         height: 420px;
@@ -75,7 +75,7 @@
             color: #d2d2d2;
             letter-spacing: 0.2em;
         }
-        }
+
         .product-text p {
             height: 125px;
             font-family: 'Times New Roman', serif;
@@ -113,6 +113,8 @@
         display: inline-block;
     }
 
+
+
         .button-container button {
             font-size: 40%;
             padding: 5px;
@@ -135,11 +137,14 @@
             outline: none;
             margin-left: 25px;
         }
-    }
+
             .button-container button:hover {
                 background-color: #5c5c5c;
             }
-
+    .immagine {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
 </style>
 <html lang="en">
 
@@ -152,26 +157,30 @@
         <div class="product-img">
             <img src="@Model.IMG" height="420" width="327">
         </div>
+
         <div class="product-info">
-            <div class="product-text">
+
+            <div class="product-text" margin="10px">
+                <div class ="immagine" align="right">
+                    <input type="image" src="https://cdn3.iconfinder.com/data/icons/sympletts-free-sampler/128/star-512.png" width="25" height="25" />
+                </div>
                 <h1>@Model.Nome</h1>
                 <br />
-                
-                      <h2>Descrizione </h2><br />
-                                           <p>@Model.Descrizione</p>
+
+                <h2>Descrizione </h2><br />
+                <p>@Model.Descrizione</p>
             </div>
 
 
             <div class="bigtext">
-                @Model.Prezzo €   
+                @Model.Prezzo €
                 <div class="button-container">
                     <button>Acquista</button>
                 </div>
             </div>
-
         </div>
     </div>
 
 </body>
 
-</html></html>
+</html>

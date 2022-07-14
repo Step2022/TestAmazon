@@ -60,7 +60,7 @@
                 foreach (var product in Model)
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
-                    string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                    string onclick = $"window.location.href='../../Prodotto/Singolo/{product.Id_Prodotto}'";
 
                     <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
                         <div name="container_img" class="row" style="height:80%;min-width:125px">

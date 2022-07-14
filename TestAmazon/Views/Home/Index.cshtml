@@ -1,4 +1,7 @@
-﻿@{
+﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Models;
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -18,7 +21,7 @@
 
 
             // 3 elementi per riga
-            if (Model != null || !Model.Any())
+            if (Model != null && Model.Any())
             {
                 foreach (var product in Model)
                 {
