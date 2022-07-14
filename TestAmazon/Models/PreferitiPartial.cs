@@ -45,7 +45,7 @@ namespace TestAmazon.Models
 
             }
 
-            return lista ?? new List<Prodotto>();
+            return lista; //?? new List<Prodotto>();
         }
 
         public static string  RemovePreferiti(long id_utente, long id_prodotto)
