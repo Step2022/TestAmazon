@@ -7,7 +7,7 @@ namespace TestAmazon.Models
 {
     public partial class Carrello
     {
-        public static List<Carrello> GetCarrello(int idOrdine)
+        public static List<Carrello> GetCarrello(long idOrdine)
         {
             List<Carrello> carrello = new List<Carrello>();
             using (var db = new CorsoRoma2022Entities())
@@ -16,7 +16,7 @@ namespace TestAmazon.Models
             }
             return carrello;
         }
-        public static void AddInCarrello(int idOrdine, int idProdotto, int quantita)
+        public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
         {
             Carrello carr = new Carrello();
             carr.Id_Ordine = idOrdine;
