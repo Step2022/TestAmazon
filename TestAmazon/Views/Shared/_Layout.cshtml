@@ -42,9 +42,10 @@
                     @if(@Session["Utente"] !=null){
                         <p>Ciao @Session["Utente"].ToString()</p>
                          if(@Session["Ruolo"].ToString()=="admin"){
-                            @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+                            @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente") 
                          }
-                        @Html.ActionLink("Logout", "Logout", "Utente")
+                        @Html.ActionLink("Logout", "Logout", "Utente") 
+                        @Html.ActionLink("Carrello","CarrelloUtente","Carrello")
                     }else{
                         @Html.ActionLink("SignUp", "SignUp", "Utente")
                         @Html.ActionLink("Login", "Login", "Utente")
