@@ -10,16 +10,11 @@ namespace TestAmazon.Models
     {
         public static List<Prodotto> GetCarrello(long idOrdine)
         {
-            //Funzione che restituisce i prodotti del carrello associato ad un ordine specifico
             List<Prodotto> prodotti = new List<Prodotto>();
             using (var db = new CorsoRoma2022Entities())
             {
-                //Effettua un controllo sull'ordine per vedere se non è acquistato,
-                //solo in quel caso riempe la lista con i prodotti
-                if (!db.Ordine.Where(i => i.Id_Ordine == idOrdine)
-                    .Select(i => i.Acquistato).FirstOrDefault())
-                    prodotti.AddRange(db.Carrello.Where(i => i.Id_Ordine == idOrdine)
-                        .Join(db.Prodotto, car => car.Id_Prodotto, prod => prod.Id_Prodotto, (car, prod) => prod));
+                prodotti.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine)
+                    .Join(db.Prodotto, c => c.Id_Prodotto, p => p.Id_Prodotto, (c, p) => p));
             }
             return prodotti;
         }
