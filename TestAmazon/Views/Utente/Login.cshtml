@@ -10,6 +10,7 @@
     if (@ViewBag.Errore != null)
     {
         <p style="color:red">@ViewBag.Errore.ToString()</p>
+        <p>@ViewBag.Login </p>
     }
 }
 
@@ -50,7 +51,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Torna all 'Homepage", "Index","Home")
 </div>
 
 @section Scripts {

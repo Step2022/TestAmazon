@@ -9,6 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<p style="color:red">@ViewBag.Success</p>
 <table class="table">
     <tr>
         <th>
@@ -24,7 +25,7 @@
             @Html.DisplayNameFor(model => model.Password)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Ruolo.Nome_ruolo)
+            @Html.DisplayName("Ruolo")
         </th>
         <th></th>
     </tr>
@@ -41,15 +42,25 @@
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Password)
+            ********
+            @*@Html.DisplayFor(modelItem => item.Password)*@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Ruolo.Nome_ruolo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id_Utente }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id_Utente }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id_Utente })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id_Utente }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id_Utente }) |
+            @Html.ActionLink("Elimina", "Delete", "Utente", new
+       {
+           @class = "btn btn-warning",
+           onclick = string.Format("return confirm('WARNING: Delete {0} {1}?');", item.Nome,item.Cognome)
+       })
+           
+          @* new  { onclick = $"\"return confirm('Procedere con l'eliminazione di  {@item.Nome} {@item.Cognome} ? ');\"" })*@
+
+
+        @*new { onclick = "return confirm('Procedere con l'eliminazione di ')" })*@
         </td>
     </tr>
 }
