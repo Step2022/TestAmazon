@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Globalization;
 using System.Web.Mvc;
 using TestAmazon.Models;
 namespace TestAmazon.Controllers
@@ -16,7 +17,6 @@ namespace TestAmazon.Controllers
 
         public ActionResult Singolo(long id)
         {
-            
 
             return View(Prodotto.GetProdotto(id));
         }
