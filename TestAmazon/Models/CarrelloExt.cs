@@ -7,14 +7,15 @@ namespace TestAmazon.Models
 {
     public partial class Carrello
     {
-        public static List<Carrello> GetCarrello(long idOrdine)
+        public static List<Prodotto> GetCarrello(long idOrdine)
         {
-            List<Carrello> carrello = new List<Carrello>();
+            List<Prodotto> prodotti = new List<Prodotto>();
             using (var db = new CorsoRoma2022Entities())
             {
-                carrello.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
+                prodotti.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine)
+                    .Join(db.Prodotto, c => c.Id_Prodotto, p => p.Id_Prodotto, (c, p) => p));
             }
-            return carrello;
+            return prodotti;
         }
         public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
         {
