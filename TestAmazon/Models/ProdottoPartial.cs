@@ -47,6 +47,30 @@ namespace TestAmazon.Models
             }
             return list;
         }
+        public static List<Prodotto> GetProdotti(long id_categoria, string nome)
+        {
+            //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
+            // E che corrispondono all'id della categoria passata
+            List<Prodotto> list = new List<Prodotto>();
+            bool emptySearch = string.IsNullOrEmpty(nome);
+            using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
+            {
+                if (emptySearch)
+                {
+                    list.AddRange(db.Prodotto
+                        .Where(x => x.Cancellato == false
+                        && x.Id_Categoria == id_categoria));
+                }
+                else
+                {
+                    list.AddRange(db.Prodotto
+                        .Where(x => x.Cancellato == false
+                        && x.Id_Categoria == id_categoria
+                        && x.Nome.Contains(nome)));
+                }
+            }
+            return list;
+        }
         public static List<Prodotto> GetProdotti(List<long> id_categorie)
         {
             //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
