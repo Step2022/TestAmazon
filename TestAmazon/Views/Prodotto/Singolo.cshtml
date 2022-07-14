@@ -1,11 +1,11 @@
 ﻿@model TestAmazon.Models.Prodotto
-
+@using TestAmazon.Utility
 
 @{
     ViewBag.Title = "Singolo";
 }
 
-
+<style>
     body {
         background-color: #E8E8E8;
     }
@@ -22,7 +22,6 @@
     }
 
     .product-img {
-        margin-top: 10%;
         float: left;
         height: 420px;
         width: 327px;
@@ -33,7 +32,7 @@
         }
 
         .product-img img {
-            margin-top: 150px;
+            margin-top: 10%;
             vertical-align: middle;
             align-content: center;
             margin: auto;
@@ -49,10 +48,10 @@
             cursor: zoom-in;
         }
 
-    .product-img input[type=checkbox]:checked ~ img {
-        transform: scale(1.5);
-        cursor: zoom-out
-    }
+        .product-img input[type=checkbox]:checked ~ img {
+            transform: scale(1.5);
+            cursor: zoom-out
+        }
 
     .product-info {
         float: left;
@@ -123,8 +122,6 @@
         display: inline-block;
     }
 
-
-
         .button-container button {
             font-size: 40%;
             padding: 5px;
@@ -152,12 +149,11 @@
                 background-color: #222831;
                 color: white;
             }
+
     .immagine {
         margin-top: 10px;
         margin-right: 10px;
     }
-
-
 
     label input[type="checkbox"] {
         display: none;
@@ -174,7 +170,7 @@
             position: absolute;
             top: -0.3em;
             left: -1em;
-            font-size: 1.6em;
+            font-size: 2em;
         }
 
         .custom-checkbox .glyphicon-star-empty {
@@ -202,6 +198,14 @@
         color: #F05454;
     }
 
+    .bottoneIndietro {
+        background: transparent;
+        border: none;
+    }
+
+    span {
+        content: "\2190";
+    }
 </style>
 
 
@@ -214,7 +218,10 @@
 <body>
     <div class="wrapper">
         <div class="product-img">
-            <label class = "product-img">
+            <div align="left" style="display: inline">
+                <button class="bottoneIndietro" onclick="history.back()"><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
+            </div>
+            <label class="product-img" style=" margin-top: 20%">
                 <input type="checkbox" />
                 <img src="@Model.IMG" height="420" width="327">
             </label>
@@ -224,13 +231,30 @@
 
             <div class="product-text" margin="10px">
 
-                <div class="immagine" align="right">
-                    <label for="id-of-input" class="custom-checkbox">
-                        <input type="checkbox" id="id-of-input" onclick=""/>
-                        <i class="glyphicon glyphicon-star-empty"></i>
-                        <i class="glyphicon glyphicon-star"></i>
-                    </label>
-                </div>
+                @if (pref.CheckPreferiti(2, Model.Id_Prodotto))
+                {
+                    <div class="immagine" align="right">
+
+                        <label for="id-of-input" class="custom-checkbox">
+
+                            <input type="checkbox" id="id-of-input" onclick="" checked />
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+                    </div>
+                }
+                else
+                {
+                    <div class="immagine" align="right">
+                        <label for="id-of-input" class="custom-checkbox">
+                            <input type="checkbox" id="id-of-input" onclick="" />
+                            <i class="glyphicon glyphicon-star-empty"></i>
+                            <i class="glyphicon glyphicon-star"></i>
+                        </label>
+
+                    </div>
+                }
+
                 <h1>@Model.Nome</h1>
                 <br />
 
@@ -247,4 +271,4 @@
         </div>
     </div>
 </body>
-</html> 
+</html>

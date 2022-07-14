@@ -104,7 +104,7 @@
                 {
                     foreach (var product in prodotti)
                     {
-                        preferito = pref.CheckPreferiti(Session["IdUtente"], product.Id_Prodotto);
+                        preferito = pref.CheckPreferiti((long)Session["IdUtente"], product.Id_Prodotto);
                         string id_product_button = $"product{product.Id_Prodotto}";
                         string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
                         <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">

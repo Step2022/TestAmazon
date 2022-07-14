@@ -7,9 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @using TestAmazon.Utility
-    
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/css/homepage.css" rel="stylesheet" />
+    <script src="~/Scripts/js/homepage.js"></script>
     @{
         string nameUser = null;
         long idUser = 0;
