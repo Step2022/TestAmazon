@@ -34,22 +34,22 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-3">
                 <a href="/"><img src="~/IMGS/logo.png" /></a>
             </div>
-            <div class="col-lg-9" style="float:right">
-                <ul>
+            <div class="col-lg-3" style="float:right">
+                
                     @if(@Session["Utente"] !=null){
-                    <li>Ciao @Session["Utente"].ToString()</li>
-                     if(@Session["Ruolo"].ToString()=="admin"){
-                    <li>@Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")</li>
+                        <p>Ciao @Session["Utente"].ToString()</p>
+                         if(@Session["Ruolo"].ToString()=="admin"){
+                            @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+                         }
+                        @Html.ActionLink("Logout", "Logout", "Utente")
+                    }else{
+                        @Html.ActionLink("SignUp", "SignUp", "Utente")
+                        @Html.ActionLink("Login", "Login", "Utente")
                     }
-                    <li>@Html.ActionLink("Logout", "Logout", "Utente")</li>
-                }else{
-                    <li>@Html.ActionLink("SignUp", "SignUp", "Utente")</li>
-                    <li>@Html.ActionLink("Login", "Login", "Utente")</li>
-                    }
-                </ul>
+                    
             </div>
         </div>
         @*<div class="container">
