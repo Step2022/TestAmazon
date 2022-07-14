@@ -30,6 +30,12 @@ namespace TestAmazon.Controllers
 
         }
 
+        public ActionResult ADD(long id_utente,long id_prodotto)
+        {
+            string C = PreferitiPartial.RemovePreferiti(id_utente, id_prodotto);
+            return View("Singolo");
+        }
+
         public ActionResult Preferiti(long id)
 
         {

@@ -75,7 +75,32 @@
                         </div>
                         <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
                             <div class="col-lg-10">
-                                <p>@product.Prezzo €</p>
+                                <p>
+                                    @{
+                                        if (product.Prezzo < 999)
+                                        {
+                                            @(product.Prezzo+"€");
+                                        }
+                                        else
+                                        {
+                                            var price = product.Prezzo.ToString().Split(',');
+                                            var result = "";
+                                            int count = 0;
+                                            for (int i = price[0].Length - 1; i >= 0; i--)
+                                            {
+
+                                                if (count % 3 == 0 && count != 0)
+                                                {
+                                                    result = string.Concat(".", result);
+                                                }
+                                                count++;
+                                                result = string.Concat(price[0][i], result);
+                                            }
+                                            result += "," + price[1] + "€";
+                                            @result
+                                        }
+                                                                }
+                                                            </p>
                             </div>
                         </div>
                     </div>

@@ -21,7 +21,7 @@ namespace TestAmazon.Models
         public static bool AddUtente(Utente utente)
         {
 
-            using (var context = new CorsoRoma2022Entities())
+            using (var context= new CorsoRoma2022Entities())
             {
                 try
                 {
@@ -42,12 +42,12 @@ namespace TestAmazon.Models
                     return false;
                 }
             }
-        }
+        } 
 
         private static bool CheckEmail(string email)
         {
             Regex regex = new Regex("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})");
-            return regex.IsMatch(email);
+            return  regex.IsMatch(email) ;
         }
 
 
@@ -75,8 +75,8 @@ namespace TestAmazon.Models
         {
             using (var context = new CorsoRoma2022Entities())
             {
-                return (context.Utente.FirstOrDefault(x => x.Email == utente.Email && x.Password == utente.Password) != null) ? true : false;
-
+               return (context.Utente.FirstOrDefault(x => x.Email == utente.Email && x.Password == utente.Password) != null) ? true : false;
+               
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestAmazon.Models;
+
 namespace TestAmazon.Controllers
 {
     public class HomeController : Controller
@@ -26,6 +27,7 @@ namespace TestAmazon.Controllers
 
             return View();
         }
-        
+       
+
     }
 }

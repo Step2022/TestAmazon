@@ -1,52 +1,77 @@
 ﻿@model IEnumerable<TestAmazon.Models.Prodotto>
 @using TestAmazon.Models;
+
 @{
     ViewBag.Title = "Index";
 }
 
-<div style="text-align:center;"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
+<div style="text-align:center;margin-top:20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
 
+<style>
+    
+   
 
+    
+
+</style>
 <div class="container" name="body_container">
-    <div class="container" style="padding:10px;margin:10px" name="pagebuttons_container">
+    <div class="container" name="pagebuttons_container">
         @*Qui ci metto il tasto di ricerca*@
 
         <button style="float:right;" class="btn" onclick="window.location.href='../Ricerca/Categorys/'">
             Cerca
         </button>
     </div>
-    <div class="container  text-center" style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
-        @{
+    <div class="container text-center " style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
+        <div class="row">
+            @{
 
 
-            // 3 elementi per riga
-            if (Model != null || !Model.Any())
-            {
-                foreach (var product in Model)
+                // 3 elementi per riga
+                if (Model != null  && Model.Any())
                 {
-                    string id_product_button = $"product{product.Id_Prodotto}";
-                    string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-
-                    <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
-                        <div name="container_img" class="row" style="height:80%;min-width:125px">
-                            <div class="col-lg-10">
-                                <img src="@product.IMG" class="img_thumb" />
+                    foreach (var product in Model)
+                    {
+                        string id_product_button = $"product{product.Id_Prodotto}";
+                        string price_p = $"p{product.Id_Prodotto}";
+                        string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                        
+                        
+                        <div id="@id_product_button" class="checkbox-inline prodotto text-center table-bordered"  onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
+                            <div name="container_img" class="row " style="height: 80%">
+                                <div class="col-sm-10" style="min-width:125px;margin-left:10px;height:100%">
+                                    <img src="@product.IMG" class="img_personal" id="img_@product.Id_Prodotto"  onmouseover="onMouseOverImage('img_@product.Id_Prodotto')" onmouseleave="onMouseLeft('img_@product.Id_Prodotto')" />
+                                </div>
                             </div>
-                        </div>
-                        <div name="container_nameProduct" class="row" style="height:10%;min-height:30px;">
-                            <div class="col-lg-10">
-                                <p>@product.Nome</p>
+                            <div class="container  " style="width: auto; margin-right: 20px;" >
+                                <div class="row colornavBar">
+                                    <div class="col-lg-12">
+                                        <div name="container_nameProduct" class="row " style="height: 10%; min-height: 30px;">
+                                            <div>
+                                                <p class="p_prodotto" style="margin-top: 10px">@product.Nome</p>
+                                                <div class="col-lg-6">
+                                                    @*aggiungere il pulsante add to cart*@
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div name="container_PriceProduct" class="row " style="height: 10%; min-height: 30px; ">
+                                            <div>
+                                                <p id="@price_p" class="p_prodotto">
+                                                    @(product.Prezzo.ToString("N")+"€")
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
                             </div>
-                        </div>
-                        <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
-                            <div class="col-lg-10">
-                                <p>@product.Prezzo €</p>
-                            </div>
-                        </div>
                     </div>
+                    }
                 }
+
             }
 
-        }
+        </div>
     </div>
 </div>

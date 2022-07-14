@@ -21,7 +21,3 @@
 /.vs/TestAmazon
 /.vs/TestAmazon/config/applicationhost.config
 /.vs/TestAmazon/v17
-/packages/EntityFramework.6.1.3
-/packages/EntityFramework.it.6.1.3/lib/net40/it/EntityFramework.resources.dll
-/.vs
-/packages/EntityFramework.it.6.1.3

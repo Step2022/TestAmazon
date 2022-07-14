@@ -1,101 +1,136 @@
 ﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+@using TestAmazon.Utility
 @using TestAmazon.Models
+
 
 @{
     ViewBag.Title = "CarrelloUtente";
+    List<Prodotto> prodotti = Model.ToList();
+    List<Prodotto> preferiti = ViewBag.preferiti;
+    decimal totale = 0;
+    bool preferito = false;
 }
 
 <style>
     .prodotto {
         background-color: rgb(255,255,255);
-        width: 80%;
-        height: 250px;
+        width: 100%;
+        min-width: fit-content;
+        height: auto;
+        max-height: fit-content;
         margin-bottom: 10px;
-        margin-right: 10px;
+        border: 1px solid;
+    }
+
+    .prod {
+        height: auto;
+        min-width: fit-content;
+        width: auto;
+        margin-top: 2%;
+        margin-bottom: 2%;
         float: left;
     }
 
-    .color1 {
+    .rimuovi, .preferiti {
+        background-color: rgb(255,255,255);
+        width: 20%;
+        min-width: fit-content;
+        border: 1px solid;
+        margin: 5px;
+        margin-top: 1%;
+        text-align: center;
+        float: right;
     }
 
-    .color2 {
+    .totale {
+        height: 75px;
+        min-height: fit-content;
+        width: 100%;
+        border: 1px solid;
     }
 
-    .color3 {
+    .ptotale {
+        font-size: 150%;
+        text-align: left;
+        padding-left: 5%;
+        margin-top: 2%;
+        float: left;
+    }
+
+    .acquista {
+        background-color: rgb(255,255,255);
+        width: 20%;
+        min-width: fit-content;
+        border: 1px solid;
+        margin-right: 1%;
+        margin-top: 1.5%;
+        text-align: center;
+        float: right;
+    }
+
+    .login {
+        background-color: rgb(255,255,255);
+        width: 100%;
     }
 
     .img_thumb {
-        width: 125px;
-        height: 125px;
+        width: 30%;
+        height: 30%;
     }
 </style>
 
 <h2>Il tuo Carrello</h2>
-
-<div class="container" name="grid_container">
-    @{
-        List<Prodotto> prodotti = Model.ToList();
-        int numElemPerRiga = 1;
-        while (prodotti.Count() % numElemPerRiga != 0)
-        {
-            prodotti.Add(new Prodotto() { Id_Prodotto = -1 });
-        }
-        // 3 elementi per riga
-        foreach (var product in prodotti)
-        {
-            
-                string id_product_button = $"product{product.Id_Prodotto}";
-                string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                <div style="border: 1px solid;" type="button" id="@id_product_button" class="btn prodotto" onclick="@onclick">
-                    <div style="height:250px;width:100%;">
-                        <br />
-                        <img src="@product.IMG" class="img_thumb" />
-                        <br />
-                        @product.Nome
-                        <br />
-                        @product.Prezzo €
-                        <br />
-                    </div>
-                </div>
-            
-        }
-
+@{
+    if (Session["IdUtente"] == null)
+    {
+        <div class="login">
+            Login non effettuato<br />
+            <a href="">Effettua il login per visualizzare il tuo carrello</a>
+        </div>
     }
-</div>
+    else
+    {
 
-<!--
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descrizione)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Prezzo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.IMG)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descrizione)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Prezzo)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IMG)
-        </td>
-    </tr>
+        <div class="container" name="grid_container">
+            @{
+                if (prodotti.Count == 0)
+                {
+                    <div class="login">
+                        Carrello vuoto<br />
+                        @Html.ActionLink("Comincia ad acquistare", "Index");
+                    </div>
+                }
+                else
+                {
+                    foreach (var product in prodotti)
+                    {
+                        preferito = pref.CheckPreferiti((long)Session["IdUtente"], product.Id_Prodotto);
+                        string id_product_button = $"product{product.Id_Prodotto}";
+                        string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
+                        <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">
+                            <div class="prod">
+                                <img src="@product.IMG" class="img_thumb" /> @product.Nome : @product.Prezzo €
+                            </div>
+                            @if (preferito == false)
+                            {
+                                <button id="addPref" class="btn preferiti" onclick="">Aggiungi ai preferiti</button><br /><br /><br /><br />
+                            }
+                            else
+                            {
+                                <button id="removePref" class="btn preferiti" onclick="">Rimuovi dai preferiti</button><br /><br /><br /><br />
+                            }
+                            <button id="rimuovi" class="btn rimuovi" onclick="">Rimuovi dal Carrello</button>
+                        </div>
+                        totale = totale + product.Prezzo;
+                    }
+                    <div class="totale">
+                        <div class="ptotale">
+                            Totale: @totale €
+                        </div>
+                        <div type="button" class="btn acquista">Acquista</div>
+                    </div>
+                }
+            }
+        </div>
+    }
 }
-
-</table>
--->

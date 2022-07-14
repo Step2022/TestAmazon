@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace TestAmazon.Models
 {
     public partial class Carrello
     {
-        public static List<Carrello> GetCarrello(int idOrdine)
+        public static List<Prodotto> GetCarrello(long idOrdine)
         {
-            List<Carrello> carrello = new List<Carrello>();
+            List<Prodotto> prodotti = new List<Prodotto>();
             using (var db = new CorsoRoma2022Entities())
             {
-                carrello.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
+                prodotti.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine)
+                    .Join(db.Prodotto, c => c.Id_Prodotto, p => p.Id_Prodotto, (c, p) => p));
             }
-            return carrello;
+            return prodotti;
         }
-        public static void AddInCarrello(int idOrdine, int idProdotto, int quantita)
+        public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
         {
+            //funzione che aggiunge un nuovo elemento nel carrello di un ordine specifico
             Carrello carr = new Carrello();
             carr.Id_Ordine = idOrdine;
             carr.Id_Prodotto = idProdotto;
@@ -30,6 +33,7 @@ namespace TestAmazon.Models
         }
         public static void RemoveFromCarrello(int idOrdine, int idProdotto)
         {
+            //Funzione che rimuove un elemento dal carrello di un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
                 Carrello car = db.Carrello.SingleOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);
