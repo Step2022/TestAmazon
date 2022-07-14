@@ -25,6 +25,7 @@
                 foreach (var product in Model)
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
+                    string price_p = $"p{product.Id_Prodotto}";
                     string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
 
                     <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
@@ -40,7 +41,32 @@
                         </div>
                         <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
                             <div class="col-lg-10">
-                                <p>@product.Prezzo €</p>
+                                <p id="@price_p">
+                                    @{
+                                        if (product.Prezzo < 999)
+                                        {
+                                            @(product.Prezzo+"€");
+                                        }
+                                        else
+                                        {
+                                            var price = product.Prezzo.ToString().Split(',');
+                                            var result = "";
+                                            int count = 0;
+                                            for(int i = price[0].Length-1; i >= 0; i--)
+                                            {
+
+                                                if (count % 3 == 0 && count!=0)
+                                                {
+                                                    result = string.Concat(".", result);
+                                                }
+                                                count++;
+                                                result = string.Concat(price[0][i], result);
+                                            }
+                                            result +=","+ price[1] + "€";
+                                            @result
+                                        }
+                                    }
+                                </p>
                             </div>
                         </div>
                     </div>
