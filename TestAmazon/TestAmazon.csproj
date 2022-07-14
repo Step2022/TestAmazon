@@ -132,6 +132,7 @@
     <Compile Include="Controllers\CarrelloController.cs" />
     <Compile Include="Controllers\PreferitiController.cs" />
     <Compile Include="Controllers\ProdottoController.cs" />
+    <Compile Include="Controllers\RicercaController.cs" />
     <Compile Include="Controllers\UtenteController.cs" />
     <Compile Include="Models\Carrello.cs">
       <DependentUpon>DbTestAmazon.tt</DependentUpon>
@@ -187,6 +188,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\homepage.css" />
     <Content Include="IMGS\logo.png" />
     <Content Include="Models\DbTestAmazon.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -221,6 +223,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\homepage.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Documentazione\db.png" />
     <Content Include="Web.config" />
@@ -244,6 +247,7 @@
     <Content Include="Views\Prodotto\Singolo.cshtml" />
     <Content Include="Views\Carrello\CarrelloUtente.cshtml" />
     <Content Include="Views\Preferiti\Preferiti.cshtml" />
+    <Content Include="Views\Ricerca\Categorys.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -28,7 +28,7 @@
             idRuolo = int.Parse(Session["IdRuolo"].ToString());
         }
     }
-   
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,44 +37,55 @@
                 <a href="/"><img src="~/IMGS/logo.png" /></a>
             </div>
             <div class="col-lg-9" style="float:right">
-                @*sezione login*@
+                <ul>
+                    @if(@Session["Utente"] !=null){
+                    <li>Ciao @Session["Utente"].ToString()</li>
+                     if(@Session["Ruolo"].ToString()=="admin"){
+                    <li>@Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")</li>
+                    }
+                    <li>@Html.ActionLink("Logout", "Logout", "Utente")</li>
+                }else{
+
+                    <li>@Html.ActionLink("Login", "Login", "Utente")</li>
+                    }
+                </ul>
             </div>
         </div>
         @*<div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
 
-                    @if (@Session["Utente"] != null)
-                    {
-                        if (@Session["Ruolo"].ToString() == "admin")
+                        @if (@Session["Utente"] != null)
                         {
-                            <li>@Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")</li>
+                            if (@Session["Ruolo"].ToString() == "admin")
+                            {
+                                <li>@Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")</li>
+                            }
+                            <li style="color:white"><a onclick="return false">Ciao @Session["Utente"].ToString()</a></li>
+                            <li>@Html.ActionLink("Logout", "Logout", "Utente")</li>
                         }
-                        <li style="color:white"><a onclick="return false">Ciao @Session["Utente"].ToString()</a></li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Utente")</li>
-                    }
-                    else
-                    {
-                        <li>@Html.ActionLink("Sign-Up", "SignUp", "Utente")</li>
-                        <li>@Html.ActionLink("Login", "Login", "Utente")</li>
-                    }
+                        else
+                        {
+                            <li>@Html.ActionLink("Sign-Up", "SignUp", "Utente")</li>
+                            <li>@Html.ActionLink("Login", "Login", "Utente")</li>
+                        }
 
 
-                </ul>
-            </div>
-        </div>*@
+                    </ul>
+                </div>
+            </div>*@
     </div>
     <div class="container body-content">
         @RenderBody()

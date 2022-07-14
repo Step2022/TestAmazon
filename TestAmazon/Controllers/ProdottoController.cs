@@ -16,7 +16,7 @@ namespace TestAmazon.Controllers
 
         public ActionResult Singolo(long id)
         {
-            ViewBag.Message = "Pagina del prodotto singolo.";
+            
 
             return View(Prodotto.GetProdotto(id));
         }
