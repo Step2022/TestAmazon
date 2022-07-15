@@ -12,19 +12,19 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/css/homepage.css" rel="stylesheet" />
     <script src="~/Scripts/js/homepage.js"></script>
-    
+
     @{
-        
+
         long IdUtente = 0;
-        
-       
+
+
         if (Session["IdUtente"] != null && RegularExp.IsInt(Session["IdUtente"].ToString()))
         {
             IdUtente = int.Parse(Session["IdUtente"].ToString());
         }
-        
+
     }
-   
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top colornavBar">
@@ -41,69 +41,44 @@
                         @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
                     </div>
                 }
-                <div  style="float: right; margin-top: 10px; min-width: 30px;margin-right:10px ">
+                <div style="float: right; margin-top: 15px; min-width: 30px;margin-right:30px ">
                     @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
                 </div>
-                <div  style="float: right; margin-top: 10px; min-width:30px">
+                <div style="float: right; margin-top: 15px; min-width: 30px; margin-right: 30px">
                     <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
-                    @*@Html.ActionLink("Carrello", "CarrelloUtente", "Carrello")*@
                 </div>
-                @*Da trasformare in dropdown list*@
-                <select name="select_user" id="select_user" onchange="OnChangeDDLUser(@Session["IdUtente"].ToString())">
-                    <option value="0" >@Session["Utente"].ToString()</option>
-                    <option value="1">Lista Preferiti</option>
-                </select>
-                @*<div class="col-lg-2" style="float:right;margin-top:10px;color:white;font-size:13px;min-width:50px"><Label>@Session["Utente"].ToString()</Label> <i class="fa-solid fa-user fa-xl"></i> </div>*@
+                <div style="float: right; margin-top: 10px; font-size: 13px; min-width: 50px; margin-right: 30px;">
+                    <label style="color:white">@Session["Utente"].ToString()</label>
+                    <select name="select_user" id="select_user" style="min-width:50px;min-height:30px;border-radius:20px 0px 0px 20px" onchange="OnChangeDDLUser(@Session["IdUtente"].ToString())">
+                        <option value="0"></option>
+                        <option value="1">Lista Preferiti ⭐</option>
+                        <option value="2">Carrello🛒</option>
+                    </select>
+                    <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
+                </div>
 
             }
             else
             {
-                <div class="col-sm-1" style="float: right; margin-top: 10px; min-width: 10px; margin-right: 10px">
-                    @Html.ActionLink(" ", "SignUp", "Utente","", new {@class = "fa-solid fa-user-plus fa-xl", style="color:white"})
+                <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 40px">
+                    @*<label style="color:white">Register</label>*@
+                    @Html.ActionLink("Register ", "SignUp", "Utente", "", new { style = "color:white" })
+                    @Html.ActionLink(" ", "SignUp", "Utente", "", new { @class = "fa-solid fa-user-plus fa-xl", style = "color:white" })
                 </div>
-                <div class="col-sm-1" style="float: right; margin-top: 10px; min-width: 10px; margin-right: 10px">
-                    @Html.ActionLink(" ", "Login", "Utente","",new {@class= "fa-solid fa-arrow-right-to-bracket fa-xl", style = "color:white" })
+                <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 20px">
+                    @*<label style="color:white">Login</label>*@
+                    @Html.ActionLink("Login ", "Login", "Utente", "", new { style = "color:white" })
+                    @Html.ActionLink(" ", "Login", "Utente", "", new { @class = "fa-solid fa-arrow-right-to-bracket fa-xl", style = "color:white" })
                 </div>
             }
 
         </div>
 
-                @*<div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("About", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Login", "Contact", "Home")</li>
-                        <li>@Html.ActionLink("Sign-Up", "SignUp", "Utente")</li>
-                        <li>@Html.ActionLink("Login", "Login", "Utente")</li>
-
-                        @if (Session["Utente"] != null)
-                        {
-
-
-
-
-                        }
-
-
-                    </ul>
-                </div>
-            </div>*@
-            </div>
+    </div>
     <div class="container body-content color1">
         @RenderBody()
         <hr />
         <footer>
-            
         </footer>
     </div>
 
@@ -113,5 +88,5 @@
 </body>
 </html>
 <script>
-        
+
 </script>
