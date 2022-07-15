@@ -49,6 +49,12 @@
             cursor: zoom-in;
         }
 
+        .product-img input[type=checkbox]:hover ~ img {
+            transform: scale(1.2);
+            cursor: zoom-out
+        }
+
+
         .product-img input[type=checkbox]:checked ~ img {
             transform: scale(1.4);
             cursor: zoom-out
@@ -205,7 +211,6 @@
         }
 
             .number-input button {
-
                 outline: none;
                 -webkit-appearance: none;
                 background-color: white;
@@ -246,7 +251,7 @@
                 border-width: 0 2px;
                 font-size: 1.5rem;
                 height: 3rem;
-                font-weight:bold;
+                font-weight: bold;
                 text-align: center;
                 color: #30475E;
             }
@@ -264,7 +269,7 @@
     <div class="wrapper">
         <div class="product-img">
             <div align="left" style="display: inline">
-                <button class="bottoneIndietro" onclick="history.back()"><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
+                <button class="bottoneIndietro" onclick=""><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
             </div>
             <label class="product-img" style=" margin-top: 10%; ">
                 <input type="checkbox" />
@@ -276,13 +281,18 @@
 
             <div class="product-text" margin="10px">
                 <div class="immagine" align="right">
-                    @if (pref.CheckPreferiti(2, Model.Id_Prodotto))
-                    {
-                        <a href="../../Prodotto/RemovePreferiti?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-solid fa-star fa-xl "></i></a>
-                    }
-                    else
-                    {
-                        <a href="../../Prodotto/Add?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-regular fa-star fa-xl"></i></a>
+                    @{
+                        if (Session["IdUtente"] != null)
+                        {
+                            if (pref.CheckPreferiti(long.Parse(Session["IdUtente"].ToString()), Model.Id_Prodotto))
+                            {
+                                <a href="../../Prodotto/RemovePreferiti?idUtente=@long.Parse(Session["IdUtente"].ToString())&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-solid fa-star fa-xl "></i></a>
+                            }
+                            else
+                            {
+                                <a href="../../Prodotto/Add?idUtente=@long.Parse(Session["IdUtente"].ToString())&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-regular fa-star fa-xl"></i></a>
+                            }
+                        }
                     }
                 </div>
                 <h1>@Model.Nome</h1>
@@ -300,17 +310,25 @@
                 <div class="button-container" style="margin-top: 80px;">
                     <a href="../../Prodotto/Buy?idOrdine=5&idUtente=2&idProdotto=@Model.Id_Prodotto" class="button-container"><button>Acquista</button></a>
                 </div>
-
                 <div class="number-input" style="float: right; margin-right: 45%; margin-top: 1px">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                    <input class="quantity" min="1" name="quantity" value="1" type="number">
+                    <input class="quantity" min="1" name="quantity" value="1" max="10" type="number" disabled>
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                 </div>
                 <br />
             </div>
-            <a href="../../Prodotto/RemoveProduct?idProdotto=@Model.Id_Prodotto"><div class="cancella" style="float: right; margin-top: 10px; font-family: 'Times New Roman', sans-serif;">Elimina prodotto</div></a>
+            @{
+                if (Session["IdUtente"] != null)
+                {
+                    if (@Session["Ruolo"].ToString() == "admin")
+                    {
+                    <a href="../../Prodotto/RemoveProduct?idProdotto=@Model.Id_Prodotto"><div class="cancella" style="float: right; margin-top: 10px; font-family: 'Times New Roman', sans-serif;">Elimina prodotto</div></a>
+                    }
+                }
+                }
         </div>
+
 
     </div>
 </body>
-</html> 
+</html>
