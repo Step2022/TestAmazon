@@ -4,23 +4,54 @@
     ViewBag.Title = "Sign Up";
 }
 
-<h2>SignUp</h2>
 
+<img class="logo" src="~/IMGS/logo.png" />
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
+<div class="form">
+    <form method="post" action="SignUp">
+        <h4>Registati</h4><br />
+        @{
+            if (@ViewBag.Errore != null)
+            {
+                <p style="color:red">@ViewBag.Errore.ToString()</p>
+            }
+        }
+        <label>Nome</label><br />
+        <input class="inp" type="text" name="Nome" /><br />
+        <label>Cognome</label><br />
+        <input class="inp" type="text" name="Cognome" /><br />
+        <label>Email</label><br />
+        <input class="inp" type="text" name="Email" /><br />
+        <label>Password</label><br />
+        <input class="inp" type="password" name="Password" /><br />
+        <input class="sub " type="submit" value="Continua">
+    </form>
+</div>
+@*
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
         <h4>Utente</h4>
 
-        @{ 
+        @{
             if (@ViewBag.Errore != null)
             {
-            <p style="color:red">@ViewBag.Errore.ToString()</p>
+                <p style="color:red">@ViewBag.Errore.ToString()</p>
             }
-            }
+        }
         <hr />
+
+
+
+
+
+
+
+
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -49,31 +80,86 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
-@*
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id_Ruolo, "Id_Ruolo", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Id_Ruolo", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Id_Ruolo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-    *@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Sign-Up" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+    }*@
 
 <div>
-    @Html.ActionLink("Torna alla Homepage", "Index","Home")
+    @Html.ActionLink("Torna alla Homepage", "Index", "Home")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<style>
+    .logo {
+        border-radius: 5px;
+        margin-left: 33%;
+        padding-top: 70px;
+    }
+
+    .inp {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .sub {
+        width: 100%;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: black;
+        background-color: chocolate;
+    }
+
+    .sub2 {
+        width: 100%;
+        background-color: burlywood;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .sub:hover {
+        background-color: #45a049;
+    }
+
+    .sub2:hover {
+        background-color: #45a049;
+    }
+
+    .form {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px 20px 20px 20px;
+        width: fit-content;
+        margin-left: 30%;
+        margin-top: 2%;
+    }
+
+    h4 {
+        font-family: system-ui;
+        font-size: x-large;
+        font-weight: revert;
+    }
+</style>

@@ -79,7 +79,7 @@ namespace TestAmazon.Controllers
             Session.Remove("Utente");
             Session.Remove("Ruolo");
             Session.Remove("IdUtente");
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
         //creare view con la gestione di tutti utenti
 
@@ -89,7 +89,7 @@ namespace TestAmazon.Controllers
             if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
             {
                 ViewBag.Ruolo = "";
-                UtentePartial.GetAllUtenti();
+               // UtentePartial.GetAllUtenti();
                 return View(UtentePartial.GetAllUtenti());
             }
             else
@@ -105,8 +105,27 @@ namespace TestAmazon.Controllers
             return View("GestioneUtenti",UtentePartial.GetAllUtenti());
         }
         
+        public ActionResult Details(long id)
+        {
+            
+            return View(UtentePartial.GetUtenteById(id));
+        }
+        [HttpGet]
+        public ActionResult Recupera()
+        {
+            return View();
+            //da implementare
+        }
+        [HttpPost]
+        public ActionResult Recupera(Utente ut,string pass)
+        {
+            ViewBag.Rec = UtentePartial.RecuperaPassword(ut.Email, ut.Password,pass) ? "Nuova password impostata corretamente " : "Errore nell' impostazione della nuova password ! riprovare";
+            return View();
+         
+        }
 
-       
+
+
 
     }
 }
