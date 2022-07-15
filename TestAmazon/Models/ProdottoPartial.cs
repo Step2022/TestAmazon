@@ -22,7 +22,7 @@ namespace TestAmazon.Models
             }
             return list;
         }
-        public static List<Prodotto> GetProdotti(string categoria)
+        public static List<Prodotto> GetProdotti(string nome)
         {
             //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
             // E che corrispondono alla categoria passata
@@ -31,8 +31,7 @@ namespace TestAmazon.Models
             {
                 list.AddRange(from prodotto in db.Prodotto
                               where prodotto.Cancellato == false
-                              join cat in db.Categoria on prodotto.Id_Categoria equals cat.Id_Categoria
-                              where cat.Nome_cat == categoria
+                              && prodotto.Nome.Contains(nome)
                               select prodotto);
             }
             return list;
