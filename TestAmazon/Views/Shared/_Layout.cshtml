@@ -14,21 +14,15 @@
     <script src="~/Scripts/js/homepage.js"></script>
     
     @{
-        string nameUser = null;
-        long idUser = 0;
-        int idRuolo = 0;
-        if (Session["Username"] != null)
+        
+        long IdUtente = 0;
+        
+       
+        if (Session["IdUtente"] != null && RegularExp.IsInt(Session["IdUtente"].ToString()))
         {
-            nameUser = Session["Username"].ToString();
+            IdUtente = int.Parse(Session["IdUtente"].ToString());
         }
-        if (Session["IdUser"] != null && RegularExp.IsInt(Session["IdUser"].ToString()))
-        {
-            idUser = int.Parse(Session["IdUser"].ToString());
-        }
-        if (Session["IdRuolo"] != null && RegularExp.IsInt(Session["IdRuolo"].ToString()))
-        {
-            idRuolo = int.Parse(Session["IdRuolo"].ToString());
-        }
+        
     }
    
 </head>

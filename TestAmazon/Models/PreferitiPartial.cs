@@ -36,7 +36,7 @@ namespace TestAmazon.Models
                                join Preferiti in db.Preferiti on Prodotto.Id_Prodotto equals Preferiti.Id_Prodotto
                                join Utente in db.Utente on Preferiti.Id_Utente equals Utente.Id_Utente
                                join Categoria in db.Categoria on Prodotto.Id_Categoria equals Categoria.Id_Categoria
-                               where Prodotto.Id_Prodotto == Preferiti.Id_Prodotto && Utente.Id_Utente == Preferiti.Id_Utente && Prodotto.Id_Categoria == Categoria.Id_Categoria
+                               where Utente.Id_Utente == id_utente
                                select new Prodotto {
                                
                                    Id_Prodotto=Prodotto.Id_Prodotto,

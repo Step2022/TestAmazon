@@ -16,7 +16,6 @@ function onMouseLeaveImage(id) {
 }
 function OnChangeDDLUser(ids) {
     let select = document.getElementById("select_user");
-    alert(select.value)
     switch (select.value) {
         case 0:
 
@@ -26,10 +25,8 @@ function OnChangeDDLUser(ids) {
             if ( ids != null) {
                 $.ajax({
                     type: 'GET',
-                    
-                    
                     success: function (data) {
-                        window.location.href = "../../Preferiti/Preferiti/"+ids;
+                        window.location.href = "~/../../Preferiti/Preferiti/"+ids;
                     },
                     error: function () {
                         alert('error happened');

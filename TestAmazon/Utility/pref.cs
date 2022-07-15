@@ -33,16 +33,23 @@ namespace TestAmazon.Utility
             public static string AddPreferiti(long id_utente, long id_prodotto)
             {
                 Preferiti pref = new Preferiti();
-                using (var db = new CorsoRoma2022Entities())
+                if (CheckPreferiti(id_utente, id_prodotto))
                 {
-                    pref.Id_Utente = id_utente;
-                    pref.Id_Prodotto = id_prodotto;
-                    db.Preferiti.Add(pref);
-                    db.SaveChanges();
+                    using (var db = new CorsoRoma2022Entities())
+                    {
+                        pref.Id_Utente = id_utente;
+                        pref.Id_Prodotto = id_prodotto;
+                    
+                        db.Preferiti.Add(pref);
+                        db.SaveChanges();
+                    }
+                    var mess = "AGGIUNTO ALLA LISTA";
+                    return mess;
                 }
-                var mess = "AGGIUNTO ALLA LISTA";
-                return mess;
-            }
+                else{
+                    return "RIPETUTO";
+                }
+        }
 
             public static string RemovePreferiti(long id_utente, long id_prodotto)
             {

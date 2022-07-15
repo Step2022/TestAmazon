@@ -39,11 +39,7 @@ namespace TestAmazon.Controllers
         public ActionResult Preferiti(long id)
 
         {
-
-
-
             return View(PreferitiPartial.GetPreferiti(id));
-
         }
 
 
@@ -59,7 +55,7 @@ namespace TestAmazon.Controllers
 
 
 
-            return View("Preferiti");
+            return RedirectToAction("Preferiti");
 
 
 
