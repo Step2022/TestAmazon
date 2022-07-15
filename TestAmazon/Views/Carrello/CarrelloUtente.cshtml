@@ -97,14 +97,14 @@
                 {
                     <div class="login">
                         Carrello vuoto<br />
-                        @Html.ActionLink("Comincia ad acquistare", "Index");
+                        @Html.ActionLink("Comincia ad acquistare", "Index", "Home");
                     </div>
                 }
                 else
                 {
                     foreach (var product in prodotti)
                     {
-                        preferito = pref.CheckPreferiti((long)Session["IdUtente"], product.Id_Prodotto);
+                        preferito = pref.CheckPreferiti(long.Parse(Session["IdUtente"].ToString()), product.Id_Prodotto);
                         string id_product_button = $"product{product.Id_Prodotto}";
                         string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
                         <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">
