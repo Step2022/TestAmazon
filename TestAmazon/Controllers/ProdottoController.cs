@@ -40,7 +40,7 @@ namespace TestAmazon.Controllers
             long IdProdottoFinale = IdProdotto;
             pref.RemovePreferiti(IdUtente, IdProdotto);
             IdUtente = 0;
-            IdProdotto= 0;
+            IdProdotto = 0;
             return View("Singolo", Prodotto.GetProdotto(IdProdottoFinale));
         }
 
@@ -56,7 +56,7 @@ namespace TestAmazon.Controllers
         {
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
             Prodotto.RemoveProdotto(IdProdotto);
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
