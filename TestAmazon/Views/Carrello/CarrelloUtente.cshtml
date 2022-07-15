@@ -1,18 +1,20 @@
-﻿@model IEnumerable<TestAmazon.Models.Prodotto>
+﻿@model IEnumerable<TestAmazon.Models.Carrello>
 @using TestAmazon.Utility
 @using TestAmazon.Models
 
 
 @{
     ViewBag.Title = "CarrelloUtente";
-    List<Prodotto> prodotti = Model.ToList();
+    List<Prodotto> prodotti = ViewBag.prodotti;
     List<Prodotto> preferiti = ViewBag.preferiti;
+    List<Carrello> quantita = ViewBag.quantita;
     decimal totale = 0;
     bool preferito = false;
+    var quantitaSingolo = 0;
 }
 
 <style>
-    .prodotto {
+    .prodotto2 {
         background-color: rgb(255,255,255);
         width: 100%;
         min-width: fit-content;
@@ -20,15 +22,18 @@
         max-height: fit-content;
         margin-bottom: 10px;
         border: 1px solid;
+        float: left;
     }
 
-    .prod {
+    .prod2 {
         height: auto;
-        min-width: fit-content;
-        width: auto;
+        max-width: fit-content;
+        width: 60%;
         margin-top: 2%;
         margin-bottom: 2%;
         float: left;
+        text-align: left;
+        padding-left: 5%;
     }
 
     .rimuovi, .preferiti {
@@ -40,6 +45,7 @@
         margin-top: 1%;
         text-align: center;
         float: right;
+        color: black;
     }
 
     .totale {
@@ -73,10 +79,78 @@
         width: 100%;
     }
 
-    .img_thumb {
-        width: 30%;
-        height: 30%;
+    .img_thumb2 {
+        width: 20%;
+        height: 20%;
     }
+
+    input[type="number"] {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+
+    .number-input {
+        border: 1px solid;
+        display: inline-flex;
+        float: right;
+    }
+
+        .number-input,
+        .number-input * {
+            box-sizing: border-box;
+        }
+
+            .number-input button {
+                outline: none;
+                -webkit-appearance: none;
+                background-color: white;
+                border: 1px solid;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                cursor: pointer;
+                margin: 3px;
+                position: relative;
+                border-radius: 10%;
+                border: 10px;
+                color: #30475E;
+                border-color: red;
+            }
+
+                .number-input button:before,
+                .number-input button:after {
+                    display: inline-block;
+                    position: absolute;
+                    content: '';
+                    width: 1rem;
+                    height: 1px;
+                    background-color: #30475E;
+                    transform: translate(-50%, -50%);
+                }
+
+                .number-input button.plus:after {
+                    transform: translate(-50%, -50%) rotate(90deg);
+                }
+
+            .number-input input[type=number] {
+                font-family: sans-serif;
+                max-width: 5rem;
+                padding: .5rem;
+                border: none;
+                border-width: 0 2px;
+                font-size: 1.5rem;
+                height: 3rem;
+                font-weight: bold;
+                text-align: center;
+                color: #30475E;
+            }
 </style>
 
 <h2>Il tuo Carrello</h2>
@@ -90,7 +164,6 @@
     }
     else
     {
-
         <div class="container" name="grid_container">
             @{
                 if (prodotti.Count == 0)
@@ -104,24 +177,34 @@
                 {
                     foreach (var product in prodotti)
                     {
+                        
                         preferito = pref.CheckPreferiti(long.Parse(Session["IdUtente"].ToString()), product.Id_Prodotto);
+                        quantitaSingolo = quantita.Find(i => i.Id_Prodotto == product.Id_Prodotto).Quantita;
                         string id_product_button = $"product{product.Id_Prodotto}";
                         string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                        <div type="button" id="@id_product_button" class="btn prodotto" onclick="@onclickProdotto">
-                            <div class="prod">
-                                <img src="@product.IMG" class="img_thumb" /> @product.Nome : @product.Prezzo €
-                            </div>
+                        <div class="prodotto2">
+                            <div class="prod2">
+                                <img src="@product.IMG" id="@id_product_button" onclick="@onclickProdotto" class="btn img_thumb2" /> @product.Nome : @product.Prezzo € | Quantità: @quantitaSingolo
+                            </div><br />
                             @if (preferito == false)
                             {
-                                <button id="addPref" class="btn preferiti" onclick="">Aggiungi ai preferiti</button><br /><br /><br /><br />
+                                @Html.ActionLink("Aggiungi ai preferiti", "AddPreferito", "Carrello", new { idUtente = long.Parse(Session["IdUtente"].ToString()), idProdotto = product.Id_Prodotto }, new { @class = "btn preferiti" });
                             }
                             else
                             {
-                                <button id="removePref" class="btn preferiti" onclick="">Rimuovi dai preferiti</button><br /><br /><br /><br />
+                                @Html.ActionLink("Rimuovi dai preferiti", "RemovePreferito", "Carrello", new { idUtente = long.Parse(Session["IdUtente"].ToString()), idProdotto = product.Id_Prodotto }, new { @class = "btn preferiti" });
                             }
-                            <button id="rimuovi" class="btn rimuovi" onclick="">Rimuovi dal Carrello</button>
+                            <br /><br /><br />
+                            @Html.ActionLink("Rimuovi dal carrello", "RemoveFromCarrello", "Carrello", new { idUtente = long.Parse(Session["IdUtente"].ToString()), idProdotto = product.Id_Prodotto}, new { @class = "btn rimuovi" })
+                            <br /><br /><br />
+                            <div class="number-input" style="margin-bottom: 1%; margin-right:6%">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
+                                <input class="quantity" min="1" max="@quantitaSingolo" name="quantity" value="1" type="number">
+                                <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                            </div>
                         </div>
-                        totale = totale + product.Prezzo;
+                        totale = totale + product.Prezzo * quantitaSingolo;
+
                     }
                     <div class="totale">
                         <div class="ptotale">
