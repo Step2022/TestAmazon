@@ -12,6 +12,7 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/css/homepage.css" rel="stylesheet" />
     <script src="~/Scripts/js/homepage.js"></script>
+    
     @{
         string nameUser = null;
         long idUser = 0;
@@ -34,7 +35,7 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top colornavBar">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-3" style="float:left;">
                 <a href="/"><img src="~/IMGS/logo.png" /></a>
             </div>
             @if (@Session["Utente"] != null)
@@ -46,23 +47,28 @@
                         @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
                     </div>
                 }
-                <div  style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
+                <div  style="float: right; margin-top: 10px; min-width: 30px;margin-right:10px ">
                     @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
                 </div>
-                <div  style="float: right; margin-top: 10px; width:30px">
+                <div  style="float: right; margin-top: 10px; min-width:30px">
                     <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
                     @*@Html.ActionLink("Carrello", "CarrelloUtente", "Carrello")*@
                 </div>
-                <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px">@Session["Utente"].ToString() <i class="fa-solid fa-user fa-xl"></i> </div>
+                @*Da trasformare in dropdown list*@
+                <select name="select_user" id="select_user" onchange="OnChangeDDLUser(@Session["IdUtente"].ToString())">
+                    <option value="0" >@Session["Utente"].ToString()</option>
+                    <option value="1">Lista Preferiti</option>
+                </select>
+                @*<div class="col-lg-2" style="float:right;margin-top:10px;color:white;font-size:13px;min-width:50px"><Label>@Session["Utente"].ToString()</Label> <i class="fa-solid fa-user fa-xl"></i> </div>*@
 
             }
             else
             {
-                <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                    @Html.ActionLink("SignUp", "SignUp", "Utente")
+                <div class="col-sm-1" style="float: right; margin-top: 10px; min-width: 10px; margin-right: 10px">
+                    @Html.ActionLink(" ", "SignUp", "Utente","", new {@class = "fa-solid fa-user-plus fa-xl", style="color:white"})
                 </div>
-                <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                    @Html.ActionLink("Login", "Login", "Utente")
+                <div class="col-sm-1" style="float: right; margin-top: 10px; min-width: 10px; margin-right: 10px">
+                    @Html.ActionLink(" ", "Login", "Utente","",new {@class= "fa-solid fa-arrow-right-to-bracket fa-xl", style = "color:white" })
                 </div>
             }
 
@@ -112,3 +118,6 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+<script>
+        
+</script>
