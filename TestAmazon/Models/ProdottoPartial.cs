@@ -22,7 +22,7 @@ namespace TestAmazon.Models
             }
             return list;
         }
-        public static List<Prodotto> GetProdotti(string categoria)
+        public static List<Prodotto> GetProdotti(string nome)
         {
             //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
             // E che corrispondono alla categoria passata
@@ -31,8 +31,7 @@ namespace TestAmazon.Models
             {
                 list.AddRange(from prodotto in db.Prodotto
                               where prodotto.Cancellato == false
-                              join cat in db.Categoria on prodotto.Id_Categoria equals cat.Id_Categoria
-                              where cat.Nome_cat == categoria
+                              && prodotto.Nome.Contains(nome)
                               select prodotto);
             }
             return list;
@@ -44,6 +43,30 @@ namespace TestAmazon.Models
             using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
             {
                 list.AddRange(list.Where(x=>x.Cancellato==false && x.Id_Categoria==id_categoria));
+            }
+            return list;
+        }
+        public static List<Prodotto> GetProdotti(long id_categoria, string nome)
+        {
+            //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati
+            // E che corrispondono all'id della categoria passata
+            List<Prodotto> list = new List<Prodotto>();
+            bool emptySearch = string.IsNullOrEmpty(nome);
+            using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
+            {
+                if (emptySearch)
+                {
+                    list.AddRange(db.Prodotto
+                        .Where(x => x.Cancellato == false
+                        && x.Id_Categoria == id_categoria));
+                }
+                else
+                {
+                    list.AddRange(db.Prodotto
+                        .Where(x => x.Cancellato == false
+                        && x.Id_Categoria == id_categoria
+                        && x.Nome.Contains(nome)));
+                }
             }
             return list;
         }

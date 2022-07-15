@@ -18,6 +18,17 @@ namespace TestAmazon.Models
             }
             return prodotti;
         }
+
+        public static List<Carrello> GetQuantita(long idOrdine)
+        {
+            List<Carrello> quantita = new List<Carrello>();
+            using(var db = new CorsoRoma2022Entities())
+            {
+                quantita.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
+            }
+            quantita.GroupBy(c => c.Id_Prodotto).ToList();
+            return quantita;
+        }
         public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
         {
             //funzione che aggiunge un nuovo elemento nel carrello di un ordine specifico
