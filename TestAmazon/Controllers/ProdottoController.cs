@@ -27,10 +27,24 @@ namespace TestAmazon.Controllers
         {
             long IdUtente = long.Parse(Request.Params["IdUtente"]);
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
+            long IdProdottoFinale = IdProdotto;
             pref.AddPreferiti(IdUtente, IdProdotto);
-            return View("Singolo", Prodotto.GetProdotto(IdProdotto));
+            IdUtente = 0;
+            IdProdotto = 0;
+            return View("Singolo", Prodotto.GetProdotto(IdProdottoFinale));
         }
-        public ActionResult Remove()
+        public ActionResult RemovePreferiti(long IdUtente, long IdProdotto)
+        {
+            IdUtente = long.Parse(Request.Params["IdUtente"]);
+            IdProdotto = long.Parse(Request.Params["IdProdotto"]);
+            long IdProdottoFinale = IdProdotto;
+            pref.RemovePreferiti(IdUtente, IdProdotto);
+            IdUtente = 0;
+            IdProdotto= 0;
+            return View("Singolo", Prodotto.GetProdotto(IdProdottoFinale));
+        }
+
+        public ActionResult Buy()
         {
             long IdUtente = long.Parse(Request.Params["IdUtente"]);
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
@@ -38,11 +52,11 @@ namespace TestAmazon.Controllers
             return View("Singolo", Prodotto.GetProdotto(IdProdotto));
         }
 
-        public ActionResult Buy()
+        public ActionResult RemoveProduct()
         {
-            long IdUtente = long.Parse(Request.Params["IdUtente"]);
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
-            return View("Singolo", Prodotto.GetProdotto(IdProdotto));
+            Prodotto.RemoveProdotto(IdProdotto);
+            return RedirectToAction("Index","Home");
         }
     }
 }

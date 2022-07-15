@@ -132,7 +132,7 @@
             border: 1px solid black;
             position: relative;
             bottom: 5px;
-            height: 50px;
+            height: 60px;
             width: 176px;
             margin: 1 40px 0 16px;
             border-radius: 60px;
@@ -205,19 +205,22 @@
         }
 
             .number-input button {
+
                 outline: none;
                 -webkit-appearance: none;
-                background-color: transparent;
+                background-color: white;
                 border: none;
                 align-items: center;
                 justify-content: center;
-                width: 3rem;
-                height: 3rem;
+                width: 2rem;
+                height: 2rem;
                 cursor: pointer;
-                margin: 0;
+                margin: 3px;
                 position: relative;
-                box-shadow: 0px 0px 1px #474747;
-                border-radius: 50%;
+                border-radius: 10%;
+                border: 10px;
+                color: #30475E;
+                border-color: red;
             }
 
                 .number-input button:before,
@@ -226,7 +229,7 @@
                     position: absolute;
                     content: '';
                     width: 1rem;
-                    height: 2px;
+                    height: 1px;
                     background-color: #30475E;
                     transform: translate(-50%, -50%);
                 }
@@ -241,7 +244,7 @@
                 padding: .5rem;
                 border: none;
                 border-width: 0 2px;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 height: 3rem;
                 font-weight:bold;
                 text-align: center;
@@ -275,11 +278,11 @@
                 <div class="immagine" align="right">
                     @if (pref.CheckPreferiti(2, Model.Id_Prodotto))
                     {
-                        <a href="../../Prodotto/Remove?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-solid fa-star"></i></a>
+                        <a href="../../Prodotto/RemovePreferiti?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-solid fa-star fa-xl "></i></a>
                     }
                     else
                     {
-                        <a href="../../Prodotto/Add?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-regular fa-star"></i></a>
+                        <a href="../../Prodotto/Add?idUtente=2&idProdotto=@Model.Id_Prodotto" class="button" style="color: #F05454;"><i class="fa-regular fa-star fa-xl"></i></a>
                     }
                 </div>
                 <h1>@Model.Nome</h1>
@@ -287,24 +290,27 @@
 
                 <h2>Descrizione </h2><br />
                 <p>@Model.Descrizione</p>
+
+
             </div>
+
+
             <div class="bigtext">
                 @Model.Prezzo.ToString("N") €
-                <div class="button-container" style="margin-top: 30px;">
+                <div class="button-container" style="margin-top: 80px;">
                     <a href="../../Prodotto/Buy?idOrdine=5&idUtente=2&idProdotto=@Model.Id_Prodotto" class="button-container"><button>Acquista</button></a>
                 </div>
 
-
-
-                <div class="number-input">
+                <div class="number-input" style="float: right; margin-right: 45%; margin-top: 1px">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                    <input class="quantity" min="0" name="quantity" value="1" type="number">
+                    <input class="quantity" min="1" name="quantity" value="1" type="number">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                 </div>
+                <br />
+            </div>
+            <a href="../../Prodotto/RemoveProduct?idProdotto=@Model.Id_Prodotto"><div class="cancella" style="float: right; margin-top: 10px; font-family: 'Times New Roman', sans-serif;">Elimina prodotto</div></a>
+        </div>
 
-                <a href="https://www.google.com"><div class="cancella" align="right">Elimina prodotto</div></a>
-            </div>
-            </div>
     </div>
 </body>
 </html> 

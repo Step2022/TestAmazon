@@ -102,6 +102,7 @@ namespace TestAmazon.Models
                     //Eliminazione logica
                     db.Prodotto.FirstOrDefault(x => x.Id_Prodotto == id_prodotto).Cancellato = true;
                     esito = true;
+                    db.SaveChanges();
                 }
             }
             return esito;
