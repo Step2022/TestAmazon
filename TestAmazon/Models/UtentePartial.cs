@@ -17,11 +17,11 @@ namespace TestAmazon.Models
         //public static object Session { get; private set; }
 
 
-      
+
         public static bool AddUtente(Utente utente)
         {
 
-            using (var context= new CorsoRoma2022Entities())
+            using (var context = new CorsoRoma2022Entities())
             {
                 try
                 {
@@ -42,12 +42,12 @@ namespace TestAmazon.Models
                     return false;
                 }
             }
-        } 
+        }
 
         private static bool CheckEmail(string email)
         {
             Regex regex = new Regex("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})");
-            return  regex.IsMatch(email) ;
+            return regex.IsMatch(email);
         }
 
 
@@ -59,8 +59,9 @@ namespace TestAmazon.Models
                                                  a => a.Id_Ruolo,
                                                  b => b.Id_Ruolo,
                                                  (a, b) => new Utente()
-                                                 {  Id_Utente=a.Id_Utente,
-                                                 Id_Ruolo=a.Id_Ruolo,
+                                                 {
+                                                     Id_Utente = a.Id_Utente,
+                                                     Id_Ruolo = a.Id_Ruolo,
                                                      Nome = a.Nome,
                                                      Cognome = a.Cognome,
                                                      Email = a.Email,
@@ -70,16 +71,14 @@ namespace TestAmazon.Models
             }
         }
 
-
         public static bool CheckLogin(Utente utente)
         {
             using (var context = new CorsoRoma2022Entities())
             {
-               return (context.Utente.FirstOrDefault(x => x.Email == utente.Email && x.Password == utente.Password) != null) ? true : false;
-               
+                return (context.Utente.FirstOrDefault(x => x.Email.ToLower() == utente.Email.ToLower() && x.Password == utente.Password) != null) ? true : false;
+
             }
         }
-
         public static string GetRuolobyId(int idutente)
         {
             using (var context = new CorsoRoma2022Entities())
@@ -91,7 +90,6 @@ namespace TestAmazon.Models
                 return query.Nome_ruolo.ToString();
             }
         }
-
 
         public static Utente GetUtentebyEmail(string email)
         {
@@ -118,7 +116,6 @@ namespace TestAmazon.Models
             }
         }
 
-
         public static bool RemoveUtentebyId(long id)
         {
 
@@ -137,19 +134,59 @@ namespace TestAmazon.Models
                 }
             }
         }
-
-        /*  public static UtentePartial ConvertUtPart(Utente utente)
+        public static Utente GetUtenteById(long id)
         {
-            return new UtentePartial()
+            using (var context = new CorsoRoma2022Entities())
             {
-                Nome = utente.Nome,
-                Cognome = utente.Cognome,
-                Email = utente.Email,
-                Id_Utente = utente.Id_Utente,
-                Id_Ruolo = utente.Id_Ruolo,
-                Password = utente.Password
+                //  return context.Utente.ToList().Where(x => x.Id_Utente == id).Select(x => new Utente() { Nome = x.Nome, Cognome = x.Cognome, Email = x.Email, Password = x.Password, Id_Ruolo = x.Id_Ruolo, Id_Utente = x.Id_Utente }).FirstOrDefault();
+                return context.Utente.ToList().Where(x => x.Id_Utente == id).Join(context.Ruolo.ToList(),
+                                                    a => a.Id_Ruolo,
+                                                    b => b.Id_Ruolo,
+                                                    (a, b) => new Utente()
+                                                    {
+                                                        Id_Utente = a.Id_Utente,
+                                                        Id_Ruolo = a.Id_Ruolo,
+                                                        Nome = a.Nome,
+                                                        Cognome = a.Cognome,
+                                                        Email = a.Email,
+                                                        Password = a.Password,
+                                                        Ruolo = b
+                                                    }).FirstOrDefault();
+            }
 
-            };
-        }*/
+
+            /*  public static UtentePartial ConvertUtPart(Utente utente)
+            {
+                return new UtentePartial()
+                {
+                    Nome = utente.Nome,
+                    Cognome = utente.Cognome,
+                    Email = utente.Email,
+                    Id_Utente = utente.Id_Utente,
+                    Id_Ruolo = utente.Id_Ruolo,
+                    Password = utente.Password
+
+                };
+            }*/
+        }
+
+        public static bool RecuperaPassword(string email, string password, string password2)
+        {
+            using (var context = new CorsoRoma2022Entities())
+            {
+                var ut = context.Utente.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
+                if (ut != null && password.ToLower()==password2.ToLower())
+                {
+                    ut.Password = password;
+                    context.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
     }
 }

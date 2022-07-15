@@ -4,13 +4,12 @@
     ViewBag.Title = "GestioneUtenti";
 }
 
-<h2>GestioneUtenti</h2>
+<h2>Gestione Utenti</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
+
 <p style="color:red">@ViewBag.Success</p>
-<table class="table">
+<table id="gestione">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)
@@ -49,20 +48,44 @@
             @Html.DisplayFor(modelItem => item.Ruolo.Nome_ruolo)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id_Utente }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id_Utente }) |
-            @Html.ActionLink("Elimina", "Delete", "Utente", new
-       {
-           @class = "btn btn-warning",
-           onclick = string.Format("return confirm('WARNING: Delete {0} {1}?');", item.Nome,item.Cognome)
-       })
-           
-          @* new  { onclick = $"\"return confirm('Procedere con l'eliminazione di  {@item.Nome} {@item.Cognome} ? ');\"" })*@
+            @*   @Html.ActionLink("Edit", "Edit", new { id = item.Id_Utente }) |*@
+            @Html.ActionLink("Dettaglio", "Details", new { id = item.Id_Utente } ,
+            new { @class = "btn btn-warning"})
+            @Html.ActionLink("Elimina", "Delete", new { id = item.Id_Utente },
+            new { @class = "btn btn-warning",
+            onclick = string.Format("return confirm('WARNING: Procedere con l eliminazione di {0} {1}?');", item.Nome,item.Cognome) })
 
-
-        @*new { onclick = "return confirm('Procedere con l'eliminazione di ')" })*@
         </td>
     </tr>
 }
 
 </table>
+<style>
+    #gestione {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 100px;
+    }
+
+        #gestione td, #gestione th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #gestione tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #gestione tr:hover {
+            background-color: #ddd;
+        }
+
+        #gestione th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: darkseagreen;
+            color: white;
+        }
+</style>

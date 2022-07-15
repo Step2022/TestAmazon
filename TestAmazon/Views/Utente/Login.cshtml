@@ -6,54 +6,143 @@
 
 <h2>Login</h2>
 
-@{
-    if (@ViewBag.Errore != null)
-    {
-        <p style="color:red">@ViewBag.Errore.ToString()</p>
-        <p>@ViewBag.Login </p>
-    }
-}
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<br />
+<br />
+<br />
 
-    <div class="form-horizontal">
-        <h4>Utente</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<img class="logo" src="~/IMGS/logo.png" />
 
+<div class="form">
+    <form method="post" action="Login">
+        <h4>Accedi</h4><br />
+        @{
+            if (@ViewBag.Errore != null)
+            {
+                <p style="color:red">@ViewBag.Errore.ToString()</p>
+                
+            }
+        }
+        <label>Email</label><br />
+        <input class="inp" type="text" name="Email" /><br />
+        <label>Password</label><br />
+        <input class="inp" type="password" name="Password" /><br />
+        <input class="sub " type="submit" value="Continua">
+    </form>
+    @Html.ActionLink("Hai dimenticato la password ? Clicca qui ", "Recupera", "Utente")
+    <hr />
+    <p>&nbsp;&nbsp;  Sei Nuovo su TestAmazon?</p>
+    <form method="get" action="SignUp">
+        <input class="sub2" type="submit" value="Crea il tuo Account">
+    </form>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Login" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Torna all 'Homepage", "Index","Home")
 </div>
+
+
+
+@*
+             @using(Html.BeginForm())
+             {
+                @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Utente</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        }
+
+    <div>
+    </div>*@
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<style>
+    .logo {
+        border-radius: 5px;
+        margin-left: 33%;
+        
+    }
+    .inp {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .sub {
+        width: 100%;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color:black;
+        background-color:chocolate;
+    }
+
+    .sub2 {
+        width: 100%;
+        background-color: burlywood;
+        color: black;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .sub:hover {
+        background-color: #45a049;
+    }
+
+    .sub2:hover {
+        background-color: #45a049;
+    }
+
+    .form {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px 20px 20px 20px;
+        width: fit-content;
+        margin-left: 30%;
+        margin-top: 2%;
+    }
+
+    h4 {
+        font-family: system-ui;
+        font-size: x-large;
+        font-weight: revert;
+    }
+</style>
