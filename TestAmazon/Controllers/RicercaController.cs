@@ -23,7 +23,7 @@ namespace TestAmazon.Controllers
                 if (Request.Params["searchText"] != null)
                 {
                     flag = true;
-                    if (!string.IsNullOrEmpty(Request.Params["searchText"].ToString())) {
+                    if (!string.IsNullOrWhiteSpace(Request.Params["searchText"].ToString())) {
                         searchtest = Request.Params["searchText"].ToString();
                     }
                     else
