@@ -19,14 +19,20 @@ body {
     max-width: 95%;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-radius:3px;
-    transform-origin: center;
+    border-radius: 3px;
+    transform: translate(0, 15%);
 }
 
 .p_prodotto {
     font-family: 'Times New Roman';
     color: white;
     font-size:12px;
+}
+.btn_personal {
+    font-family: 'Times New Roman';
+    color: white;
+    font-size: 12px;
+    background-color: rgb(48, 71, 94)
 }
 
 

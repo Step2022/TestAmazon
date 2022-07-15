@@ -5,17 +5,17 @@
     var categorie = ViewBag.Categorie as List<Categoria>;
 }
 
-<div style="text-align:center;"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
+<div style="text-align: center; margin-top: 20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
 
 
 <div class="container" name="body_container">
-    <div class="container" style="padding:10px;margin:10px" name="pagebuttons_container">
+    <div class="container"  style="width:94%;background-color:white;padding:10px;border-radius:3px;margin-left:50px;margin-bottom:20px" name="pagebuttons_container">
         @*Qui ci metto il tasto di ricerca*@
         @using (Html.BeginForm())
         {
             <div class="row  text-center" style="width:100%">
-                <div class="col-lg-2" style="margin:10px;float:left">
-                    <select name="searchCategory" style="height:26px">
+                <div style="margin:10px;float:left">
+                    <select name="searchCategory" style="height:26px;float:left;margin-left:10px">
                         <option value="0">Tutte:</option>
                         @foreach (var categoria in categorie)
                         {
@@ -33,26 +33,25 @@
                             }
                         }
                     </select>
-                    </div>
-                <div class="col-lg-2"  style="margin:10px;float:left">
-                    @if (ViewBag.searchtext != null)
-                    {
-                    <input type="text" name="searchText" placeholder="Cerca:" value="@ViewBag.searchtext" />
-                    }
-                    else
-                    {
-                    <input type="text" name="searchText" placeholder="Cerca:" />
-                    }
-                </div>
-                <div class="col-lg-3"  style="margin:10px;float:right">
-                    <button type="submit" class="btn">Cerca</button>
-                </div>
-            </div>
+                   
+                    @if (!string.IsNullOrEmpty(ViewBag.searchtext) )
+            {
+            <input type="text" name="searchText" style="float:left" placeholder="Cerca:" value="@ViewBag.searchtext" />
+            }
+            else
+            {
+            <input type="text" name="searchText" style="float:left" placeholder="Cerca:" />
+            }
+        </div>
+        <div class="col-lg-3"  style="margin:10px;float:right">
+            <button type="submit" class="btn">Cerca</button>
+        </div>
+                   </div> 
          }
     </div>
     <div class="container  text-center" style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
         @{
-            List<Prodotto> prodotti = Model.ToList();
+            
 
             // 3 elementi per riga
             if (Model != null && Model.Any())
@@ -61,46 +60,36 @@
                 {
                     string id_product_button = $"product{product.Id_Prodotto}";
                     string onclick = $"window.location.href='../../Prodotto/Singolo/{product.Id_Prodotto}'";
+                    string price_p = $"p{product.Id_Prodotto}";
 
-                    <div id="@id_product_button" class="checkbox-inline prodotto text-center" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
-                        <div name="container_img" class="row" style="height:80%;min-width:125px">
-                            <div class="col-lg-10">
-                                <img src="@product.IMG" class="img_thumb" />
+
+                    <div id="@id_product_button" class="checkbox-inline prodotto text-center table-bordered" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
+                        <div name="container_img" class="row " style="height: 80%">
+                            <div class="col-sm-10" style="min-width:125px;margin-left:10px;height:100%">
+                                <img src="@product.IMG" class="img_personal" id="img_@product.Id_Prodotto" onmouseover="onMouseOverImage('img_@product.Id_Prodotto')" onmouseleave="onMouseLeaveImage('img_@product.Id_Prodotto')" />
                             </div>
                         </div>
-                        <div name="container_nameProduct" class="row" style="height:10%;min-height:30px;">
-                            <div class="col-lg-10">
-                                <p>@product.Nome</p>
-                            </div>
-                        </div>
-                        <div name="container_PriceProduct" class="row" style="height: 10%; min-height: 30px;">
-                            <div class="col-lg-10">
-                                <p>
-                                    @{
-                                        if (product.Prezzo < 999)
-                                        {
-                                            @(product.Prezzo+"€");
-                                        }
-                                        else
-                                        {
-                                            var price = product.Prezzo.ToString().Split(',');
-                                            var result = "";
-                                            int count = 0;
-                                            for (int i = price[0].Length - 1; i >= 0; i--)
-                                            {
+                        <div class="container  " style="width: auto; margin-right: 20px;">
+                            <div class="row color3" style="border-radius:3px">
+                                <div class="col-lg-12">
+                                    <div name="container_nameProduct" class="row " style="height: 10%; min-height: 30px;">
+                                        <div>
+                                            <p class="p_prodotto" style="margin-top: 10px">@product.Nome</p>
+                                            <div class="col-lg-6">
+                                                @*aggiungere il pulsante add to cart*@
 
-                                                if (count % 3 == 0 && count != 0)
-                                                {
-                                                    result = string.Concat(".", result);
-                                                }
-                                                count++;
-                                                result = string.Concat(price[0][i], result);
-                                            }
-                                            result += "," + price[1] + "€";
-                                            @result
-                                        }
-                                                                }
-                                                            </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div name="container_PriceProduct" class="row " style="height: 10%; min-height: 30px; ">
+                                        <div>
+                                            <p id="@price_p" class="p_prodotto">
+                                                @(product.Prezzo.ToString("N")+"€")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
