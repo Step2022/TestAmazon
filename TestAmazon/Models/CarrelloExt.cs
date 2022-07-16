@@ -16,17 +16,23 @@ namespace TestAmazon.Models
                 prodotti.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine)
                     .Join(db.Prodotto, c => c.Id_Prodotto, p => p.Id_Prodotto, (c, p) => p));
             }
-            return prodotti;
+            return prodotti.Distinct().ToList();
         }
 
         public static List<Carrello> GetQuantita(long idOrdine)
         {
-            List<Carrello> quantita = new List<Carrello>();
+            List<Carrello> car = new List<Carrello>();
             using(var db = new CorsoRoma2022Entities())
             {
-                quantita.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
+                car.AddRange(db.Carrello.Where(c => c.Id_Ordine == idOrdine));
             }
-            quantita.GroupBy(c => c.Id_Prodotto).ToList();
+            var quantita = (from c in car
+                           group c.Quantita by c.Id_Prodotto into groupcar
+                           select new Carrello()
+                           {
+                               Id_Prodotto = groupcar.Key,
+                               Quantita = groupcar.Sum()
+                           }).ToList();
             return quantita;
         }
         public static void AddInCarrello(long idOrdine, long idProdotto, int quantita)
@@ -42,15 +48,23 @@ namespace TestAmazon.Models
                 db.SaveChanges();
             }
         }
-        public static void RemoveFromCarrello(int idOrdine, int idProdotto)
+        public static void RemoveFromCarrello(long idOrdine, long idProdotto, int quantita)
         {
             //Funzione che rimuove un elemento dal carrello di un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
                 Carrello car = db.Carrello.SingleOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);
                 if (car != null) {
-                    db.Carrello.Remove(car);
-                    db.SaveChanges();
+                    if(car.Quantita > 1 && car.Quantita == quantita || car.Quantita == 1)
+                    {
+                        db.Carrello.Remove(car);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        car.Quantita -= quantita;
+                        db.SaveChanges();
+                    }
                 }
             }
         }

@@ -33,7 +33,7 @@ namespace TestAmazon.Utility
             public static string AddPreferiti(long id_utente, long id_prodotto)
             {
                 Preferiti pref = new Preferiti();
-                if (CheckPreferiti(id_utente, id_prodotto))
+                if (!CheckPreferiti(id_utente, id_prodotto))
                 {
                     using (var db = new CorsoRoma2022Entities())
                     {
