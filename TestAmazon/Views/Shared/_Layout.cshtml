@@ -30,17 +30,12 @@
     <div class="navbar navbar-inverse navbar-fixed-top colornavBar">
         <div class="row">
             <div class="col-lg-3" style="float:left;">
-                <a href="/"><img src="~/IMGS/logo.png" /></a>
+                <a href="/"><img src="~/IMGS/logo.png" style="max-height:50px" /></a>
             </div>
             @if (@Session["Utente"] != null)
             {
 
-                if (@Session["Ruolo"].ToString() == "admin")
-                {
-                    <div class="col-lg-1" style="float:right;margin-top:10px;">
-                        @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
-                    </div>
-                }
+
                 <div style="float: right; margin-top: 15px; min-width: 30px;margin-right:30px ">
                     @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
                 </div>
@@ -56,7 +51,12 @@
                     </select>
                     <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
                 </div>
-
+                if (@Session["Ruolo"].ToString() == "admin")
+                {
+                    <div class="col-lg-1" style="float:right;margin-top:10px;">
+                        @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+                    </div>
+                }
             }
             else
             {

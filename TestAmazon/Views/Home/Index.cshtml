@@ -5,22 +5,50 @@
     ViewBag.Title = "Index";
 }
 
-<div style="text-align:center;margin-top:20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
+<div style="text-align:center;margin-top:20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px;max-height:60px" /></a></div>
 
-<style>
+<script>
     
    
 
     
 
-</style>
+</script>
 <div class="container" name="body_container">
-    <div class="container" name="pagebuttons_container" style="width:94%;background-color:white;padding:10px;border-radius:3px;margin-left:50px;margin-bottom:20px">
+    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 94%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 50px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
         @*Qui ci metto il tasto di ricerca*@
+        <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
+            <label>
+                Pagina:
+            </label>
+            <label id="numPag">@ViewBag.pag</label>
+            /
+            <label id="totPag">
+                @ViewBag.NumeroPagine
+            </label>
+        </div>
+        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="first()">
+            @*Prima pagina*@
+            <i class="fa-solid fa-angles-left fa-xl"></i>
+        </button>
+        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minus()">
+            @*Indietro*@
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </button>
 
-        <button style="float:right;" class="btn btn_personal" onclick="window.location.href='../Ricerca/Categorys/'">
+        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="last(@ViewBag.NumeroPagine)">
+            @*Ultima Pagina*@
+            <i class="fa-solid fa-angles-right fa-xl"></i>
+        </button>
+        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plus(@ViewBag.NumeroPagine)">
+            @*Avanti*@
+            <i class="fa-solid fa-arrow-right fa-xl"></i>
+        </button>
+
+        <button style=" right: 21%" class="btn btn_personal searchbarbtn" onclick="window.location.href='../Ricerca/Categorys/'">
             <i class="fa-solid fa-magnifying-glass fa-xl"></i>
         </button>
+
     </div>
     <div class="container text-center " style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
         <div class="row">
