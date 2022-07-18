@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestAmazon.Models;
+using TestAmazon.Utility;
 
 namespace TestAmazon.Controllers
 {
@@ -13,8 +14,24 @@ namespace TestAmazon.Controllers
         {
             long idOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
             ViewBag.preferiti = PreferitiPartial.GetPreferiti(long.Parse(Session["IdUtente"].ToString()));
-            
-            return View(Carrello.GetCarrello(idOrdine));
+            ViewBag.prodotti = Carrello.GetCarrello(idOrdine);
+            ViewBag.quantita = Carrello.GetQuantita(idOrdine);
+            return View();
+        }
+        public ActionResult AddPreferito(long idUtente, long idProdotto)
+        {
+            pref.AddPreferiti(idUtente, idProdotto);
+            return RedirectToAction("CarrelloUtente");
+        }
+        public ActionResult RemovePreferito(long idUtente, long idProdotto)
+        {
+            pref.RemovePreferiti(idUtente, idProdotto);
+            return RedirectToAction("CarrelloUtente");
+        }
+        public ActionResult RemoveFromCarrello(long idUtente, long idProdotto, int quantita)
+        {
+            Carrello.RemoveFromCarrello(idUtente, idProdotto, quantita);
+            return RedirectToAction("CarrelloUtente");
         }
     }
 }

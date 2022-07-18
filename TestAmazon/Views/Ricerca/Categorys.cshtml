@@ -5,25 +5,22 @@
     var categorie = ViewBag.Categorie as List<Categoria>;
 }
 
-<div style="text-align: center; margin-top: 20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px" /></a></div>
+<div style="text-align: center; margin-top: 20px"><a href="/"><img src="~/IMGS/logo.png" style="max-height:60px" /></a></div>
 
 
 <div class="container" name="body_container">
-    <div class="container"  style="position:relative;width:94%;padding:10px;border-radius:3px;margin-left:50px;margin-bottom:20px" name="pagebuttons_container">
+    <div class="container" style="position:relative;width:94%;padding:10px;border-radius:3px;margin-left:50px;" name="pagebuttons_container">
         @using (Html.BeginForm())
         {
-            <div style="position: relative; margin: 10px; padding: 10px; border-radius: 25px; width: 95%; min-width: 150px" class=" row">
-
-
-                
+            <div style="position: relative;  padding: 10px; border-radius: 25px; width: 95%; min-width: 150px" class=" row">
 
                 @if (!string.IsNullOrEmpty(ViewBag.searchtext))
                 {
-                    <input type="text" class="checkbox-inline" name="searchText" style="border-width:3px;border-color: rgb(34, 40, 49); text-align: center; float: none; margin-top: 2px; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" value="@ViewBag.searchtext" />
+                    <input type="text" class="checkbox-inline" name="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" value="@ViewBag.searchtext" />
                 }
                 else
                 {
-                    <input type="text" class="checkbox-inline" name="searchText" style="border-width: 3px; border-color: rgb(34, 40, 49); text-align: center; float: none; margin-top: 2px; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" />
+                    <input type="text" class="checkbox-inline" name="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" />
                 }
                 <button type="submit" class="btn btn_personal" style="position: absolute; top: 28%; right: 15px; margin-left: 10px; background-color: white; color: rgb(34, 40, 49); float: right;border-radius:50px"><i class="fa-solid fa-magnifying-glass fa-xl"></i></button>
                 <select name="searchCategory" title="Categorie" style="border:hidden; border-width:0px; position: absolute; top: 28%; left: 15px; min-height: 30px; text-align: right; float: inline-start; margin-left: 10px;  border-radius: 20px; text-align: right">
@@ -45,11 +42,46 @@
                     }
                 </select>
             </div>
-         }
+        }
+    </div>
+    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
+        @*Qui ci metto il tasto di ricerca*@
+        <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
+            <label>
+                Pagina:
+            </label>
+            <label id="numPag">@ViewBag.pag</label>
+            /
+            <label id="totPag">
+                @ViewBag.NumeroPagine
+            </label>
+        </div>
+        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="firstCategory()">
+            @*Prima pagina*@
+            <i class="fa-solid fa-angles-left fa-xl"></i>
+        </button>
+        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minusCategory()">
+            @*Indietro*@
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </button>
+
+        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="lastCategory(@ViewBag.NumeroPagine)">
+            @*Ultima Pagina*@
+            <i class="fa-solid fa-angles-right fa-xl"></i>
+        </button>
+        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plusCategory(@ViewBag.NumeroPagine)">
+            @*Avanti*@
+            <i class="fa-solid fa-arrow-right fa-xl"></i>
+        </button>
+
+        <button style=" right: 21%" class="btn btn_personal searchbarbtn" onclick="window.location.href='../../Ricerca/Categorys/'">
+            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+        </button>
+
     </div>
     <div class="container  text-center" style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
         @{
-            
+
 
             // 3 elementi per riga
             if (Model != null && Model.Any())
@@ -99,5 +131,40 @@
             }
 
         }
+    </div>
+    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
+        @*Qui ci metto il tasto di ricerca*@
+        <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
+            <label>
+                Pagina:
+            </label>
+            <label >@ViewBag.pag</label>
+            /
+            <label >
+                @ViewBag.NumeroPagine
+            </label>
+        </div>
+        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="firstCategory()">
+            @*Prima pagina*@
+            <i class="fa-solid fa-angles-left fa-xl"></i>
+        </button>
+        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minusCategory()">
+            @*Indietro*@
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </button>
+
+        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="lastCategory(@ViewBag.NumeroPagine)">
+            @*Ultima Pagina*@
+            <i class="fa-solid fa-angles-right fa-xl"></i>
+        </button>
+        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plusCategory(@ViewBag.NumeroPagine)">
+            @*Avanti*@
+            <i class="fa-solid fa-arrow-right fa-xl"></i>
+        </button>
+
+        <button style=" right: 21%" class="btn btn_personal searchbarbtn" onclick="window.location.href='../Ricerca/Categorys/'">
+            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+        </button>
+
     </div>
 </div>

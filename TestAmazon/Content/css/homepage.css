@@ -1,14 +1,15 @@
 ﻿.prodotto {
-    
     width: 20%;
     height: 300px !important;
     max-width: 30%;
     min-width: 250px;
-    margin: 10px;
-    padding-bottom:20px;
-    float: none;
-    border-radius:10px;
-    background-color:white;
+    margin: 0 10px 20px 10px;
+    padding-bottom: 20px;
+    float: left;
+    border-radius: 10px;
+    background-color: white;
+    border-color: rgb(48, 71, 94);
+    border-width: 1px;
 }
 
 body {
@@ -58,4 +59,12 @@ body {
     max-width: 90%;
     height: 100%;
     padding: 10px;
+}
+.searchbarbtn {
+    margin-right: 20px;
+    margin-left:20px;
+    border-radius: 30px;
+    border-collapse: collapse;
+    position: absolute;
+    top: 20%;
 }

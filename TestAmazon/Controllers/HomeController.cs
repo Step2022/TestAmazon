@@ -4,14 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestAmazon.Models;
-
+using TestAmazon.Utility;
 namespace TestAmazon.Controllers
 {
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View(Prodotto.GetProdotti());
+            int offset = 1;
+            int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5)+1;
+            if (Request.Params["pag"] != null&&RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) >0)
+            {
+                offset = int.Parse(Request.Params["pag"].ToString());
+                if (offset > numeroPagineTotali)
+                {
+                    offset = numeroPagineTotali;
+                }
+            }
+            ViewBag.pag = offset;
+            ViewBag.NumeroPagine = numeroPagineTotali;
+            return View(Prodotto.GetProdotti(offset));
         }
 
         public ActionResult About()
