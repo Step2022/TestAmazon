@@ -87,9 +87,11 @@ namespace TestAmazon.Controllers
         //[Authorize()]
         public ActionResult GestioneUtenti()
         {
+           // if(Session["U"] != null &&   UtentePartial.GetRuolobyId((int)SerDes.DeSerialize<Utente>(Session["U"].ToString()).Id_Utente)=="admin")
+
             if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
             {
-                ViewBag.Ruolo = "";
+               
                // UtentePartial.GetAllUtenti();
                 return View(UtentePartial.GetAllUtenti());
             }
@@ -102,11 +104,13 @@ namespace TestAmazon.Controllers
         [HttpPost]
         public ActionResult GestioneUtenti(Utente utente)
         {
+            // if(Session["U"] != null &&   UtentePartial.GetRuolobyId((int)SerDes.DeSerialize<Utente>(Session["U"].ToString()).Id_Utente)=="admin")
+
             if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
             {
                 var l = UtentePartial.RicercaUtenti(utente);
                 // UtentePartial.GetAllUtenti();
-                return View(l);
+                return View("GestioneUtenti",l);
             }
             else
             {
@@ -117,28 +121,60 @@ namespace TestAmazon.Controllers
 
         public ActionResult Delete(long id)
         {
-            ViewBag.Success =UtentePartial.RemoveUtentebyId(id) ? "Utente eliminato corretamente" : "Errore nell 'eliminazione Utente";
-            return View("GestioneUtenti",UtentePartial.GetAllUtenti());
+
+            if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
+            {
+                ViewBag.Success = UtentePartial.RemoveUtentebyId(id) ? "Utente eliminato corretamente" : "Errore nell 'eliminazione Utente";
+                return RedirectToAction("GestioneUtenti", UtentePartial.GetAllUtenti());
+            }
+            return RedirectToAction("Login","Utente");
         }
         
         public ActionResult Details(long id)
         {
-            
+            ViewBag.Preferiti = UtentePartial.GetNumeroPref(id).ToString();
+            ViewBag.Carrello = UtentePartial.GetCarelloAttivi(id).ToString();
             return View(UtentePartial.GetUtenteById(id));
         }
         [HttpGet]
         public ActionResult Recupera()
         {
             return View();
-            //da implementare
         }
         [HttpPost]
         public ActionResult Recupera(Utente ut,string pass)
         {
             ViewBag.Rec = UtentePartial.RecuperaPassword(ut.Email, ut.Password,pass) ? "Nuova password impostata corretamente " : "Errore nell' impostazione della nuova password ! riprovare";
             return View();
-         
         }
+
+        public ActionResult AddAmministratore()
+        {
+
+
+            return View();
+
+            
+            
+        }
+        [HttpPost]
+        public ActionResult AddAmministratore(Utente utente)
+        {
+            if (UtentePartial.AddAmministratore(utente))
+            {
+                //return RedirectToAction("Index", "Home");
+                ViewBag.Login = "Registrazione effetuta corretamente!";
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewBag.Errore = "Errore durante la registrazione! riprovare";
+                return View();
+            }
+
+        }
+
+       
 
 
 

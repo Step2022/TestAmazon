@@ -25,7 +25,7 @@ namespace TestAmazon.Models
             {
                 try
                 {
-                    if (CheckEmail(utente.Email) && context.Utente.FirstOrDefault(x => x.Email == utente.Email) == null)
+                    if (CheckEmail(utente.Email) && context.Utente.FirstOrDefault(x => x.Email == utente.Email) == null && CheckPassword(utente.Password))
                     {
                         utente.Id_Ruolo = 1;
                         context.Utente.Add(utente);
@@ -44,12 +44,45 @@ namespace TestAmazon.Models
             }
         }
 
+        public static bool AddAmministratore(Utente utente)
+        {
+
+            using (var context = new CorsoRoma2022Entities())
+            {
+                try
+                {
+                    if (CheckEmail(utente.Email) && context.Utente.FirstOrDefault(x => x.Email == utente.Email) == null)
+                    {
+                        utente.Id_Ruolo = 2;
+                        context.Utente.Add(utente);
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+        }
+
+
         private static bool CheckEmail(string email)
         {
             Regex regex = new Regex("([\\w-+]+(?:\\.[\\w-+]+)*@(?:[\\w-]+\\.)+[a-zA-Z]{2,7})");
             return regex.IsMatch(email);
         }
-
+        private static bool CheckPassword(string password)
+        {
+            var hasNumber = new Regex(@"[0-9]+");
+            var hasUpperChar = new Regex(@"[A-Z]+");
+            var hasMinimum8Chars = new Regex(@".{8,}");
+            return (hasNumber.IsMatch(password) && hasUpperChar.IsMatch(password) && hasMinimum8Chars.IsMatch(password));
+        }
 
         public static List<Utente> GetAllUtenti()
         {
@@ -67,7 +100,7 @@ namespace TestAmazon.Models
                                                      Email = a.Email,
                                                      Password = a.Password,
                                                      Ruolo = b
-                                                 }).ToList();
+                                                 }).OrderBy(x => x.Nome).ToList();
             }
         }
 
@@ -271,8 +304,36 @@ namespace TestAmazon.Models
                                                      Ruolo = b
 
                                                  }).ToList();
-                    
+
             }
+        }
+
+        public static int GetNumeroPref(long idutente)
+        {
+            using (var context = new CorsoRoma2022Entities())
+            {
+
+                return context.Preferiti.Where(x => x.Id_Utente == idutente).Count();
+            }
+        }
+
+        public static string GetCarelloAttivi(long idutente)
+        {
+            using (var context = new CorsoRoma2022Entities())
+            {
+
+                var query = from u in context.Utente.ToList()
+                            join o in context.Ordine.ToList() 
+                            on u.Id_Utente equals o.Id_Utente where u.Id_Utente==idutente
+                            join c in context.Carrello.ToList()
+                            on o.Id_Ordine equals c.Id_Ordine
+                            select new
+                            {
+                                c.Id_Carrello
+                            };
+                return query.Count() > 0 ? "SI" : "NO";
+            }
+
         }
     }
 }

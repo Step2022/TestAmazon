@@ -1,8 +1,11 @@
 ﻿@model TestAmazon.Models.Utente
 
+
+
 <div align="left" style="display: inline">
-    <button class="bottoneIndietro" onclick="history.back()"><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
+    <button class="btn btn_personal searchbarbtn" onclick="history.back()"><i class="fa-solid fa-arrow-left fa-xl"></i></button>
 </div>
+
 <div class="form">
     <form method="post" action="Recupera">
         <h4>Imposta la nuova Password</h4><br />
@@ -14,17 +17,19 @@
         <label>Inserisci Email</label><br />
         <input class="inp" type="text" name="Email" /><br />
         <label>Inserisci Password Nuova</label><br />
-                                               <div class="occhio">
-                                                   <input class="inp" type="password" name="Password" /> <button class="btnp" type="button" onclick="if (Password.type == 'text') Password.type = 'password';
+        <div class="occhio">
+            <input class="inp" type="password" name="Password" /> <button class="btnp" type="button" onclick="if (Password.type == 'text') Password.type = 'password';
   else Password.type = 'text';">
-                                                       <i class="fa-solid fa-eye"></i>
-                                                   </button>
-                                               </div><br />
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </div><br />
         <label>Conferma Password Nuova</label><br />
-       <div class="occhio"> <input class="inp" type="password" name="pass" /> <button class="btnp" type="button" onclick="if (pass.type == 'text') pass.type = 'password';
+        <div class="occhio">
+            <input class="inp" type="password" name="pass" /> <button class="btnp" type="button" onclick="if (pass.type == 'text') pass.type = 'password';
   else pass.type = 'text';">
-            <i class="fa-solid fa-eye"></i>
-        </button></div><br />
+                <i class="fa-solid fa-eye"></i>
+            </button>
+        </div><br />
         <input class="sub " type="submit" value="Continua">
     </form>
 
@@ -83,81 +88,10 @@
     </div>
     }
     *@
-  
+
 
     @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     }
 
 
-
-    <style>
-        .occhio {
-            display: flex;
-            justify-content: space-between;
-        }
-        .btnp {
-            border: none;
-        }
-        .logo {
-            border-radius: 5px;
-            margin-left: 33%;
-            padding-top: 70px;
-        }
-
-        .inp {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            display: inline-block;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        .sub {
-            width: 100%;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: black;
-            background-color: chocolate;
-        }
-
-        .sub2 {
-            width: 100%;
-            background-color: burlywood;
-            color: black;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .sub:hover {
-            background-color: #45a049;
-        }
-
-        .sub2:hover {
-            background-color: #45a049;
-        }
-
-        .form {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px 20px 20px 20px;
-            width: fit-content;
-            margin-left: 30%;
-            margin-top: 2%;
-        }
-
-        h4 {
-            font-family: system-ui;
-            font-size: x-large;
-            font-weight: revert;
-        }
-    </style>

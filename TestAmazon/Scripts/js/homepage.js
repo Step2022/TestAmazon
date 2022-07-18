@@ -48,6 +48,19 @@ function OnChangeDDLUser(ids) {
                 });
             }
             break;
+        case "3":
+            if (ids != null) {
+                $.ajax({
+                    type: 'GET',
+                    success: function (data) {
+                        window.location.href = "../../Utente/GestioneUtenti";
+                    },
+                    error: function () {
+                        alert('error happened');
+                    }
+                });
+            }
+            break;
     }
 }
 function plus(NumeroPagine) {

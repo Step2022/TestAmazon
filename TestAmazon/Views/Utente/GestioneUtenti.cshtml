@@ -1,166 +1,168 @@
 ﻿@model IEnumerable<TestAmazon.Models.Utente>
 
-@{
+    @{
     ViewBag.Title = "GestioneUtenti";
-}
-
-<h2>Gestione Utenti</h2>
-<table><tr>
-    <form method="post" action="GestioneUtenti">
-    <td>  <input class="inp" type="text" name="Nome" placeholder="Nome" /></td>
-   <td> <input class="inp" type="text" name="Cognome" placeholder="Cognome" /> </td>
-   <td> <input class="inp" type="text" name="Email" placeholder="Email" /></td>
-   <td>
-    <select name="Id_Ruolo" id="ruolo">
-        <option value="0"></option>
-        <option value="1">user</option>
-        <option value="2">admin</option>
-    </select></td>
-  <td>  <input class="sub2" type="submit" value="Cerca"></td>
-    </form>
-</tr>
-</table>
-
-<p style="color:red">@ViewBag.Success</p>
-<table id="gestione">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Cognome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Password)
-        </th>
-        <th>
-            @Html.DisplayName("Ruolo")
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cognome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            ********
-            @*@Html.DisplayFor(modelItem => item.Password)*@
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ruolo.Nome_ruolo)
-        </td>
-        <td>
-            @*   @Html.ActionLink("Edit", "Edit", new { id = item.Id_Utente }) |*@
-            @Html.ActionLink("Dettaglio", "Details", new { id = item.Id_Utente } ,
-            new { @class = "btn btn-warning"})
-            @Html.ActionLink("Elimina", "Delete", new { id = item.Id_Utente },
-            new { @class = "btn btn-warning",
-            onclick = string.Format("return confirm('WARNING: Procedere con l eliminazione di {0} {1}?');", item.Nome,item.Cognome) })
-
-        </td>
-    </tr>
-}
-
-</table>
-<style>
+    }
    
-    .logo {
-        border-radius: 5px;
-        margin-left: 33%;
-    }
+    <h2>Gestione Utenti</h2>
+    <table>
+        <tr>
+            <form method="post" action="GestioneUtenti">
+            <td>  <input class="inp" type="text" name="Nome" placeholder="Nome" /></td>
+            <td> <input class="inp" type="text" name="Cognome" placeholder="Cognome" /> </td>
+            <td> <input class="inp" type="text" name="Email" placeholder="Email" /></td>
+            <td>
+                <select name="Id_Ruolo" id="ruolo" class="inp">
+                    <option value="0">tutti i ruoli</option>
+                    <option value="1">user</option>
+                    <option value="2">admin</option>
+                </select>
+            </td>
+            <td>  <input class="sub2" type="submit" value="🔍"></td>
+            </form>
+        </tr>
+    </table>
+    <a href="AddAmministratore">+ Aggiungi un nuovo Admin</a>
+    <p style="color:red">@ViewBag.Success</p>
+    <table id="gestione">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cognome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayName("Ruolo")
+            </th>
+            <th></th>
+        </tr>
 
-    .inp {
-        width: 100%;
-        padding: 12px 20px;
-        margin: 8px 0;
-        display: inline-block;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
-
-    .sub {
-        width: 100%;
-        color: white;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        color: black;
-        background-color: chocolate;
-    }
-
-    .sub2 {
-        width: 100%;
-        background-color: burlywood;
-        color: black;
-        padding: 14px 20px;
-        margin: 8px 0;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .sub:hover {
-        background-color: #45a049;
-    }
-
-    .sub2:hover {
-        background-color: #45a049;
-    }
-
-    .form {
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px 20px 20px 20px;
-        width: fit-content;
-        margin-left: 30%;
-        margin-top: 2%;
-    }
-
-    h4 {
-        font-family: system-ui;
-        font-size: x-large;
-        font-weight: revert;
-    }
-
-    #gestione {
-        font-family: Arial, Helvetica, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        margin-top: 100px;
-    }
-
-        #gestione td, #gestione th {
-            border: 1px solid #ddd;
-            padding: 8px;
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cognome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                ********
+                @*@Html.DisplayFor(modelItem => item.Password)*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ruolo.Nome_ruolo)
+            </td>
+            <td>
+                @Html.ActionLink("Dettaglio", "Details", new { id = item.Id_Utente } ,
+                new { @class = "btn btn-warning"})
+                @if(Session["IdUtente"].ToString()!=item.Id_Utente.ToString()){
+                @Html.ActionLink("Elimina", "Delete", new { id = item.Id_Utente },
+                new { @class = "btn btn-warning",
+                onclick = string.Format("return confirm('WARNING: Procedere con l eliminazione di {0} {1}?');", item.Nome,item.Cognome) })
+                }
+            </td>
+        </tr>
         }
 
-        #gestione tr:nth-child(even) {
-            background-color: #f2f2f2;
+    </table>
+    <style>
+
+        .logo {
+            border-radius: 5px;
+            margin-left: 33%;
         }
 
-        #gestione tr:hover {
-            background-color: #ddd;
+        .inp {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
 
-        #gestione th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: darkseagreen;
+        .sub {
+            width: 100%;
             color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: black;
+            background-color: chocolate;
         }
-</style>
+
+        .sub2 {
+            width: 100%;
+            background-color: burlywood;
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .sub:hover {
+            background-color: #45a049;
+        }
+
+        .sub2:hover {
+            background-color: #45a049;
+        }
+
+        .form {
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            padding: 20px 20px 20px 20px;
+            width: fit-content;
+            margin-left: 30%;
+            margin-top: 2%;
+        }
+
+        h4 {
+            font-family: system-ui;
+            font-size: x-large;
+            font-weight: revert;
+        }
+
+        #gestione {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 100px;
+        }
+
+            #gestione td, #gestione th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #gestione tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #gestione tr:hover {
+                background-color: #ddd;
+            }
+
+            #gestione th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: darkseagreen;
+                color: white;
+            }
+    </style>

@@ -11,6 +11,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/css/homepage.css" rel="stylesheet" />
+    <link href="~/Content/css/utente.css" rel="stylesheet" />
     <script src="~/Scripts/js/homepage.js"></script>
     
    
@@ -24,39 +25,39 @@
 
             @*
 
-            @if (Session["U"] != null)
+        @if (Session["U"] != null)
 
-            {
-                var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
+        {
+            var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
 
-            if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
-             {
-            <div class="col-lg-1" style="float:right;margin-top:10px;">
-                @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
-            </div>
-                 }
-            <div style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
-                @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
-            </div>
-            <div style="float: right; margin-top: 10px; width:30px">
-                <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
-              
-            </div>
-            <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px"> @utente.Nome @utente.Cognome <i class="fa-solid fa-user fa-xl"></i> </div>
+        if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
+         {
+        <div class="col-lg-1" style="float:right;margin-top:10px;">
+            @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+        </div>
+             }
+        <div style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
+            @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
+        </div>
+        <div style="float: right; margin-top: 10px; width:30px">
+            <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
 
-                        }
-                        else
-                        {
-            <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                @Html.ActionLink("SignUp", "SignUp", "Utente")
-            </div>
-            <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                @Html.ActionLink("Login", "Login", "Utente")
-            </div>
-                        }
+        </div>
+        <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px"> @utente.Nome @utente.Cognome <i class="fa-solid fa-user fa-xl"></i> </div>
+
+                    }
+                    else
+                    {
+        <div class="col-lg-1" style="float: right; margin-top: 10px;">
+            @Html.ActionLink("SignUp", "SignUp", "Utente")
+        </div>
+        <div class="col-lg-1" style="float: right; margin-top: 10px;">
+            @Html.ActionLink("Login", "Login", "Utente")
+        </div>
+                    }
 
 
-        *@
+            *@
 
 
             @if (Session["U"] != null)
@@ -67,23 +68,30 @@
             <div style="float: right; margin-top: 15px; min-width: 30px;margin-right:30px ">
                 @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
             </div>
+
+            if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "user"){
             <div style="float: right; margin-top: 15px; min-width: 30px; margin-right: 30px">
                 <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
             </div>
             <div style="float: right; margin-top: 10px; font-size: 13px; min-width: 50px; margin-right: 30px;">
-                <label style="color:white">@utente.Nome @utente.Cognome</label>
                 <select name="select_user" id="select_user" style="min-width:50px;min-height:30px;border-radius:20px 0px 0px 20px" onchange="OnChangeDDLUser(@utente.Id_Utente.ToString())">
-                    <option value="0"></option>
+                    <option value="0" style="font-family:Lato;display:none">@utente.Nome @utente.Cognome</option>
                     <option value="1">Lista Preferiti ⭐</option>
                     <option value="2">Carrello🛒</option>
                 </select>
                 <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
             </div>
-               if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
-                {
-            <div style="float:right;margin-top:10px;color:white;margin-right:30px">
-                @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+            }
+else                {
+            <div style="float: right; margin-top: 10px; font-size: 13px; min-width: 50px; margin-right: 30px;">
+                <select name="select_user" id="select_user" style="min-width:50px;min-height:30px;border-radius:20px 0px 0px 20px" onchange="OnChangeDDLUser(@utente.Id_Utente.ToString())">
+                    <option value="0" style="font-family:Lato;display:none" >@utente.Nome @utente.Cognome</option>
+                   
+                    <option value="3">Gestione Utenti</option>
+                </select>
+                <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
             </div>
+           
                 }
             }
             else
