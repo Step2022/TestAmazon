@@ -9,8 +9,10 @@
     List<Prodotto> preferiti = ViewBag.preferiti;
     List<Carrello> quantita = ViewBag.quantita;
     decimal totale = 0;
+    long idOrdine = ViewBag.idOrdine;
     bool preferito = false;
     var quantitaSingolo = 0;
+    int num = 0;
 }
 
 <style>
@@ -177,10 +179,10 @@
                 {
                     foreach (var product in prodotti)
                     {
-                        
                         preferito = pref.CheckPreferiti(long.Parse(Session["IdUtente"].ToString()), product.Id_Prodotto);
                         quantitaSingolo = quantita.Find(i => i.Id_Prodotto == product.Id_Prodotto).Quantita;
                         string id_product_button = $"product{product.Id_Prodotto}";
+                        string id_input_quant = $"quantity{num}";
                         string onclickProdotto = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
                         <div class="prodotto2">
                             <div class="prod2">
@@ -195,16 +197,16 @@
                                 @Html.ActionLink("Rimuovi dai preferiti", "RemovePreferito", "Carrello", new { idUtente = long.Parse(Session["IdUtente"].ToString()), idProdotto = product.Id_Prodotto }, new { @class = "btn preferiti" });
                             }
                             <br /><br /><br />
-                            @Html.ActionLink("Rimuovi dal carrello", "RemoveFromCarrello", "Carrello", new { idUtente = long.Parse(Session["IdUtente"].ToString()), idProdotto = product.Id_Prodotto}, new { @class = "btn rimuovi" })
+                            <a href="#" class="btn rimuovi" onclick="miaFunzione(@product.Id_Prodotto, @idOrdine, '@id_input_quant')">Rimuovi dal carrello</a>
                             <br /><br /><br />
                             <div class="number-input" style="margin-bottom: 1%; margin-right:6%">
                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                                <input class="quantity" min="1" max="@quantitaSingolo" name="quantity" value="1" type="number">
+                                <input type="number" id="@id_input_quant" min="1" step="1" max="@quantitaSingolo" value="1" disabled>
                                 <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                             </div>
                         </div>
                         totale = totale + product.Prezzo * quantitaSingolo;
-
+                        num++;
                     }
                     <div class="totale">
                         <div class="ptotale">
@@ -217,3 +219,11 @@
         </div>
     }
 }
+<script>
+    function miaFunzione(idProdotto, idOrdine, idInputQuant) {
+        var idProd = idProdotto;
+        var idOrd = idOrdine;
+        var quant = document.getElementById(idInputQuant).value;
+        window.location.href = "../../Carrello/RemoveFromCarrello?idOrdine=" + idOrd + "&idProdotto=" + idProd + "&quantita=" + quant;
+    }
+</script>

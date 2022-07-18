@@ -10,6 +10,7 @@ namespace TestAmazon.Models
 
     public partial class Prodotto
     {
+        public long IDcat { get; set; }
         public string nomecat { get; set; }
         public static List<Prodotto> GetProdotti()
         {

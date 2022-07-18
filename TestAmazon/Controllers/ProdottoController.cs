@@ -19,6 +19,9 @@ namespace TestAmazon.Controllers
 
         public ActionResult Singolo(long id)
         {
+            if (Session["IdUtente"] != null) { 
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
 
             return View(Prodotto.GetProdotto(id));
         }
@@ -33,6 +36,7 @@ namespace TestAmazon.Controllers
             IdProdotto = 0;
             return View("Singolo", Prodotto.GetProdotto(IdProdottoFinale));
         }
+
         public ActionResult RemovePreferiti(long IdUtente, long IdProdotto)
         {
             IdUtente = long.Parse(Request.Params["IdUtente"]);
@@ -44,19 +48,23 @@ namespace TestAmazon.Controllers
             return View("Singolo", Prodotto.GetProdotto(IdProdottoFinale));
         }
 
-        public ActionResult Buy()
-        {
-            long IdUtente = long.Parse(Request.Params["IdUtente"]);
-            long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
-            pref.RemovePreferiti(IdUtente, IdProdotto);
-            return View("Singolo", Prodotto.GetProdotto(IdProdotto));
-        }
-
         public ActionResult RemoveProduct()
         {
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
             Prodotto.RemoveProdotto(IdProdotto);
             return RedirectToAction("Index", "Home");
+        }
+
+
+        public ActionResult Buy(long idOrdine, long idProdotto, int quantita)
+        {
+            long IdOrdine = idOrdine;
+            long IdProdotto = idProdotto;
+            int Quantita = quantita;
+
+
+            Carrello.AddInCarrello(IdOrdine, IdProdotto, Quantita);
+            return View("Singolo", Prodotto.GetProdotto(IdProdotto));
         }
         [HttpGet]
         public ActionResult NuovoProdotto()

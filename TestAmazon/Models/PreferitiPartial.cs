@@ -38,12 +38,13 @@ namespace TestAmazon.Models
                                join Categoria in db.Categoria on Prodotto.Id_Categoria equals Categoria.Id_Categoria
                                where Utente.Id_Utente == id_utente
                                select new Prodotto {
-                               
+                                   Descrizione=Prodotto.Descrizione,
                                    Id_Prodotto=Prodotto.Id_Prodotto,
                                    Nome=Prodotto.Nome,
                                    Prezzo=Prodotto.Prezzo,
                                    IMG=Prodotto.IMG,
-                                   nomecat=Categoria.Nome_cat
+                                   nomecat=Categoria.Nome_cat,
+                                   IDcat=Categoria.Id_Categoria
                                }) ;
 
                 
