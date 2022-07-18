@@ -34,5 +34,10 @@ namespace TestAmazon.Controllers
             Carrello.RemoveFromCarrello(idOrdine, idProdotto, quantita);
             return RedirectToAction("CarrelloUtente");
         }
+        public ActionResult Acquista(long idOrdine)
+        {
+            Ordine.SetOrdine(idOrdine);
+            return RedirectToAction("CarrelloUtente");
+        }
     }
 }

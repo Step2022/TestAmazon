@@ -22,7 +22,6 @@ namespace TestAmazon.Controllers
             if (Session["IdUtente"] != null) { 
                 ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
             }
-
             return View(Prodotto.GetProdotto(id));
         }
 
@@ -62,8 +61,8 @@ namespace TestAmazon.Controllers
             long IdProdotto = idProdotto;
             int Quantita = quantita;
 
-
             Carrello.AddInCarrello(IdOrdine, IdProdotto, Quantita);
+            ViewBag.IdOrdine = IdOrdine;
             return View("Singolo", Prodotto.GetProdotto(IdProdotto));
         }
         [HttpGet]
