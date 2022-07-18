@@ -27,6 +27,10 @@ namespace TestAmazon.Controllers
 
         public ActionResult Add()
         {
+            if (Session["IdUtente"] != null)
+            {
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
             long IdUtente = long.Parse(Request.Params["IdUtente"]);
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
             long IdProdottoFinale = IdProdotto;
@@ -38,6 +42,10 @@ namespace TestAmazon.Controllers
 
         public ActionResult RemovePreferiti(long IdUtente, long IdProdotto)
         {
+            if (Session["IdUtente"] != null)
+            {
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
             IdUtente = long.Parse(Request.Params["IdUtente"]);
             IdProdotto = long.Parse(Request.Params["IdProdotto"]);
             long IdProdottoFinale = IdProdotto;
@@ -49,6 +57,10 @@ namespace TestAmazon.Controllers
 
         public ActionResult RemoveProduct()
         {
+            if (Session["IdUtente"] != null)
+            {
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
             long IdProdotto = long.Parse(Request.Params["IdProdotto"]);
             Prodotto.RemoveProdotto(IdProdotto);
             return RedirectToAction("Index", "Home");
@@ -68,12 +80,20 @@ namespace TestAmazon.Controllers
         [HttpGet]
         public ActionResult NuovoProdotto()
         {
+            if (Session["IdUtente"] != null)
+            {
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
             ViewBag.Categorie = Categoria.GetCategorie();
             return View();
         }
         [HttpPost]
         public ActionResult NuovoProdotto(Prodotto prodotto)
         {
+            if (Session["IdUtente"] != null)
+            {
+                ViewBag.IdOrdine = Ordine.GetIdOrdine(long.Parse(Session["IdUtente"].ToString()));
+            }
             bool esito = false;
             if (prodotto != null)
             {
