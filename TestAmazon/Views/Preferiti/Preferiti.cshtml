@@ -6,22 +6,43 @@
 
 }
 <style>
-    p.cat {
-        margin-top: 20px;
-        margin-bottom:1px;
-        margin-left: 10px;
+    footer {
+        margin-top: 10px;
+    }
+
+    .line {
+        border-bottom: 2px solid rgb(48, 71, 94);
+    }
+
+    p.prezzo {
         float: left;
-        width: 800px;
+        width: 150px;
+        height: 30px;
+        margin-top: 4px;
+        margin-bottom: 1px;
+        margin-left: 10px;
+        margin-right: 20px;
+    }
+
+    p.cat {
+        margin-top: 4px;
+        margin-bottom: 1px;
+        margin-left: 5px;
+        float: left;
+        width: 200px;
         height: 30px;
     }
+
     p {
+        font-weight: 600;
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: 10px;
         float: left;
-        width: 800px;
-        height: 50px;
+        width: 700px;
+        height: 70px;
     }
+
     h {
         font-size: 40px;
         margin-left: 10px;
@@ -31,37 +52,44 @@
         width: 800px;
         height: 40px;
     }
+
     div.cont {
         margin: 1px;
-        border: 1px solid white;
+        border: none;
         float: right;
-        width: 100px;
-        height: 120px;
+        width: 120px;
+        height: 175px;
         text-align: center;
         align-content: center;
     }
 
     .button1 {
+        font-weight: 600;
+        font-size: 14px;
+        border-radius: 20px;
         float: right;
-        background-color: #4CAF50;
-        border: none;
-        color: white;
-        padding: 15px 32px;
+        color: rgb(48, 71, 94);
+        background-color: none;
+        border: 2px solid rgb(48, 71, 94);
         text-align: center;
         text-decoration: none;
         display: inline-block;
-        font-size: 16px;
         margin: 4px 2px;
         cursor: pointer;
+        width: 130px;
+        height: 50px;
     }
 
+        .button1:hover {
+            background-color: rgb(48, 71, 94);
+            color: white;
+        }
 
-    .a {
-        border-bottom: 3px solid #000000
-    }
+
 
     .city {
-        border-style: outset;
+        border: 2px solid rgb(48, 71, 94);
+        border-radius: 25px;
         background-color: white;
         margin-top: 10px;
         height: 180px;
@@ -70,7 +98,7 @@
 
     div.gallery {
         margin: 1px;
-        border: 1px solid white;
+        border: none;
         float: left;
         width: 200px;
         height: 173px;
@@ -78,11 +106,14 @@
         align-content: center;
     }
 
+        div.gallery:hover {
+            transform: scale(1.1);
+        }
 
         div.gallery img {
-            margin-top: 6px;
-            margin-bottom: 6px;
-            max-height: 144px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            max-height: 140px;
             max-width: 190px;
             width: auto;
             height: auto;
@@ -94,57 +125,62 @@
     }
 </style>
 
-
-
+<h1>La tua lista Preferiti.</h1>
+<div class="line"></div>
 <body>
 
-    @if (Model.Count()!=0)
+    
+
+
+        @if (Model.Count() != 0)
 
         {
 
-        foreach (var item in Model)
+            foreach (var item in Model)
 
-        {
-
-
-    <div class="city">
-        <div class="gallery">
-            <img src=" @Html.DisplayFor(modelItem => item.IMG)">
-        </div>
+            {
 
 
+                <div class="city">
+                    <div class="gallery">
+                        <a href="../../Prodotto/Singolo/@item.Id_Prodotto"> <img src=" @Html.DisplayFor(modelItem => item.IMG)"></a>
+                    </div>
 
 
-        <h>@Html.DisplayFor(modelItem => item.Nome)</h>
-        
-
-        @*@Html.ActionLink("Edit", "Edit", new { /*  id=item.Id_prodotto */ }) |
-
-        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-
-        @Html.ActionLink("Preferiti", "Remove", new { id_utente = 1, id_prodotto = item.Id_Prodotto })*@
-
-        <div class="cont">
-            <button class="button1" oneclick="" value="Remove"></button>
-            <button class="button1" oneclick="" value="Remove"></button>
-            <button class="button1" oneclick="" value="Remove"></button>
-        </div>
-        <p>  @Html.DisplayFor(modelItem => item.Descrizione)</p>
-
-        <p class="cat">Categoria:@Html.ActionLink(item.nomecat, "Details", new { /* id=item.PrimaryKey */ })</p>
-    </div>
 
 
-        }
+                    <h>@Html.DisplayFor(modelItem => item.Nome)</h>
 
+
+                    <div class="cont">
+                        <a href="../../Preferiti/RemovePreferiti?idUtente=@long.Parse(Session["IdUtente"].ToString())&idProdotto=@item.Id_Prodotto"><button class="button1">Rimuovi da preferiti</button></a>
+
+                        <a href="../../Preferiti/AggiungiCarrello?idUtente=@long.Parse(Session["IdUtente"].ToString())&idProdotto=@item.Id_Prodotto"><button class="button1">Aggiungi a carrello</button></a>
+
+                        <a href="../../Prodotto/Singolo/@item.Id_Prodotto"><button class="button1">Vai al prodotto</button></a>
+                    </div>
+                    <p> @Html.DisplayFor(modelItem => item.Descrizione)</p>
+
+                    <p class="prezzo">Prezzo: @item.Prezzo.ToString("N") €</p>
+                    <p class="cat">Categoria: <a href="../../Ricerca/Categorys?searchCategory=@item.IDcat&searchText=">@item.nomecat</a></p>
+
+                </div>
+
+
+            }
+            <footer>
+                <div class="line"></div>
+            </footer>
         }
 
         else
         {
 
-    <h1>La lista Preferiti è vuota,@Html.ActionLink("torna alla home","Index","Home").</h1>
+            <h1>La lista Preferiti è vuota,@Html.ActionLink("torna alla home", "Index", "Home").</h1>
 
-    <div class="a"></div>
+            <div class="line"></div>
         }
-
+    
+   
+    
 </body>

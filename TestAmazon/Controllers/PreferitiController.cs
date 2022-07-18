@@ -7,7 +7,7 @@ using System.Linq;
 using System.Web;
 
 using System.Web.Mvc;
-
+using TestAmazon.Utility;
 using TestAmazon.Models;
 
 
@@ -20,45 +20,41 @@ namespace TestAmazon.Controllers
 
     {
 
-
-
-        public ActionResult Index()
-
-        {
-
-            return View();
-
-        }
-
-        public ActionResult ADD(long id_utente,long id_prodotto)
-        {
-            string C = PreferitiPartial.RemovePreferiti(id_utente, id_prodotto);
-            return View("Singolo");
-        }
-
+ 
         public ActionResult Preferiti(long id)
-
         {
-            return View(PreferitiPartial.GetPreferiti(id));
+            //LOADING PAGINA PREFERITI
+            if (Session["IdUtente"] == null)
+            {
+                return RedirectToAction("index", "Home");
+            }
+            else
+
+            {
+                return View(PreferitiPartial.GetPreferiti(id));
+            }
         }
 
-
-
-        public ActionResult Remove(long id_utente, long id_prodotto)
-
+ 
+        public ActionResult RemovePreferiti(long IdUtente, long IdProdotto)
         {
+            IdUtente = long.Parse(Request.Params["IdUtente"]);
+            IdProdotto = long.Parse(Request.Params["IdProdotto"]);
+            long IdProdottoFinale = IdUtente;
+            pref.RemovePreferiti(IdUtente, IdProdotto);
+            IdUtente = 0;
+            IdProdotto = 0;
+            return View("Preferiti", PreferitiPartial.GetPreferiti(IdProdottoFinale));
+        }
 
-
-
-
-            string C = PreferitiPartial.RemovePreferiti(id_utente, id_prodotto);
-
-
-
-            return RedirectToAction("Preferiti");
-
-
-
+        public ActionResult AggiungiCarrello(long IdUtente, long IdProdotto)
+        {
+            IdUtente = long.Parse(Request.Params["IdUtente"]);
+            IdProdotto = long.Parse(Request.Params["IdProdotto"]);
+            int Quantita = 1;
+            long IdOrdine = Ordine.GetIdOrdine(IdUtente);
+            Carrello.AddInCarrello(IdOrdine, IdProdotto, Quantita);
+            return View("Preferiti", PreferitiPartial.GetPreferiti(IdUtente));
         }
 
 
