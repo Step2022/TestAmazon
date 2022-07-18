@@ -5,16 +5,16 @@
 }
 
 
-<img class="logo" src="~/IMGS/logo.png" />
+<img class="logo" src="~/IMGS/logo.png" style="max-height:60px" />
 
 <div class="form">
     <form method="post" action="SignUp">
         <h4>Registati</h4><br />
         @{
-            if (@ViewBag.Errore != null)
-            {
-                <p style="color:red">@ViewBag.Errore.ToString()</p>
-            }
+        if (@ViewBag.Errore != null)
+        {
+        <p style="color:red">@ViewBag.Errore.ToString()</p>
+        }
         }
         <label>Nome</label><br />
         <input class="inp" type="text" name="Nome" /><br />
@@ -23,8 +23,12 @@
         <label>Email</label><br />
         <input class="inp" type="text" name="Email" /><br />
         <label>Password</label><br />
-        <input class="inp" type="password" name="Password" /><br />
-        <input class="sub " type="submit" value="Continua">
+        <div class="occhio">
+            <input class="inp" type="password" name="Password" /> <button class="btnp" type="button" onclick="if (Password.type == 'text') Password.type = 'password';
+  else Password.type = 'text';">
+                <i class="fa-solid fa-eye"></i>
+            </button></div><br />
+            <input class="sub " type="submit" value="Continua">
     </form>
 </div>
 @*
@@ -101,6 +105,13 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <style>
+    .occhio {
+        display: flex;
+        justify-content: space-between;
+    }
+    .btnp {
+        border: none;
+    }
     .logo {
         border-radius: 5px;
         margin-left: 33%;

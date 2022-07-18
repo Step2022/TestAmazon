@@ -153,6 +153,10 @@ namespace TestAmazon.Models
             using(CorsoRoma2022Entities db = new CorsoRoma2022Entities())
             {
                 prodotto= db.Prodotto.FirstOrDefault(x=>x.Id_Prodotto==id_prodotto);
+                if (prodotto.Cancellato == true)
+                {
+                    prodotto = new Prodotto();
+                }
             }
             return prodotto;
         }

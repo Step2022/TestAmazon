@@ -4,14 +4,14 @@
     ViewBag.Title = "Login";
 }
 
-<h2>Login</h2>
+
 
 
 <br />
 <br />
 <br />
 
-<img class="logo" src="~/IMGS/logo.png" />
+<img class="logo" src="~/IMGS/logo.png" style="max-height:60px"/>
 
 <div class="form">
     <form method="post" action="Login">
@@ -26,7 +26,13 @@
         <label>Email</label><br />
         <input class="inp" type="text" name="Email" /><br />
         <label>Password</label><br />
-        <input class="inp" type="password" name="Password" /><br />
+                               <div class="occhio">
+                                   <input class="inp" type="password" name="Password" /> <button class="btnp" type="button" onclick="if (Password.type == 'text') Password.type = 'password';
+  else Password.type = 'text';">
+                                       <i class="fa-solid fa-eye"></i>
+                                   </button>
+                               </div>
+            <br />
         <input class="sub " type="submit" value="Continua">
     </form>
     @Html.ActionLink("Hai dimenticato la password ? Clicca qui ", "Recupera", "Utente")
@@ -85,6 +91,14 @@
     @Scripts.Render("~/bundles/jqueryval")
 }
 <style>
+    .occhio {
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .btnp {
+        border: none;
+    }
     .logo {
         border-radius: 5px;
         margin-left: 33%;

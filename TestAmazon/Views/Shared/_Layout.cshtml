@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <script src="https://kit.fontawesome.com/ea32530151.js" crossorigin="anonymous"></script>
@@ -7,23 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @using TestAmazon.Utility
+    @using TestAmazon.Models
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/css/homepage.css" rel="stylesheet" />
     <script src="~/Scripts/js/homepage.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    @{
-
-        long IdUtente = 0;
-
-
-        if (Session["IdUtente"] != null && RegularExp.IsInt(Session["IdUtente"].ToString()))
-        {
-            IdUtente = int.Parse(Session["IdUtente"].ToString());
-        }
-
-    }
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 
 </head>
 <body>
@@ -32,44 +24,83 @@
             <div class="col-lg-3" style="float:left;">
                 <a href="/"><img src="~/IMGS/logo.png" style="max-height:50px" /></a>
             </div>
-            @if (@Session["Utente"] != null)
+
+            @*
+
+            @if (Session["U"] != null)
+
             {
+                var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
+
+            if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
+             {
+            <div class="col-lg-1" style="float:right;margin-top:10px;">
+                @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+            </div>
+                 }
+            <div style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
+                @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
+            </div>
+            <div style="float: right; margin-top: 10px; width:30px">
+                <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
+              
+            </div>
+            <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px"> @utente.Nome @utente.Cognome <i class="fa-solid fa-user fa-xl"></i> </div>
+
+                        }
+                        else
+                        {
+            <div class="col-lg-1" style="float: right; margin-top: 10px;">
+                @Html.ActionLink("SignUp", "SignUp", "Utente")
+            </div>
+            <div class="col-lg-1" style="float: right; margin-top: 10px;">
+                @Html.ActionLink("Login", "Login", "Utente")
+            </div>
+                        }
 
 
-                <div style="float: right; margin-top: 15px; min-width: 30px;margin-right:30px ">
-                    @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
-                </div>
-                <div style="float: right; margin-top: 15px; min-width: 30px; margin-right: 30px">
-                    <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
-                </div>
-                <div style="float: right; margin-top: 10px; font-size: 13px; min-width: 50px; margin-right: 30px;">
-                    <label style="color:white">@Session["Utente"].ToString()</label>
-                    <select name="select_user" id="select_user" style="min-width:50px;min-height:30px;border-radius:20px 0px 0px 20px" onchange="OnChangeDDLUser(@Session["IdUtente"].ToString())">
-                        <option value="0"></option>
-                        <option value="1">Lista Preferiti ⭐</option>
-                        <option value="2">Carrello🛒</option>
-                    </select>
-                    <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
-                </div>
-                if (@Session["Ruolo"].ToString() == "admin")
+        *@
+
+
+            @if (Session["U"] != null)
+
+            {
+                var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
+
+            <div style="float: right; margin-top: 15px; min-width: 30px;margin-right:30px ">
+                @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
+            </div>
+            <div style="float: right; margin-top: 15px; min-width: 30px; margin-right: 30px">
+                <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
+            </div>
+            <div style="float: right; margin-top: 10px; font-size: 13px; min-width: 50px; margin-right: 30px;">
+                <label style="color:white">@utente.Nome @utente.Cognome</label>
+                <select name="select_user" id="select_user" style="min-width:50px;min-height:30px;border-radius:20px 0px 0px 20px" onchange="OnChangeDDLUser(@utente.Id_Utente.ToString())">
+                    <option value="0"></option>
+                    <option value="1">Lista Preferiti ⭐</option>
+                    <option value="2">Carrello🛒</option>
+                </select>
+                <i class="fa-solid fa-user fa-xl colornavBar" style="background-color:white;padding:14px;border:hidden;border-radius:0px 20px 20px 0px;"></i>
+            </div>
+               if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
                 {
-                    <div  style="float:right;margin-top:10px;color:white;margin-right:30px">
-                        @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
-                    </div>
+            <div style="float:right;margin-top:10px;color:white;margin-right:30px">
+                @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+            </div>
                 }
             }
             else
             {
-                <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 40px">
-                    @*<label style="color:white">Register</label>*@
-                    @Html.ActionLink("Register ", "SignUp", "Utente", "", new { style = "color:white" })
-                    @Html.ActionLink(" ", "SignUp", "Utente", "", new { @class = "fa-solid fa-user-plus fa-xl", style = "color:white" })
-                </div>
-                <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 20px">
-                    @*<label style="color:white">Login</label>*@
-                    @Html.ActionLink("Login ", "Login", "Utente", "", new { style = "color:white" })
-                    @Html.ActionLink(" ", "Login", "Utente", "", new { @class = "fa-solid fa-arrow-right-to-bracket fa-xl", style = "color:white" })
-                </div>
+            <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 40px">
+                @*<label style="color:white">Register</label>*@
+                @Html.ActionLink("Register ", "SignUp", "Utente", "", new { style = "color:white" })
+                @Html.ActionLink(" ", "SignUp", "Utente", "", new { @class = "fa-solid fa-user-plus fa-xl", style = "color:white" })
+            </div>
+            <div style="float: right; margin-top: 10px; min-width: 10px; margin-right: 20px">
+                @*<label style="color:white">Login</label>*@
+                @Html.ActionLink("Login ", "Login", "Utente", "", new { style = "color:white" })
+                @Html.ActionLink(" ", "Login", "Utente", "", new { @class = "fa-solid fa-arrow-right-to-bracket fa-xl", style = "color:white" })
+            </div>
             }
 
         </div>

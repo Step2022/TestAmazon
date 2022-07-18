@@ -16,6 +16,7 @@ namespace TestAmazon.Controllers
             ViewBag.preferiti = PreferitiPartial.GetPreferiti(long.Parse(Session["IdUtente"].ToString()));
             ViewBag.prodotti = Carrello.GetCarrello(idOrdine);
             ViewBag.quantita = Carrello.GetQuantita(idOrdine);
+            ViewBag.idOrdine = idOrdine;
             return View();
         }
         public ActionResult AddPreferito(long idUtente, long idProdotto)
@@ -28,9 +29,9 @@ namespace TestAmazon.Controllers
             pref.RemovePreferiti(idUtente, idProdotto);
             return RedirectToAction("CarrelloUtente");
         }
-        public ActionResult RemoveFromCarrello(long idUtente, long idProdotto, int quantita)
+        public ActionResult RemoveFromCarrello(long idOrdine, long idProdotto, int quantita)
         {
-            Carrello.RemoveFromCarrello(idUtente, idProdotto, quantita);
+            Carrello.RemoveFromCarrello(idOrdine, idProdotto, quantita);
             return RedirectToAction("CarrelloUtente");
         }
     }
