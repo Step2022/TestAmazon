@@ -44,8 +44,18 @@ namespace TestAmazon.Models
             carr.Quantita = quantita;
             using(var db = new CorsoRoma2022Entities())
             {
-                db.Carrello.Add(carr);
-                db.SaveChanges();
+                var ricerca = db.Carrello.FirstOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);
+                if (ricerca ==null)
+                {
+                    db.Carrello.Add(carr);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    ricerca.Quantita += carr.Quantita;
+                    db.SaveChanges();
+                }
+                
             }
         }
         public static void RemoveFromCarrello(long idOrdine, long idProdotto, int quantita)
