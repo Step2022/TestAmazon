@@ -269,7 +269,7 @@
     <div class="wrapper">
         <div class="product-img">
             <div align="left" style="display: inline">
-                <button class="bottoneIndietro" onclick=""><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
+                <button class="bottoneIndietro" onclick="location.href='/'"><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
             </div>
             <label class="product-img" style=" margin-top: 10%; ">
                 <input type="checkbox" />
@@ -300,19 +300,29 @@
 
                 <h2>Descrizione </h2><br />
                 <p>@Model.Descrizione</p>
-
-
             </div>
 
 
             <div class="bigtext">
                 @Model.Prezzo.ToString("N") €
-                <div class="button-container" style="margin-top: 80px;">
-                    <a href="../../Prodotto/Buy?idOrdine=5&idUtente=2&idProdotto=@Model.Id_Prodotto" class="button-container"><button>Acquista</button></a>
-                </div>
+                @{
+                    if (Session["IdUtente"] != null)
+                    {
+                                <div class="button-container" style="margin-top: 60px;">
+                                    <a href="#" class="btn button-container" onclick="miaFunzione(@Model.Id_Prodotto, @ViewBag.IdOrdine)"><button>Aggiungi</button></a>
+                                </div>
+                    }
+                    else
+                    {
+                        <div class="button-container" style="margin-top: 60px;">
+                            <a href="../../Utente/Login" class="button-container"><button>Acquista</button></a>
+                        </div>
+                    }
+                }
+
                 <div class="number-input" style="float: right; margin-right: 45%; margin-top: 1px">
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"></button>
-                    <input class="quantity" min="1" name="quantity" value="1" max="10" type="number" disabled>
+                    <input type="number" class="quantity" id="quantity" min="1" value="1" step="1" max="99" disabled>
                     <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
                 </div>
                 <br />
@@ -322,13 +332,22 @@
                 {
                     if (@Session["Ruolo"].ToString() == "admin")
                     {
-                    <a href="../../Prodotto/RemoveProduct?idProdotto=@Model.Id_Prodotto"><div class="cancella" style="float: right; margin-top: 10px; font-family: 'Times New Roman', sans-serif;">Elimina prodotto</div></a>
+                        <a href="../../Prodotto/RemoveProduct?idProdotto=@Model.Id_Prodotto"><div class="cancella" style="float: right; margin-top: 0px; font-family: 'Times New Roman', sans-serif;">Elimina prodotto</div></a>
                     }
                 }
-                }
+            }
         </div>
 
 
     </div>
 </body>
 </html>
+
+<script>
+    function miaFunzione(idProdotto, idOrdine) {
+        var idProd = idProdotto;
+        var idOrd = idOrdine;
+        var quant = document.getElementById("quantity").value;
+        window.location.href = "../../Prodotto/Buy?idOrdine=" + idOrd + "&idProdotto=" + idProd + "&quantita=" + quant;
+    }
+</script>
