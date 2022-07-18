@@ -38,6 +38,18 @@ namespace TestAmazon.Models
             }
             return list;
         }
+        public static List<Prodotto> GetProdotti(long id_category)
+        {
+            
+            //Questa funzione restituisce tutti i prodotti dal db che non sono stati cancellati e corrispondenti alla categoria richiesta
+            List<Prodotto> list = new List<Prodotto>();
+            using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
+            {
+                list.AddRange(db.Prodotto.Where(x => x.Id_Categoria == id_category && x.Cancellato==false));
+
+            }
+            return list;
+        }
         public static List<Prodotto> GetProdotti(string nome,int offset)
         {
             if (offset < 1)

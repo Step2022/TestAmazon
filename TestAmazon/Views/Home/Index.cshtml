@@ -15,7 +15,7 @@
 
 </script>
 <div class="container" name="body_container">
-    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 94%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 50px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
+    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
         @*Qui ci metto il tasto di ricerca*@
         <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
             <label>
@@ -53,28 +53,28 @@
     <div class="container text-center " style="border-radius: 10px; border-color: rgb(204,204,204); min-width:400px" name="grid_container">
         <div class="row">
             @{
-                if (Model != null  && Model.Any())
+                if (Model != null && Model.Any())
                 {
                     foreach (var product in Model)
                     {
                         string id_product_button = $"product{product.Id_Prodotto}";
                         string price_p = $"p{product.Id_Prodotto}";
                         string onclick = $"window.location.href='../Prodotto/Singolo/{product.Id_Prodotto}'";
-                        <div id="@id_product_button" class="checkbox-inline prodotto text-center table-bordered"  onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
+                        <div id="@id_product_button" class="checkbox-inline prodotto text-center table-bordered" onclick="@onclick" onmouseover="onMouseOver('@id_product_button')" onmouseleave="onMouseLeft('@id_product_button')">
                             <div name="container_img" class="row  " style="height: 80%">
                                 <div class="col-sm-10" style="min-width:150px;margin-left:15px;margin-right:25px;height:100%">
-                                    <img src="@product.IMG" class="img_personal" id="img_@product.Id_Prodotto"  onmouseover="onMouseOverImage('img_@product.Id_Prodotto')" onmouseleave="onMouseLeaveImage('img_@product.Id_Prodotto')" />
+                                    <img src="@product.IMG" class="img_personal" id="img_@product.Id_Prodotto" onmouseover="onMouseOverImage('img_@product.Id_Prodotto')" onmouseleave="onMouseLeaveImage('img_@product.Id_Prodotto')" />
                                 </div>
                             </div>
-                            <div class="container  " style="width: auto; margin-right: 20px;" >
-                                <div class="row color3"style="border-radius:10px" >
+                            <div class="container  " style="width: auto; margin-right: 20px;">
+                                <div class="row color3" style="border-radius:10px">
                                     <div class="col-lg-12">
                                         <div name="container_nameProduct" class="row " style="height: 10%; min-height: 30px;">
                                             <div>
                                                 <p class="p_prodotto" style="margin-top: 10px">@product.Nome</p>
                                                 <div class="col-lg-6">
                                                     @*aggiungere il pulsante add to cart*@
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -86,15 +86,50 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
-                    </div>
+                        </div>
                     }
                 }
 
             }
 
         </div>
+    </div>
+    <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
+        @*Qui ci metto il tasto di ricerca*@
+        <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
+            <label>
+                Pagina:
+            </label>
+            <label>@ViewBag.pag</label>
+            /
+            <label>
+                @ViewBag.NumeroPagine
+            </label>
+        </div>
+        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="first()">
+            @*Prima pagina*@
+            <i class="fa-solid fa-angles-left fa-xl"></i>
+        </button>
+        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minus()">
+            @*Indietro*@
+            <i class="fa-solid fa-arrow-left fa-xl"></i>
+        </button>
+
+        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="last(@ViewBag.NumeroPagine)">
+            @*Ultima Pagina*@
+            <i class="fa-solid fa-angles-right fa-xl"></i>
+        </button>
+        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plus(@ViewBag.NumeroPagine)">
+            @*Avanti*@
+            <i class="fa-solid fa-arrow-right fa-xl"></i>
+        </button>
+
+        <button style=" right: 21%" class="btn btn_personal searchbarbtn" onclick="window.location.href='../Ricerca/Categorys/'">
+            <i class="fa-solid fa-magnifying-glass fa-xl"></i>
+        </button>
+
     </div>
 </div>

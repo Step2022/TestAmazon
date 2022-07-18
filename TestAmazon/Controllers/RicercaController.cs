@@ -18,19 +18,7 @@ namespace TestAmazon.Controllers
             bool flag = false;
             //variabili di impaginazione
             int offset = 1;       
-            int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5) + 1;
-            //controlli
-            if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
-            {
-                offset = int.Parse(Request.Params["pag"].ToString());
-                if (offset > numeroPagineTotali)
-                {
-                    offset = numeroPagineTotali;
-                }
-            }
-            //invio dati alla pagina
-            ViewBag.pag = offset;
-            ViewBag.NumeroPagine = numeroPagineTotali;
+            
             //invio categorie alla pagina
             ViewBag.Categorie = Categoria.GetCategorie();
             if (Request.Params["searchCategory"] != null && RegularExp.IsInt(Request.Params["searchCategory"].ToString()))
@@ -54,6 +42,20 @@ namespace TestAmazon.Controllers
             }
             if (!flag)
             {
+                //invio dati alla pagina
+                int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5) + 1;
+                //controlli
+                if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
+                {
+                    offset = int.Parse(Request.Params["pag"].ToString());
+                    if (offset > numeroPagineTotali)
+                    {
+                        offset = numeroPagineTotali;
+                    }
+                }
+                
+                ViewBag.pag = offset;
+                ViewBag.NumeroPagine = numeroPagineTotali;
                 return View(Prodotto.GetProdotti(offset));
             }
             else
@@ -61,11 +63,38 @@ namespace TestAmazon.Controllers
                 if(id_category == 0)
                 {
                     //se l'id è 0 allora l'utente ha chiesto una ricerca su tutti i prodotti
+                    int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5) + 1;
+                    //controlli
+                    if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
+                    {
+                        offset = int.Parse(Request.Params["pag"].ToString());
+                        if (offset > numeroPagineTotali)
+                        {
+                            offset = numeroPagineTotali;
+                        }
+                    }
+                    //invio dati alla pagina
+                    ViewBag.pag = offset;
+                    ViewBag.NumeroPagine = numeroPagineTotali;
+                    
                     return View(Prodotto.GetProdotti(searchtest,offset));
                 }
                 else
                 {
                     //entro qui se la ricerca va fatta su una categoria particolare
+                    int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti(id_category).Count) / 5) + 1;
+                    //controlli
+                    if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
+                    {
+                        offset = int.Parse(Request.Params["pag"].ToString());
+                        if (offset > numeroPagineTotali)
+                        {
+                            offset = numeroPagineTotali;
+                        }
+                    }
+                    //invio dati alla pagina
+                    ViewBag.pag = offset;
+                    ViewBag.NumeroPagine = numeroPagineTotali;
                     return View(Prodotto.GetProdotti(id_category, searchtest,offset));
                 }
                 
