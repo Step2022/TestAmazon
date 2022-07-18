@@ -18,7 +18,7 @@
     }
 
     p.prezzo {
-         
+        font-family: 'Lato', sans-serif;
         float: left;
         width: 150px;
         height: 30px;
@@ -29,7 +29,7 @@
     }
 
     p.cat {
-         
+        font-family: 'Lato', sans-serif;
         margin-top: 4px;
         margin-bottom: 1px;
         margin-left: 5px;
@@ -38,6 +38,7 @@
         height: 30px;
     }
     p.desc {
+        font-family: 'Lato', sans-serif;
         margin-top: 10px;
         margin-bottom: 10px;
         margin-left: 10px;
@@ -78,7 +79,7 @@
     }
 
     .button1 {
-         
+        font-family: 'Lato', sans-serif;
         font-size: 14px;
         border-radius: 20px;
         float: right;
@@ -148,7 +149,7 @@
     @if (Model.Count() != 0)
 
     {
-        <h1>La tua lista Preferiti.</h1>
+        <h1 style="font-family: 'Lato', sans-serif">La tua lista Preferiti.</h1>
         <div class="line"></div>
 
         foreach (var item in Model)
@@ -164,7 +165,7 @@
 
 
 
-                <h>@Html.DisplayFor(modelItem => item.Nome)</h>
+                <h style="font-family: 'Lato', sans-serif">@Html.DisplayFor(modelItem => item.Nome)</h>
 
 
                 <div class="cont">
@@ -191,7 +192,7 @@
     else
     {
 
-        <h1>La lista Preferiti è vuota,@Html.ActionLink("torna alla home", "Index", "Home").</h1>
+        <h1 style="font-family: 'Lato', sans-serif">La lista Preferiti è vuota,@Html.ActionLink("torna alla home", "Index", "Home").</h1>
 
         <div class="line"></div>
     }
