@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using TestAmazon.Utility;
 namespace TestAmazon.Models
 {
 
@@ -10,6 +10,7 @@ namespace TestAmazon.Models
 
     public partial class Prodotto
     {
+        public long IDcat { get; set; }
         public string nomecat { get; set; }
         public static List<Prodotto> GetProdotti()
         {
@@ -152,6 +153,10 @@ namespace TestAmazon.Models
             using(CorsoRoma2022Entities db = new CorsoRoma2022Entities())
             {
                 prodotto= db.Prodotto.FirstOrDefault(x=>x.Id_Prodotto==id_prodotto);
+                if (prodotto.Cancellato == true)
+                {
+                    prodotto = new Prodotto();
+                }
             }
             return prodotto;
         }
@@ -167,6 +172,27 @@ namespace TestAmazon.Models
                     db.Prodotto.FirstOrDefault(x => x.Id_Prodotto == id_prodotto).Cancellato = true;
                     esito = true;
                     db.SaveChanges();
+                }
+            }
+            return esito;
+        }
+        public static bool AddProdotto(Prodotto prodotto)
+        {
+            bool esito = false;
+            if (prodotto != null && !string.IsNullOrWhiteSpace(prodotto.Nome) && !string.IsNullOrWhiteSpace(prodotto.IMG)&& prodotto.Id_Categoria!=0 && RegularExp.IsDouble(prodotto.Prezzo.ToString()) && prodotto.Prezzo>=0 )
+            {
+                try
+                {
+                    using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
+                    {
+                        db.Prodotto.Add(prodotto);
+                        db.SaveChanges();
+                    }
+                    esito = true;
+                }
+                catch
+                {
+                    esito = false;
                 }
             }
             return esito;

@@ -3,18 +3,35 @@
 
 @{
     ViewBag.Title = "Index";
+    string btnfirstclass = "btn btn_personal searchbarbtn";
+    string btnlastclass = "btn btn_personal searchbarbtn";
+    if (ViewBag.pag == 1)
+    {
+        btnfirstclass = "btn_useless searchbarbtn";
+    }
+    if (ViewBag.NumeroPagine == ViewBag.pag)
+    {
+        btnlastclass = "btn_useless searchbarbtn";
+    }
 }
 
+@if (ViewBag.Errore != null)
+{
+    <h3 style="color:red">
+        @ViewBag.Errore
+    </h3>
+}
 <div style="text-align:center;margin-top:20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px;max-height:60px" /></a></div>
 
 <script>
-    
-   
 
-    
+
+
+
 
 </script>
 <div class="container" name="body_container">
+
     <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
         @*Qui ci metto il tasto di ricerca*@
         <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
@@ -27,20 +44,20 @@
                 @ViewBag.NumeroPagine
             </label>
         </div>
-        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="first()">
+        <button style=" left:3%" name="btnfirst" class="@btnfirstclass" onclick="first()">
             @*Prima pagina*@
             <i class="fa-solid fa-angles-left fa-xl"></i>
         </button>
-        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minus()">
+        <button style=" left: 13%" name="btnfirst" class="@btnfirstclass" onclick="minus()">
             @*Indietro*@
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </button>
 
-        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="last(@ViewBag.NumeroPagine)">
+        <button style="right: 1%" name="btnlast" class="@btnlastclass" onclick="last(@ViewBag.NumeroPagine)">
             @*Ultima Pagina*@
             <i class="fa-solid fa-angles-right fa-xl"></i>
         </button>
-        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plus(@ViewBag.NumeroPagine)">
+        <button style=" right: 11%" name="btnlast" class="@btnlastclass" onclick="plus(@ViewBag.NumeroPagine)">
             @*Avanti*@
             <i class="fa-solid fa-arrow-right fa-xl"></i>
         </button>
@@ -109,20 +126,20 @@
                 @ViewBag.NumeroPagine
             </label>
         </div>
-        <button style=" left:3%" class="btn btn_personal searchbarbtn" onclick="first()">
+        <button style=" left:3%" name="btnfirst" class="@btnfirstclass" onclick="first()">
             @*Prima pagina*@
             <i class="fa-solid fa-angles-left fa-xl"></i>
         </button>
-        <button style=" left: 13%" class="btn btn_personal searchbarbtn" onclick="minus()">
+        <button style=" left: 13%" name="btnfirst" class="@btnfirstclass" onclick="minus()">
             @*Indietro*@
             <i class="fa-solid fa-arrow-left fa-xl"></i>
         </button>
 
-        <button style="right: 1%" class="btn btn_personal searchbarbtn" onclick="last(@ViewBag.NumeroPagine)">
+        <button style="right: 1%" name="btnlast" class="@btnlastclass" onclick="last(@ViewBag.NumeroPagine)">
             @*Ultima Pagina*@
             <i class="fa-solid fa-angles-right fa-xl"></i>
         </button>
-        <button style=" right: 11%" class="btn btn_personal searchbarbtn" onclick="plus(@ViewBag.NumeroPagine)">
+        <button style=" right: 11%" name="btnlast" class="@btnlastclass" onclick="plus(@ViewBag.NumeroPagine)">
             @*Avanti*@
             <i class="fa-solid fa-arrow-right fa-xl"></i>
         </button>

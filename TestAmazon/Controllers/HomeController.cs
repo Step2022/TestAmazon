@@ -12,7 +12,7 @@ namespace TestAmazon.Controllers
         public ActionResult Index()
         {
             int offset = 1;
-            int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5)+1;
+            int numeroPagineTotali = (int)Math.Ceiling(((decimal)Prodotto.GetProdotti().Count) / 5);
             if (Request.Params["pag"] != null&&RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) >0)
             {
                 offset = int.Parse(Request.Params["pag"].ToString());
@@ -23,6 +23,10 @@ namespace TestAmazon.Controllers
             }
             ViewBag.pag = offset;
             ViewBag.NumeroPagine = numeroPagineTotali;
+            if (TempData["ErrAggiunta"] != null)
+            {
+                ViewBag.Errore = TempData["ErrAggiunta"].ToString();
+            }
             return View(Prodotto.GetProdotti(offset));
         }
 

@@ -22,11 +22,11 @@ function OnChangeDDLUser(ids) {
             break;
         case "1":
 
-            if ( ids != null) {
+            if (ids != null) {
                 $.ajax({
                     type: 'GET',
                     success: function (data) {
-                        window.location.href = "../../Preferiti/Preferiti/"+ids;
+                        window.location.href = "../../Preferiti/Preferiti/" + ids;
                     },
                     error: function () {
                         alert('error happened');
@@ -65,95 +65,18 @@ function OnChangeDDLUser(ids) {
 }
 function plus(NumeroPagine) {
     let label = document.getElementById("numPag");
-    if (label != null) {       
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+
+    if (label != null) {
         let stringa = "../../Home/Index?pag=";
-        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim()) ) {
-            stringa += (parseInt(label.innerHTML.trim())+1);
-
-        } else {
-            stringa += 1;
-        }
-        if (parseInt(label.innerHTML.trim()) < NumeroPagine) {
-            $.ajax({
-                type: 'GET',
-                success: function (data) {
-                    window.location.href = stringa;
-                },
-                error: function () {
-                    alert('error happened');
-                }
-            });
-        }
-    }
-}
-function minus() {
-    let label = document.getElementById("numPag");
-    if (label != null) {
-        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-            if (parseInt(label.innerHTML.trim()) > 1) {
-                let stringa = "../../Home/Index?pag=";
-                if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-                    stringa += (parseInt(label.innerHTML.trim())-1);
-
-                } else {
-                    stringa += 1;
-                }
-                $.ajax({
-                    type: 'GET',
-                    success: function (data) {
-                        window.location.href = stringa;
-                    },
-                    error: function () {
-                        alert('error happened');
-                    }
-                });
-            }
-        } else {
-            label.innerHTML = 0
-        }
-    }
-}
-function first() {
-    let label = document.getElementById("numPag");
-    if (label != null) {
-        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-            if (parseInt(label.innerHTML.trim()) != 1) {                
-                $.ajax({
-                    type: 'GET',
-                    success: function (data) {
-                        window.location.href = "../../Home/Index?pag=1";
-                    },
-                    error: function () {
-                        alert('error happened');
-                    }
-                });
-            }
-        }
-
-    }
-}
-function last(NumeroPagine) {
-    let label = document.getElementById("numPag");
-    if (label != null) {
-        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-            if (label.innerHTML.trim() != NumeroPagine) {
-                $.ajax({
-                    type: 'GET',
-                    success: function (data) {
-                        window.location.href = "../../Home/Index?pag=" + NumeroPagine;
-                    },
-                    error: function () {
-                        alert('error happened');
-                    }
-                });
-            }
-        }
-    }
-}
-function plusCategory(NumeroPagine) {
-    let label = document.getElementById("numPag");
-    if (label != null) {
-        let stringa = "../../Ricerca/Categorys?pag=";
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             stringa += (parseInt(label.innerHTML.trim()) + 1);
 
@@ -173,12 +96,21 @@ function plusCategory(NumeroPagine) {
         }
     }
 }
-function minusCategory() {
+function minus() {
     let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             if (parseInt(label.innerHTML.trim()) > 1) {
-                let stringa = "../../Ricerca/Categorys?pag=";
+                let stringa = "../../Home/Index?pag=";
                 if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
                     stringa += (parseInt(label.innerHTML.trim()) - 1);
 
@@ -200,15 +132,155 @@ function minusCategory() {
         }
     }
 }
-function firstCategory() {
+function first() {
     let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    let stringa = "../../Home/Index?pag=1";
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             if (parseInt(label.innerHTML.trim()) != 1) {
                 $.ajax({
                     type: 'GET',
                     success: function (data) {
-                        window.location.href = "../../Ricerca/Categorys?pag=1";
+                        window.location.href = stringa;
+                    },
+                    error: function () {
+                        alert('error happened');
+                    }
+                });
+            }
+        }
+
+    }
+}
+function last(NumeroPagine) {
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+
+    if (label != null) {
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+            if (label.innerHTML.trim() != NumeroPagine) {
+                let stringa = "../../Home/Index?pag=" + NumeroPagine;
+                $.ajax({
+                    type: 'GET',
+                    success: function (data) {
+                        window.location.href = stringa;
+                    },
+                    error: function () {
+                        alert('error happened');
+                    }
+                });
+            }
+        }
+    }
+}
+function plusCategory(NumeroPagine) {
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    if (label != null) {
+        let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=";
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+            stringa += (parseInt(label.innerHTML.trim()) + 1);
+
+        } else {
+            stringa += 1;
+        }
+        if (parseInt(label.innerHTML.trim()) < NumeroPagine) {
+            $.ajax({
+                type: 'GET',
+                url: window.location.href = stringa,
+                success: function (data) {
+                    window.location.href = stringa;
+                },
+                error: function () {
+                    alert('error happened');
+                }
+            });
+        }
+    }
+}
+function minusCategory() {
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    if (label != null) {
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+            if (parseInt(label.innerHTML.trim()) > 1) {
+                let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=";
+                if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+                    stringa += (parseInt(label.innerHTML.trim()) - 1);
+
+                } else {
+                    stringa += 1;
+                }
+                $.ajax({
+                    type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
+                    success: function (data) {
+                        window.location.href = stringa;
+                    },
+                    error: function () {
+                        alert('error happened');
+                    }
+                });
+            }
+        } else {
+            label.innerHTML = 0
+        }
+    }
+}
+function firstCategory() {
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    if (label != null) {
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+            if (parseInt(label.innerHTML.trim()) != 1) {
+                let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=1";
+
+                $.ajax({
+                    type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
+                    success: function (data) {
+                        window.location.href = stringa;
                     },
                     error: function () {
                         alert('error happened');
@@ -221,13 +293,25 @@ function firstCategory() {
 }
 function lastCategory(NumeroPagine) {
     let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             if (label.innerHTML.trim() != NumeroPagine) {
+                let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=" + NumeroPagine;
+
                 $.ajax({
                     type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
                     success: function (data) {
-                        window.location.href = "../../Ricerca/Categorys?pag=" + NumeroPagine;
+                        window.location.href = stringa;
                     },
                     error: function () {
                         alert('error happened');
@@ -235,5 +319,37 @@ function lastCategory(NumeroPagine) {
                 });
             }
         }
+    }
+}
+function sendResearch() {
+
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    if (label != null) {
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+
+            let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=1";
+
+            $.ajax({
+                type: 'GET',
+                url: window.location.href = stringa,
+                success: function (data) {
+                    window.location.href = stringa;
+                },
+                error: function () {
+                    alert('error happened');
+                }
+            });
+
+        }
+
     }
 }
