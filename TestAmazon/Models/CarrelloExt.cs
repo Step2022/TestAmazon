@@ -53,7 +53,7 @@ namespace TestAmazon.Models
             //Funzione che rimuove un elemento dal carrello di un ordine specifico
             using(var db = new CorsoRoma2022Entities())
             {
-                Carrello car = db.Carrello.SingleOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);
+                Carrello car = db.Carrello.FirstOrDefault(c => c.Id_Ordine == idOrdine && c.Id_Prodotto == idProdotto);
                 if (car != null) {
                     if(car.Quantita > 1 && car.Quantita == quantita || car.Quantita == 1)
                     {

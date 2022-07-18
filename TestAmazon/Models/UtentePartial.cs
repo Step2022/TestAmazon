@@ -175,17 +175,103 @@ namespace TestAmazon.Models
             using (var context = new CorsoRoma2022Entities())
             {
                 var ut = context.Utente.FirstOrDefault(x => x.Email.ToLower() == email.ToLower());
-                if (ut != null && password.ToLower()==password2.ToLower())
+                try
                 {
-                    ut.Password = password;
-                    context.SaveChanges();
-                    return true;
+                    if (ut != null && password.ToLower() == password2.ToLower())
+                    {
+                        ut.Password = password;
+                        context.SaveChanges();
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
                     return false;
                 }
 
+            }
+        }
+
+
+        /*    public static List<Utente> RicercaUtenti(Utente utente)
+            {
+
+                using (var context = new CorsoRoma2022Entities())
+                {
+                    return utente.Id_Ruolo != 0 ?
+                        context.Utente.ToList().Where(x => x.Nome.Contains(utente.Nome == null ? "" : utente.Nome) && x.Cognome.Contains(utente.Cognome == null ? "" : utente.Cognome) && x.Email.Contains(utente.Email == null ? "" : utente.Email) && x.Id_Ruolo == utente.Id_Ruolo).Select(x => new Utente()
+                        {
+                            Nome = x.Nome,
+                            Cognome = x.Cognome,
+                            Email = x.Email,
+                            Id_Ruolo = x.Id_Ruolo,
+                            Id_Utente = x.Id_Utente,
+                            Password = x.Password
+                        }).ToList()
+
+                        : context.Utente.ToList().Where(x => x.Nome.Contains(utente.Nome == null ? "" : utente.Nome) && x.Cognome.Contains(utente.Cognome == null ? "" : utente.Cognome) && x.Email.Contains(utente.Email == null ? "" : utente.Email)).Select(x => new Utente()
+                        {
+                            Nome = x.Nome,
+                            Cognome = x.Cognome,
+                            Email = x.Email,
+                            Id_Ruolo = x.Id_Ruolo,
+                            Id_Utente = x.Id_Utente,
+                            Password = x.Password
+                        }).ToList();
+                }
+            }*/
+
+
+        public static List<Utente> RicercaUtenti(Utente utente)
+        {
+
+            using (var context = new CorsoRoma2022Entities())
+            {
+                return utente.Id_Ruolo != 0 ?
+                    context.Utente.ToList().Where(x => x.Nome.Contains(utente.Nome == null ? "" : utente.Nome) && x.Cognome.Contains(utente.Cognome == null ? "" : utente.Cognome) && x.Email.Contains(utente.Email == null ? "" : utente.Email) && x.Id_Ruolo == utente.Id_Ruolo)
+                    .Join(context.Ruolo.ToList(),
+                                                 a => a.Id_Ruolo,
+                                                 b => b.Id_Ruolo,
+                                                 (a, b) => new Utente()
+                                                 {
+
+
+
+
+                                                     Nome = a.Nome,
+                                                     Cognome = a.Cognome,
+                                                     Email = a.Email,
+                                                     Id_Ruolo = a.Id_Ruolo,
+                                                     Id_Utente = a.Id_Utente,
+                                                     Password = a.Password,
+                                                     Ruolo = b
+
+                                                 }).ToList()
+
+                    : context.Utente.ToList().Where(x => x.Nome.Contains(utente.Nome == null ? "" : utente.Nome) && x.Cognome.Contains(utente.Cognome == null ? "" : utente.Cognome) && x.Email.Contains(utente.Email == null ? "" : utente.Email))
+                     .Join(context.Ruolo.ToList(),
+                                                 a => a.Id_Ruolo,
+                                                 b => b.Id_Ruolo,
+                                                 (a, b) => new Utente()
+                                                 {
+
+
+
+
+                                                     Nome = a.Nome,
+                                                     Cognome = a.Cognome,
+                                                     Email = a.Email,
+                                                     Id_Ruolo = a.Id_Ruolo,
+                                                     Id_Utente = a.Id_Utente,
+                                                     Password = a.Password,
+                                                     Ruolo = b
+
+                                                 }).ToList();
+                    
             }
         }
     }

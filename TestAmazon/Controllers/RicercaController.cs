@@ -43,7 +43,7 @@ namespace TestAmazon.Controllers
             if (!flag)
             {
                 //invio dati alla pagina
-                int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5) + 1;
+                int numeroPagineTotali = (int)Math.Ceiling(((decimal)Prodotto.GetProdotti().Count) / 5);
                 //controlli
                 if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
                 {
@@ -63,7 +63,8 @@ namespace TestAmazon.Controllers
                 if(id_category == 0)
                 {
                     //se l'id è 0 allora l'utente ha chiesto una ricerca su tutti i prodotti
-                    int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti().Count) / 5) + 1;
+                    var prodotti = Prodotto.GetProdotti(searchtest);
+                    int numeroPagineTotali = (int)Math.Ceiling(((decimal)prodotti.Count) / 5);
                     //controlli
                     if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
                     {
@@ -77,12 +78,13 @@ namespace TestAmazon.Controllers
                     ViewBag.pag = offset;
                     ViewBag.NumeroPagine = numeroPagineTotali;
                     
-                    return View(Prodotto.GetProdotti(searchtest,offset));
+                    return View(Prodotto.GetProdotti(searchtest, offset));
                 }
                 else
                 {
                     //entro qui se la ricerca va fatta su una categoria particolare
-                    int numeroPagineTotali = (int)Math.Floor(((decimal)Prodotto.GetProdotti(id_category).Count) / 5) + 1;
+                    var prodotti = Prodotto.GetProdotti(id_category, searchtest);
+                    int numeroPagineTotali = (int)Math.Ceiling(((decimal)prodotti.Count) / 5) ;
                     //controlli
                     if (Request.Params["pag"] != null && RegularExp.IsInt(Request.Params["pag"].ToString()) && int.Parse(Request.Params["pag"].ToString()) > 0)
                     {

@@ -25,15 +25,30 @@ body {
 }
 
 .p_prodotto {
-    font-family: 'Times New Roman';
+    
+    font-family: 'Lato', sans-serif;
     color: white;
-    font-size:12px;
+    font-size: 14px;
 }
 .btn_personal {
     font-family: 'Times New Roman';
     color: white;
     font-size: 12px;
     background-color: rgb(48, 71, 94)
+}
+.btn_useless {
+    background-color: grey;
+    border: hidden;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    background-image: none;
+    -webkit-appearance: none;
+    cursor: unset;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    font-family: 'Times New Roman';
 }
 
 

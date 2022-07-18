@@ -8,7 +8,9 @@
 
 
 
-
+<div align="left" style="display: inline">
+    <button class="bottoneIndietro" onclick="history.back()"><i style="margin-top: 8px; margin-left: 10px; color: #F05454;" class="fa-solid fa-arrow-left-long fa-2x"></i></button>
+</div>
 <div>
     <h4>Utente</h4>
     <hr />
@@ -56,7 +58,4 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id_Utente }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
