@@ -172,7 +172,7 @@
                 {
                     <div class="login">
                         Carrello vuoto<br />
-                        @Html.ActionLink("Comincia ad acquistare", "Index", "Home");
+                        @Html.ActionLink("Comincia ad acquistare", "Index", "Home")
                     </div>
                 }
                 else
@@ -212,7 +212,7 @@
                         <div class="ptotale">
                             Totale: @totale €
                         </div>
-                        <div type="button" class="btn acquista">Acquista</div>
+                        <div type="button" class="btn acquista" onclick="acquista(@idOrdine)">Acquista</div>
                     </div>
                 }
             }
@@ -225,5 +225,9 @@
         var idOrd = idOrdine;
         var quant = document.getElementById(idInputQuant).value;
         window.location.href = "../../Carrello/RemoveFromCarrello?idOrdine=" + idOrd + "&idProdotto=" + idProd + "&quantita=" + quant;
+    }
+    function acquista(idOrdine) {
+        var idOrdine = idOrdine;
+        window.location.href = "../../Carrello/Acquista?idOrdine="+idOrdine;
     }
 </script>
