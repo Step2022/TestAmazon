@@ -56,8 +56,8 @@ namespace TestAmazon.Controllers
                 var ut = UtentePartial.GetUtentebyEmail(utente.Email);
 
 
-           // var utentedesr=    Utility.SerDes.DeSerialize<Utente>(json);
                 Session["U"] = Utility.SerDes.Serialize(ut);
+              //  var a = Utility.SerDes.DeSerialize<Utente>(Session["U"].ToString());
                 Session["Utente"] = $"{ut.Nome} {ut.Cognome}";
                 Session["Ruolo"] = UtentePartial.GetRuolobyId((int)ut.Id_Utente);
                 Session["IdUtente"] = ut.Id_Utente.ToString();
@@ -79,6 +79,7 @@ namespace TestAmazon.Controllers
             Session.Remove("Utente");
             Session.Remove("Ruolo");
             Session.Remove("IdUtente");
+            Session.Remove("U");
             return RedirectToAction("Index","Home");
         }
         //creare view con la gestione di tutti utenti
@@ -97,6 +98,21 @@ namespace TestAmazon.Controllers
                 return RedirectToAction("Index", "Home");
             }
             
+        }
+        [HttpPost]
+        public ActionResult GestioneUtenti(Utente utente)
+        {
+            if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
+            {
+                var l = UtentePartial.RicercaUtenti(utente);
+                // UtentePartial.GetAllUtenti();
+                return View(l);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
         }
 
         public ActionResult Delete(long id)
