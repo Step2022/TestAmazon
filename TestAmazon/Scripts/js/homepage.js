@@ -22,11 +22,11 @@ function OnChangeDDLUser(ids) {
             break;
         case "1":
 
-            if ( ids != null) {
+            if (ids != null) {
                 $.ajax({
                     type: 'GET',
                     success: function (data) {
-                        window.location.href = "../../Preferiti/Preferiti/"+ids;
+                        window.location.href = "../../Preferiti/Preferiti/" + ids;
                     },
                     error: function () {
                         alert('error happened');
@@ -62,10 +62,10 @@ function plus(NumeroPagine) {
     }
 
 
-    if (label != null) {       
+    if (label != null) {
         let stringa = "../../Home/Index?pag=";
-        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim()) ) {
-            stringa += (parseInt(label.innerHTML.trim())+1);
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+            stringa += (parseInt(label.innerHTML.trim()) + 1);
 
         } else {
             stringa += 1;
@@ -99,7 +99,7 @@ function minus() {
             if (parseInt(label.innerHTML.trim()) > 1) {
                 let stringa = "../../Home/Index?pag=";
                 if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-                    stringa += (parseInt(label.innerHTML.trim())-1);
+                    stringa += (parseInt(label.innerHTML.trim()) - 1);
 
                 } else {
                     stringa += 1;
@@ -133,7 +133,7 @@ function first() {
     let stringa = "../../Home/Index?pag=1";
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
-            if (parseInt(label.innerHTML.trim()) != 1) {                
+            if (parseInt(label.innerHTML.trim()) != 1) {
                 $.ajax({
                     type: 'GET',
                     success: function (data) {
@@ -159,7 +159,7 @@ function last(NumeroPagine) {
         testRicerca = document.getElementById("searchText").value;
     }
 
-   
+
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             if (label.innerHTML.trim() != NumeroPagine) {
@@ -180,7 +180,7 @@ function last(NumeroPagine) {
 function plusCategory(NumeroPagine) {
     let label = document.getElementById("numPag");
     let CategoriaRicerca = "";
-    if (document.getElementById("searchCategory")!= null) {
+    if (document.getElementById("searchCategory") != null) {
         CategoriaRicerca = document.getElementById("searchCategory").value;
     }
     let testRicerca = ""
@@ -199,6 +199,7 @@ function plusCategory(NumeroPagine) {
         if (parseInt(label.innerHTML.trim()) < NumeroPagine) {
             $.ajax({
                 type: 'GET',
+                url: window.location.href = stringa,
                 success: function (data) {
                     window.location.href = stringa;
                 },
@@ -232,6 +233,7 @@ function minusCategory() {
                 }
                 $.ajax({
                     type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
                     success: function (data) {
                         window.location.href = stringa;
                     },
@@ -263,6 +265,7 @@ function firstCategory() {
 
                 $.ajax({
                     type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
                     success: function (data) {
                         window.location.href = stringa;
                     },
@@ -285,7 +288,7 @@ function lastCategory(NumeroPagine) {
     if (document.getElementById("searchText") != null) {
         testRicerca = document.getElementById("searchText").value;
     }
-    
+
     if (label != null) {
         if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
             if (label.innerHTML.trim() != NumeroPagine) {
@@ -293,6 +296,7 @@ function lastCategory(NumeroPagine) {
 
                 $.ajax({
                     type: 'GET',
+                    url: window.location.href = "/Ricerca/Categorys",
                     success: function (data) {
                         window.location.href = stringa;
                     },
@@ -302,5 +306,37 @@ function lastCategory(NumeroPagine) {
                 });
             }
         }
+    }
+}
+function sendResearch() {
+
+    let label = document.getElementById("numPag");
+    let CategoriaRicerca = "";
+    if (document.getElementById("searchCategory") != null) {
+        CategoriaRicerca = document.getElementById("searchCategory").value;
+    }
+    let testRicerca = ""
+    if (document.getElementById("searchText") != null) {
+        testRicerca = document.getElementById("searchText").value;
+    }
+
+    if (label != null) {
+        if ((new RegExp("^[0-9]+$")).test(label.innerHTML.trim())) {
+
+            let stringa = "../../Ricerca/Categorys?searchText=" + testRicerca + "&searchCategory=" + CategoriaRicerca + "&pag=1";
+
+            $.ajax({
+                type: 'GET',
+                url: window.location.href = stringa,
+                success: function (data) {
+                    window.location.href = stringa;
+                },
+                error: function () {
+                    alert('error happened');
+                }
+            });
+
+        }
+
     }
 }
