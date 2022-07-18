@@ -26,14 +26,14 @@
 
                 @if (!string.IsNullOrEmpty(ViewBag.searchtext))
                 {
-                    <input type="text" class="checkbox-inline" name="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" value="@ViewBag.searchtext" />
+                    <input type="text" class="checkbox-inline" name="searchText" id="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" value="@ViewBag.searchtext" />
                 }
                 else
                 {
-                    <input type="text" class="checkbox-inline" name="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" />
+                    <input type="text" class="checkbox-inline" name="searchText" id="searchText" style="border-width: 3px; border-color: rgb(48, 71, 94); text-align: center; float: none; min-width: 100%; min-height: 50px; border-radius: 30px " placeholder="Cerca:" />
                 }
                 <button type="submit" class="btn btn_personal" style="position: absolute; top: 28%; right: 15px; margin-left: 10px; background-color: white; color: rgb(34, 40, 49); float: right;border-radius:50px"><i class="fa-solid fa-magnifying-glass fa-xl"></i></button>
-                <select name="searchCategory" title="Categorie" style="border:hidden; border-width:0px; position: absolute; top: 28%; left: 15px; min-height: 30px; text-align: right; float: inline-start; margin-left: 10px;  border-radius: 20px; text-align: right">
+                <select name="searchCategory" id="searchCategory" title="Categorie" style="border:hidden; border-width:0px; position: absolute; top: 28%; left: 15px; min-height: 30px; text-align: right; float: inline-start; margin-left: 10px;  border-radius: 20px; text-align: right">
                     <option value="0">Tutte:</option>
                     @foreach (var categoria in categorie)
                     {

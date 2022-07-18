@@ -9,21 +9,29 @@
     {
         btnfirstclass = "btn_useless searchbarbtn";
     }
-    if (ViewBag.NumeroPagine == ViewBag.pag) {
+    if (ViewBag.NumeroPagine == ViewBag.pag)
+    {
         btnlastclass = "btn_useless searchbarbtn";
     }
 }
 
+@if (ViewBag.Errore != null)
+{
+    <h3 style="color:red">
+        @ViewBag.Errore
+    </h3>
+}
 <div style="text-align:center;margin-top:20px"><a href="/"><img src="~/IMGS/logo.png" style="border-radius: 10px;margin:20px;max-height:60px" /></a></div>
 
 <script>
-    
-   
 
-    
+
+
+
 
 </script>
 <div class="container" name="body_container">
+
     <div class="container table-bordered" name="pagebuttons_container" style="position: relative; width: 96%; background-color: white; padding: 10px; border-radius: 50px; margin-left: 0px; margin-bottom: 20px; min-width: 500px; min-height: 60px; border-color: rgb(48, 71, 94);border-width:3px">
         @*Qui ci metto il tasto di ricerca*@
         <div style="position:absolute;width:93%;border-width:3px;margin-right:10px;top:25%" class="text-center">
@@ -49,7 +57,7 @@
             @*Ultima Pagina*@
             <i class="fa-solid fa-angles-right fa-xl"></i>
         </button>
-        <button style=" right: 11%"  name="btnlast" class="@btnlastclass" onclick="plus(@ViewBag.NumeroPagine)">
+        <button style=" right: 11%" name="btnlast" class="@btnlastclass" onclick="plus(@ViewBag.NumeroPagine)">
             @*Avanti*@
             <i class="fa-solid fa-arrow-right fa-xl"></i>
         </button>

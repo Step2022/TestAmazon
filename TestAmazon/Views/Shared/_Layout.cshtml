@@ -27,39 +27,39 @@
 
             @*
 
-            @if (Session["U"] != null)
+        @if (Session["U"] != null)
 
-            {
-                var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
+        {
+            var utente = SerDes.DeSerialize<Utente>(Session["U"].ToString());
 
-            if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
-             {
-            <div class="col-lg-1" style="float:right;margin-top:10px;">
-                @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
-            </div>
-                 }
-            <div style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
-                @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
-            </div>
-            <div style="float: right; margin-top: 10px; width:30px">
-                <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
-              
-            </div>
-            <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px"> @utente.Nome @utente.Cognome <i class="fa-solid fa-user fa-xl"></i> </div>
+        if(UtentePartial.GetRuolobyId((int)utente.Id_Utente) == "admin")
+         {
+        <div class="col-lg-1" style="float:right;margin-top:10px;">
+            @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
+        </div>
+             }
+        <div style="float: right; margin-top: 10px; width: 30px;margin-right:10px ">
+            @Html.ActionLink(" ", "Logout", "Utente", "", new { @class = "fa-solid fa-right-from-bracket fa-xl", style = "color:white;margin-top:10px;" })
+        </div>
+        <div style="float: right; margin-top: 10px; width:30px">
+            <a href="../../Carrello/CarrelloUtente" style="color: white; margin-top: 10px"><i class="fa-solid fa-cart-shopping fa-xl" style="margin-top:10px"></i></a>
 
-                        }
-                        else
-                        {
-            <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                @Html.ActionLink("SignUp", "SignUp", "Utente")
-            </div>
-            <div class="col-lg-1" style="float: right; margin-top: 10px;">
-                @Html.ActionLink("Login", "Login", "Utente")
-            </div>
-                        }
+        </div>
+        <div class="col-md-1" style="float:right;margin-top:10px;color:white;font-size:13px"> @utente.Nome @utente.Cognome <i class="fa-solid fa-user fa-xl"></i> </div>
+
+                    }
+                    else
+                    {
+        <div class="col-lg-1" style="float: right; margin-top: 10px;">
+            @Html.ActionLink("SignUp", "SignUp", "Utente")
+        </div>
+        <div class="col-lg-1" style="float: right; margin-top: 10px;">
+            @Html.ActionLink("Login", "Login", "Utente")
+        </div>
+                    }
 
 
-        *@
+            *@
 
 
             @if (Session["U"] != null)
@@ -87,6 +87,10 @@
             <div style="float:right;margin-top:10px;color:white;margin-right:30px">
                 @Html.ActionLink("Gestione Utenti", "GestioneUtenti", "Utente")
             </div>
+            <div style="float:right;margin-top:10px;color:white;margin-right:30px">
+                <a href="../../Prodotto/NuovoProdotto" class="btn"><label class="p_prodotto">Nuovo Prodotto <i class="fa-solid fa-plus fa-xl"></i></label></a>
+            </div>
+            
                 }
             }
             else

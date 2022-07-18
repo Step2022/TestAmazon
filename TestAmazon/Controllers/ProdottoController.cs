@@ -58,5 +58,27 @@ namespace TestAmazon.Controllers
             Prodotto.RemoveProdotto(IdProdotto);
             return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
+        public ActionResult NuovoProdotto()
+        {
+            ViewBag.Categorie = Categoria.GetCategorie();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult NuovoProdotto(Prodotto prodotto)
+        {
+            bool esito = false;
+            if (prodotto != null)
+            {
+                prodotto.Cancellato = false;
+                esito = Prodotto.AddProdotto(prodotto);
+            }
+            if (!esito)
+            {
+                TempData["ErrAggiunta"] = "Errore nell'aggiunta del prodotto";
+            }
+            
+            return RedirectToAction("Index","Home");
+        }
     }
 }

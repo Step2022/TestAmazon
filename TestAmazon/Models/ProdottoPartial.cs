@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
+using TestAmazon.Utility;
 namespace TestAmazon.Models
 {
 
@@ -171,6 +171,27 @@ namespace TestAmazon.Models
                     db.Prodotto.FirstOrDefault(x => x.Id_Prodotto == id_prodotto).Cancellato = true;
                     esito = true;
                     db.SaveChanges();
+                }
+            }
+            return esito;
+        }
+        public static bool AddProdotto(Prodotto prodotto)
+        {
+            bool esito = false;
+            if (prodotto != null && !string.IsNullOrWhiteSpace(prodotto.Nome) && !string.IsNullOrWhiteSpace(prodotto.IMG)&& prodotto.Id_Categoria!=0 && RegularExp.IsDouble(prodotto.Prezzo.ToString()) && prodotto.Prezzo>=0 )
+            {
+                try
+                {
+                    using (CorsoRoma2022Entities db = new CorsoRoma2022Entities())
+                    {
+                        db.Prodotto.Add(prodotto);
+                        db.SaveChanges();
+                    }
+                    esito = true;
+                }
+                catch
+                {
+                    esito = false;
                 }
             }
             return esito;
