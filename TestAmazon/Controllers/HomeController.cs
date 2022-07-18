@@ -23,6 +23,10 @@ namespace TestAmazon.Controllers
             }
             ViewBag.pag = offset;
             ViewBag.NumeroPagine = numeroPagineTotali;
+            if (TempData["ErrAggiunta"] != null)
+            {
+                ViewBag.Errore = TempData["ErrAggiunta"].ToString();
+            }
             return View(Prodotto.GetProdotti(offset));
         }
 
