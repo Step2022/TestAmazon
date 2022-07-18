@@ -1,0 +1,81 @@
+﻿@model TestAmazon.Models.Prodotto
+@using TestAmazon.Models
+@{
+    ViewBag.Title = "NuovoProdotto";
+    var categorie = ViewBag.Categorie as List<Categoria>;
+}
+
+<h2>Nuovo Prodotto</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()      
+    if (Session["Ruolo"] != null && Session["Ruolo"].ToString() == "admin")
+    {
+    <div class="form-horizontal">
+        <h4>Prodotto</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" required name="Nome" placeholder="Nome:" />
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Descrizione, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" required name="Descrizione" placeholder="Descrizione:" />
+                @Html.ValidationMessageFor(model => model.Descrizione, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Prezzo, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="number" placeholder="Prezzo:" name="Prezzo"required pattern="(^[0-9]+$)|(^[0-9]+[,.][0-9]+$)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Immagine</label>
+            <div class="col-md-10">
+                <input type="url" required name="IMG" placeholder="Url dell'immagine:"/>
+                @Html.ValidationMessageFor(model => model.IMG, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-2">Categoria</label>
+            <div class="col-md-10">
+                <select name="Id_Categoria">
+                    @foreach(var categoria in categorie)
+                    {
+                        <option value="@categoria.Id_Categoria">@categoria.Nome_cat</option>
+                    }
+                </select>
+                @Html.ValidationMessageFor(model => model.Id_Categoria, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    }
+    else
+    {
+        <h1> Non puoi accedere a questa pagina</h1>
+    }
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
