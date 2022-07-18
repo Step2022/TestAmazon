@@ -33,28 +33,35 @@ namespace TestAmazon.Utility
             public static string AddPreferiti(long id_utente, long id_prodotto)
             {
                 Preferiti pref = new Preferiti();
-                using (var db = new CorsoRoma2022Entities())
+                if (!CheckPreferiti(id_utente, id_prodotto))
                 {
-                    pref.Id_Utente = id_utente;
-                    pref.Id_Prodotto = id_prodotto;
-                    db.Preferiti.Add(pref);
-                    db.SaveChanges();
+                    using (var db = new CorsoRoma2022Entities())
+                    {
+                        pref.Id_Utente = id_utente;
+                        pref.Id_Prodotto = id_prodotto;
+                    
+                        db.Preferiti.Add(pref);
+                        db.SaveChanges();
+                    }
+                    var mess = "AGGIUNTO ALLA LISTA";
+                    return mess;
                 }
-                var mess = "AGGIUNTO ALLA LISTA";
-                return mess;
-            }
+                else{
+                    return "RIPETUTO";
+                }
+        }
 
             public static string RemovePreferiti(long id_utente, long id_prodotto)
             {
                 using (var db = new CorsoRoma2022Entities())
                 {
-                    var remove = (from Prodotto in db.Prodotto
-                                  join Preferiti in db.Preferiti on Prodotto.Id_Prodotto equals Preferiti.Id_Prodotto
-                                  join Utente in db.Utente on Preferiti.Id_Utente equals Utente.Id_Utente
-                                  where Prodotto.Id_Prodotto == Preferiti.Id_Prodotto && Utente.Id_Utente == Preferiti.Id_Utente
-                                  select Preferiti).FirstOrDefault();
 
-                    if (remove != null)
+                var remove = (from Preferiti in db.Preferiti
+                            where Preferiti.Id_Prodotto == id_prodotto && Preferiti.Id_Utente == id_utente
+                              select Preferiti).FirstOrDefault();
+
+
+                if (remove != null)
                     {
                         db.Preferiti.Remove(remove);
                         db.SaveChanges();
